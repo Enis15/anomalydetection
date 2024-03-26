@@ -23,8 +23,6 @@ L
 Synthetic_tests(USL)/ecod.py,3/b/3b67f31e53538b0a57a1dffa9b758414b7cca87c
 X
 (Synthetic_tests(USL)/isolation_forest.py,8/2/8246d53e8c723a9f72843c9762a5116276934855
-U
-%Synthetic_tests(USL)/generate_data.py,1/6/16df5224cd52c1d3b69d226f2771df9de8379024
 R
 "Synthetic_test(SL)/xgb(multids).py,0/0/0092157351b114bdafa01cf661257e274fd7af42
 B
@@ -87,8 +85,6 @@ w
 G.idea/sonarlint/issuestore/4/6/46a4b2bfcab0eceb961b833ea4eb053ca8b6dc85,8/4/841526d23d10a1610519907556b1d8db06d27d03
 w
 G.idea/sonarlint/issuestore/3/b/3b67f31e53538b0a57a1dffa9b758414b7cca87c,f/1/f1e760ed2b2ad4f17633909e481c82a90b504c3c
-K
-Synthetic_tests(USL)/svm.py,f/0/f06a9b5c790b66efb72493586395b0c908c8aa15
 I
 Synthetic_test(SL)/svm.py,4/4/44220b2686f54a6b43dbe8d497f0210e23b6519a
 P
@@ -97,3 +93,11 @@ R
 "Synthetic_test(SL)/randomforest.py,8/f/8fbf29ad4300361f91a77024a3fdbf73d350b32b
 I
 Synthetic_test(SL)/knn.py,f/2/f220a4160e8690c080248afafe8b6cfba3df39a2
+N
+Synthetic_test(SL)/catboost.py,e/8/e81e86216505dd9c9be0a0ab00fa6630631f2bd6
+N
+Synthetic_test(SL)/catBoost.py,d/a/da035235b22d49e514220be172453f0fd793293f
+U
+%Synthetic_test(SL)/shallnotbenamed.py,0/e/0e928b9c338cffd07d08904be0deaa622f818205
+N
+Synthetic_test(SL)/CATBOOST.py,8/4/84e30802d64c85dc9f42271e3c2d734df5e4b6ef
