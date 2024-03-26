@@ -11,26 +11,27 @@ datasets_size = [100000, 200000, 30000, 40000, 50000, 60000]
 execution_time = []
 
 clf_name = 'XGBOD'
-clf = XGBOD()
+clf = XGBOD(n_components=4,random_state=100)
 
 for size in datasets_size:
-    X_train, y_train= generate_data(n_train=size, train_only=True, n_features=2, contamination=0.1, random_state=42)
+    X_train, X_test, y_train, y_test = generate_data(n_train=size, n_test=10000, n_features=2, contamination=0.1, random_state=42)
 
     start_time = time.time()
 
-    clf.fit(X_train)
+    clf.fit(X_train, y_train)
 
     y_train_pred = clf.labels_
     y_train_scores = clf.decision_scores_
+    y_train_scores = clf.decision_function(X_train)
 
-    y_test_pred = clf.predict(X_train)
-    y_test_scores = clf.decision_function(X_train)
+    y_test_pred = clf.predict(X_test)
+    y_test_scores = clf.decision_function(X_test)
 
-    roc_score = roc_auc_score(y_train, y_test_scores)
-    evaluation = evaluate_print(clf_name, y_train, y_train_scores)
+    roc_score = roc_auc_score(y_test, y_test_scores)
+    evaluation = evaluate_print(clf_name, y_test, y_train_scores)
     print('Evaluation for dataset size', size, ':', evaluation)
 
-    fpr, tpr, _ = roc_curve(y_train, y_test_scores)
+    fpr, tpr, _ = roc_curve(y_test, y_test_scores)
 
     display = RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_score, estimator_name='XGBOD')
     display.plot()

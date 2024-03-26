@@ -1,18 +1,10 @@
 
 @
 tensortesting.py,2/6/26a69e9a096154163084003b0f4acffc28e8db61
-P
- Synthetic_tests/generate_data.py,b/f/bf766fb3c6c1f0aea03c7262476df36d1ec43652
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8/8/88a9255124c95bdc913197c120a8d560edc59c8e
 S
 #.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0
-G
-Synthetic_tests/ecod.py,1/1/11c0e102c005d7ada8f9a9935d9b462ba528dbb9
-H
-Synthetic_tests/teast.py,a/7/a75f09137be733ff95a0e0b79a30eb5d20643b7f
-H
-Synthetic_tests/ecod2.py,1/e/1eb5590d4500280da587d24d51fb5081286466af
 Å
 Q.idea/sonarlint/securityhotspotstore/1/1/11c0e102c005d7ada8f9a9935d9b462ba528dbb9,2/e/2e6b9ebb3ce713efacd8b815ce3227c5db6a2935
 w
@@ -29,8 +21,6 @@ w
 G.idea/sonarlint/issuestore/9/f/9fe84ebb15faf917b7def6236dba604453cc61e0,f/0/f0e0f9cec86fe4b939ae22be5264c758801eb28f
 Å
 Q.idea/sonarlint/securityhotspotstore/b/f/bf766fb3c6c1f0aea03c7262476df36d1ec43652,5/f/5f949d36210fc3653ee8e3ab343a9122a2957b4d
-S
-#Synthetic_tests/isolation_forest.py,f/3/f3066e47944b236d172f81315b46fac4f6ab5ae6
 K
 Synthetic_tests(USL)/PCA.py,0/a/0a98e93b8c2a79e256b238a8102b8a875e999f5c
 M
@@ -51,3 +41,15 @@ Q
 !Synthetic_tests(USL)/ecod(1ds).py,7/8/788741784228699edeefc4a308ee8072f243026b
 U
 %Synthetic_tests(USL)/generate_data.py,1/6/16df5224cd52c1d3b69d226f2771df9de8379024
+L
+Synthetic_tests(USL)/1233.py,3/8/388a3fe30edee189c2419366d34b877430599c73
+J
+Synthetic_tests(USL)/12.py,c/1/c18f250881b4c84c6d45316d8a8508a10a573180
+R
+"Synthetic_test(SL)/xgb(multids).py,0/0/0092157351b114bdafa01cf661257e274fd7af42
+B
+Extra/ecod(1ds).py,a/0/a0fda8891c6c1dc1dbb9d1113ff7549db99f73c3
+F
+Extra/tensortesting.py,8/b/8b1e70a12475d31ce2a26a013ec60358e4fe5cd5
+N
+Synthetic_test(SL)/xgb(1ds).py,f/5/f5fa61bee12d00511c19ece8f1abd667bea9339f
