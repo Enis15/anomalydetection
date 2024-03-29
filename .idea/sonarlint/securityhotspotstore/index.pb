@@ -31,8 +31,6 @@ F
 Extra/tensortesting.py,8/b/8b1e70a12475d31ce2a26a013ec60358e4fe5cd5
 N
 Synthetic_test(SL)/xgb(1ds).py,f/5/f5fa61bee12d00511c19ece8f1abd667bea9339f
-Å
-Q.idea/sonarlint/securityhotspotstore/1/6/16df5224cd52c1d3b69d226f2771df9de8379024,b/d/bd4d05afbceb3267ece1a330b8bbf44f840bbc0e
 w
 G.idea/sonarlint/issuestore/8/b/8b1e70a12475d31ce2a26a013ec60358e4fe5cd5,1/b/1b562d6501c6227d113e58c550c1e54080ed2d70
 Å
@@ -97,7 +95,9 @@ N
 Synthetic_test(SL)/catboost.py,e/8/e81e86216505dd9c9be0a0ab00fa6630631f2bd6
 N
 Synthetic_test(SL)/catBoost.py,d/a/da035235b22d49e514220be172453f0fd793293f
-U
-%Synthetic_test(SL)/shallnotbenamed.py,0/e/0e928b9c338cffd07d08904be0deaa622f818205
 N
 Synthetic_test(SL)/CATBOOST.py,8/4/84e30802d64c85dc9f42271e3c2d734df5e4b6ef
+O
+Synthetic_tests(USL)/k-means.py,0/f/0f41940f7f24160248bc6f93249f83c6818197fb
+J
+Synthetic_test(SL)/Cat2.py,b/3/b304c8eba4da3be0d75c43fccdc6c5ff514039f1

@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import RocCurveDisplay
 from sklearn.metrics import roc_curve, roc_auc_score
 import time
+from tqdm import tqdm
 from joblib import dump, load
 
 datasets_size = [10000, 20000, 30000, 40000, 50000, 60000]
@@ -12,7 +13,7 @@ execution_time = []
 
 clf_name = 'Catbooost Classifier'
 clf = CatBoostClassifier(iterations = 5, learning_rate = 0.1)
-for size in datasets_size:
+for size in tqdm(datasets_size):
     X_train, X_test, y_train, y_test = generate_data(n_train=size, n_test=(size*0.3), n_features=2, contamination=0.1, random_state=42)
 
     start_time = time.time()
