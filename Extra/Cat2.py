@@ -68,6 +68,7 @@ plt.xlabel('Dataset Size')
 plt.ylabel('Execution Time (seconds)')
 plt.title('Execution Time vs Dataset Size')
 plt.grid(True)
+# plt.savefig('Catboost_ds.png', bbox_inches='tight')
 
 plt.subplot(1, 2, 2)
 plt.plot(dataset_sizes, roc_auc_scores, marker='o', label='ROC-AUC')
@@ -80,6 +81,8 @@ plt.ylabel('Score')
 plt.title('Evaluation Metrics vs Dataset Size')
 plt.legend()
 plt.grid(True)
+# plt.savefig('Catboost_metrics.png', bbox_inches='tight')
+
 
 plt.tight_layout()
 plt.show()
