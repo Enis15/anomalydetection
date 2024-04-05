@@ -29,8 +29,6 @@ B
 Extra/ecod(1ds).py,a/0/a0fda8891c6c1dc1dbb9d1113ff7549db99f73c3
 F
 Extra/tensortesting.py,8/b/8b1e70a12475d31ce2a26a013ec60358e4fe5cd5
-N
-Synthetic_test(SL)/xgb(1ds).py,f/5/f5fa61bee12d00511c19ece8f1abd667bea9339f
 w
 G.idea/sonarlint/issuestore/8/b/8b1e70a12475d31ce2a26a013ec60358e4fe5cd5,1/b/1b562d6501c6227d113e58c550c1e54080ed2d70
 
@@ -103,9 +101,11 @@ N
 Synthetic_test(SL)/Catboost.py,4/6/466dd6b5f3f31429581454815a49d1dc11c8fcd4
 =
 Extra/Cat2.py,d/4/d486a22a71439c71fa4a04fd00f9037751a672ac
-Q
-!Synthetic_test(SL)/svm(ver1.2).py,9/b/9b57b073ad8b4d28ba207bc1b5bbb7c6c07dd6df
 D
 Extra/svm(ver1.2).py,2/9/298e49a1f2a040c847ba960c7db27e5c643f8dcb
 A
 Extra/xgb(1ds).py,b/3/b38212093128e11d4e9052147d88eef7f57fa9c2
+>
+Datasets/DS.py,8/6/8667314a25f5e7a2007767ddfe2a8267ff396db6
+[
++Datasets/Datasets/Labeled_DS/creditcard.csv,5/3/53b89a25ab4631336de6d01fe9e40ea0d5e70684
