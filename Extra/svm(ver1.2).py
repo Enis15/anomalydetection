@@ -1,4 +1,4 @@
-from catboost import CatBoostClassifier
+from sklearn import svm
 from pyod.utils.data import generate_data
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, roc_auc_score, accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
@@ -8,9 +8,9 @@ import time
 #Dataset sizes to evaluate scalability
 dataset_sizes = [10000, 20000, 30000, 40000, 50000, 60000]
 
-clf_name = 'Catbooost Classifier'
 
-clf = CatBoostClassifier(iterations = 5, learning_rate = 0.1)
+clf_name = 'SVM'
+clf = svm.SVC()
 
 #List of evaluation metrics
 execution_times = []
@@ -21,6 +21,7 @@ recall_scores = []
 f1_scores = []
 
 for size in dataset_sizes:
+    #print(f'Evaluating dataset size: {size}')
 
     #Generating synthetic data
     X_train, X_test, y_train, y_test = generate_data(n_train=size, n_test=(size*0.3), n_features=2, contamination=0.1, random_state=42)
@@ -44,7 +45,7 @@ for size in dataset_sizes:
     recall_scores.append(recall_score(y_test, y_pred))
     f1_scores.append(f1_score(y_test, y_pred))
 
-
+    #print('Run time is:', round(time.time() - start_time, 3), 'seconds')
 
 #Printing the results for the evaluation metrics
 for i, size in enumerate(dataset_sizes):
@@ -55,6 +56,7 @@ for i, size in enumerate(dataset_sizes):
       f'Recall: {recall_scores[i]}\n'
       f'F1: {f1_scores[i]}\n'
       f'Execution time: {execution_times[i]}')
+
 #Plot results
 plt.figure(figsize=(12, 6))
 
@@ -63,8 +65,8 @@ plt.subplot(1, 2, 1)
 plt.plot(dataset_sizes, execution_times, marker='.', color='teal')
 plt.xlabel('Dataset size')
 plt.ylabel('Execution Time(seconds)')
-plt.title('Dataset size vs Execution time(CatBoost)')
-# plt.savefig('Catboost_time.png', bbox_inches='tight')
+plt.title('Dataset size vs Execution time (SVM)')
+# plt.savefig('SVM_time.png', bbox_inches='tight')
 
 #Plots for the metrics
 plt.subplot(1, 2, 2)
@@ -75,9 +77,9 @@ plt.plot(dataset_sizes, recall_scores, marker='.', label='Recall', color='orange
 plt.plot(dataset_sizes, f1_scores, marker='.', label='F1 score', color='violet')
 plt.xlabel('Dataset size')
 plt.ylabel('Score')
-plt.title('Dataset size vs Evaluation Metrics(CatBoost)')
+plt.title('Dataset size vs Evaluation Metrics (SVM)')
 plt.legend()
-# plt.savefig('Catboost_metrics.png', bbox_inches='tight')
+# plt.savefig('SVM_metrics.png', bbox_inches='tight')
 
 plt.tight_layout()
 plt.show()

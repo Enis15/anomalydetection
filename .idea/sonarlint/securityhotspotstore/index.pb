@@ -99,9 +99,13 @@ N
 Synthetic_test(SL)/CATBOOST.py,8/4/84e30802d64c85dc9f42271e3c2d734df5e4b6ef
 O
 Synthetic_tests(USL)/k-means.py,0/f/0f41940f7f24160248bc6f93249f83c6818197fb
-J
-Synthetic_test(SL)/Cat2.py,b/3/b304c8eba4da3be0d75c43fccdc6c5ff514039f1
 N
 Synthetic_test(SL)/Catboost.py,4/6/466dd6b5f3f31429581454815a49d1dc11c8fcd4
 =
 Extra/Cat2.py,d/4/d486a22a71439c71fa4a04fd00f9037751a672ac
+Q
+!Synthetic_test(SL)/svm(ver1.2).py,9/b/9b57b073ad8b4d28ba207bc1b5bbb7c6c07dd6df
+D
+Extra/svm(ver1.2).py,2/9/298e49a1f2a040c847ba960c7db27e5c643f8dcb
+A
+Extra/xgb(1ds).py,b/3/b38212093128e11d4e9052147d88eef7f57fa9c2

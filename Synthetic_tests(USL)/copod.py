@@ -39,7 +39,7 @@ for size in dataset_sizes:
     y_pred = clf.predict(X_train)
 
     #Runtime evaluation
-    execution_times.append(time.time() - start_time)
+    execution_times.append(round(time.time() - start_time, 3))
 
     # Evalution metrics
     roc_auc_scores.append(roc_auc_score(y_train, y_pred))
@@ -48,7 +48,15 @@ for size in dataset_sizes:
     recall_scores.append(recall_score(y_train, y_pred))
     f1_scores.append(f1_score(y_train, y_pred))
 
-    print('Run time is:', round(time.time() - start_time, 3), 'seconds')
+#Printing the results for the evaluation metrics
+for i, size in enumerate(dataset_sizes):
+    print(f'Evaluation metrics for dataset size {size} are: \n'
+      f'ROC_AUC: {roc_auc_scores[i]}\n'
+      f'Accuracy: {accuracy_scores[i]}\n'
+      f'Precision: {precision_scores[i]}\n'
+      f'Recall: {recall_scores[i]}\n'
+      f'F1: {f1_scores[i]}\n'
+      f'Execution time: {execution_times[i]}')
 
 # Plot results
 plt.figure(figsize=(12, 6))
