@@ -69,7 +69,7 @@ def model_svm(X_train, X_test, y_train, y_test):
     model = svm.SVC()
     model.fit(X_train, y_train)
 
-    #Get the prediction lables and scores for the training data
+    #Get the prediction lables and scores for the training data(SVC doesn't support .labels)
     #y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
     #y_train_scores = model.decision_scores_ #The raw outlier scores
 
@@ -98,13 +98,13 @@ def model_nb(X_train, X_test, y_train, y_test):
     model = GaussianNB()
     model.fit(X_train, y_train)
 
-    #Get the prediction lables and scores for the training data
-    y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
-    y_train_scores = model.decision_scores_ #The raw outlier scores
+    #Get the prediction lables and scores for the training data(NB doesn't support .labels)
+    #y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
+    #y_train_scores = model.decision_scores_ #The raw outlier scores
 
     #Get the prediction labels and scores for the test data
     y_test_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
-    y_test_scores = model.decision_function(X_test) #The raw outlier scores
+    #y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
     roc_auc_nb = roc_auc_score(y_test, y_test_pred)
@@ -128,12 +128,12 @@ def model_rf(X_train, X_test, y_train, y_test, k):
     model.fit(X_train, y_train)
 
     #Get the prediction lables and scores for the training data
-    y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
-    y_train_scores = model.decision_scores_ #The raw outlier scores
+    #y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
+    #y_train_scores = model.decision_scores_ #The raw outlier scores
 
     #Get the prediction labels and scores for the test data
     y_test_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
-    y_test_scores = model.decision_function(X_test) #The raw outlier scores
+    #y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
     roc_auc_rf = roc_auc_score(y_test, y_test_pred)
@@ -148,7 +148,7 @@ def model_rf(X_train, X_test, y_train, y_test, k):
     return roc_auc_rf, f1_score_rf, end_time_rf
 
 #Define function for Catboost Algorithm
-def model_rf(X_train, X_test, y_train, y_test, k):
+def model_cb(X_train, X_test, y_train, y_test, k):
     #Record the start time
     start_time = time.time()
 
@@ -157,12 +157,12 @@ def model_rf(X_train, X_test, y_train, y_test, k):
     model.fit(X_train, y_train)
 
     #Get the prediction lables and scores for the training data
-    y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
-    y_train_scores = model.decision_scores_ #The raw outlier scores
+    #y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
+    #y_train_scores = model.decision_scores_ #The raw outlier scores
 
     #Get the prediction labels and scores for the test data
     y_test_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
-    y_test_scores = model.decision_function(X_test) #The raw outlier scores
+    #y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
     roc_auc_cb = roc_auc_score(y_test, y_test_pred)
