@@ -6,7 +6,7 @@ import time
 
 
 #Dataset sizes to evaluate scalability
-dataset_sizes = [10000, 20000, 30000, 40000, 50000, 60000]
+dataset_sizes = [100, 200, 300, 400, 500, 600]
 
 clf_name = 'XGBOD'
 
@@ -32,17 +32,21 @@ for size in dataset_sizes:
     clf.fit(X_train, y_train)
 
     #Make predicitons on test data
-    y_pred = clf.predict(X_test)
+    y_train_pred = clf.predict(X_test)
+    y_train_scores = clf.decision_function(X_test)
+
+    y_test_pred = clf.predict(X_test)
+    y_test_scores = clf.decision_function(X_test)
 
     # Runtime evaluation
     execution_times.append(round(time.time() - start_time, 3))
 
     #Evalution metrics
-    roc_auc_scores.append(roc_auc_score(y_test, y_pred))
-    accuracy_scores.append(accuracy_score(y_test, y_pred))
-    precision_scores.append(precision_score(y_test, y_pred))
-    recall_scores.append(recall_score(y_test, y_pred))
-    f1_scores.append(f1_score(y_test, y_pred))
+    roc_auc_scores.append(roc_auc_score(y_test, y_test_pred))
+    accuracy_scores.append(accuracy_score(y_test, y_test_pred))
+    precision_scores.append(precision_score(y_test, y_test_pred))
+    recall_scores.append(recall_score(y_test, y_test_pred))
+    f1_scores.append(f1_score(y_test, y_test_pred))
 
 #Printing the results for the evaluation metrics
 for i, size in enumerate(dataset_sizes):

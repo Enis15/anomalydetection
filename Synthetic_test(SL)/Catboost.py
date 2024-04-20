@@ -32,17 +32,24 @@ for size in dataset_sizes:
     clf.fit(X_train, y_train)
 
     #Make predicitons on test data
-    y_pred = clf.predict(X_test)
+    #y_pred = clf.predict(X_test)
+    #Get the prediction lables and scores for the training data
+    y_train_pred = clf.labels_ #Outlier labels (1 = outliers & 0 = inliers)
+    y_train_scores = clf.decision_scores_ #The raw outlier scores
+
+    #Get the prediction labels and scores for the test data
+    y_test_pred = clf.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
+    y_test_scores = clf.decision_function(X_test) #The raw outlier scores
 
     # Runtime evaluation
     execution_times.append(time.time() - start_time)
 
     #Evalution metrics
-    roc_auc_scores.append(roc_auc_score(y_test, y_pred))
-    accuracy_scores.append(accuracy_score(y_test, y_pred))
-    precision_scores.append(precision_score(y_test, y_pred))
-    recall_scores.append(recall_score(y_test, y_pred))
-    f1_scores.append(f1_score(y_test, y_pred))
+    roc_auc_scores.append(roc_auc_score(y_test, y_test_pred))
+    accuracy_scores.append(accuracy_score(y_test, y_test_pred))
+    precision_scores.append(precision_score(y_test, y_test_pred))
+    recall_scores.append(recall_score(y_test, y_test_pred))
+    f1_scores.append(f1_score(y_test, y_test_pred))
 
 
 
