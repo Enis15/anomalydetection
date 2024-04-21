@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 from models.supervised_learning import model_knn
 from models.supervised_learning import model_xgboost
@@ -9,20 +9,26 @@ from models.supervised_learning import model_rf
 from models.supervised_learning import model_cb
 
 #Load the dataset
-df = pd.read_csv('../data/datasets/Labeled_DS/statlog+german+credit+data/')
+df = pd.read_csv('../data/datasets/Labeled_DS/metaverse_transactions_dataset.csv')
 print(df.shape)
+print(df.dtypes)
 
-#Replacing categorical values with dummy values
-cat_features = df.select_dtypes(include=['object']).columns
-for col in cat_features:
-    df[col] = df[col].astype('category')
+#Dropping irrelevant columns for the anomaly detection
+df = df.drop(['timestamp', 'sending_address', 'receiving_address'], axis=1)
 
-#Categorical features to numerical features
-df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+#Labeling columns of type 'object'
+columns_obj = ['transaction_type', 'location_region', 'purchase_pattern', 'age_group']
+for i in columns_obj:
+    label = LabelEncoder()
+    df[i] = label.fit_transform(df[i])
+
+#Relabeling column target column 'anomaly', where low risk:0, moderate & high risk =1
+pd.set_option('future.no_silent_downcasting', True) #Ensure downcasting behavior is consistent with future versions of pandas
+df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
 
 #Determining the X and y values
-X = df.drop('fraud', axis=1)
-y = df['fraud'].values
+X = df.drop('anomaly', axis=1)
+y = df['anomaly'].values
 
 #Split the df into train and test datasets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
