@@ -1,6 +1,6 @@
 '''
 from data import data_preprocessing
-from pyod.models.pca import PCA
+from pyod.utils.pca import PCA
 from sklearn.metrics import roc_curve, roc_auc_score, accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 import time
 import pandas as pd

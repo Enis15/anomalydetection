@@ -1,12 +1,12 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from models.supervised_learning import model_knn
-from models.supervised_learning import model_xgboost
-from models.supervised_learning import model_svm
-from models.supervised_learning import model_nb
-from models.supervised_learning import model_rf
-from models.supervised_learning import model_cb
+from utils.supervised_learning import model_knn
+from utils.supervised_learning import model_xgboost
+from utils.supervised_learning import model_svm
+from utils.supervised_learning import model_nb
+from utils.supervised_learning import model_rf
+from utils.supervised_learning import model_cb
 
 #Load the dataset
 df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')

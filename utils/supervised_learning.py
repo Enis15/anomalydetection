@@ -7,8 +7,23 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 from catboost import CatBoostClassifier
 
-#Define function for KNN Algorithm
+#Define function for KNN (K-Nearest Neighbors) Algorithm for Anomaly Detection
 def model_knn(X_train, X_test, y_train, y_test, k):
+    """
+      KNN Algorithm for anomaly detection.
+
+      Parameters:
+          X_train: Input training data, where rows are samples and columns are features.
+          X_test: Input test data, where rows are samples and columns are features.
+          y_train: Target training data, where rows are samples and columns are labels.
+          y_test: Target test data, where rows are samples and columns are labels.
+          k: number of neighbors.
+
+      Returns:
+          roc_auc_score_knn: ROC AUC score.
+          f1_score_knn: F1 score.
+          runtime_knn: Runtime of KNN algorithm.
+      """
     #Record the start time
     start_time = time.time()
 
@@ -27,17 +42,32 @@ def model_knn(X_train, X_test, y_train, y_test, k):
     #Evaluation metrics
     roc_auc_knn = roc_auc_score(y_test, y_test_pred)
     f1_score_knn = f1_score(y_test, y_test_pred, average='weighted')
-    end_time_knn = round(time.time() - start_time, 3)
+    runtime_knn = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for KNN model, with k = {k}, are: \n'
           f'ROC AUC: {roc_auc_knn}\n'
           f'F1 score: {f1_score_knn}\n' 
-          f'Time elapsed: {end_time_knn}')
+          f'Time elapsed: {runtime_knn}')
 
-    return roc_auc_knn, f1_score_knn, end_time_knn
+    return roc_auc_knn, f1_score_knn, runtime_knn
 
-#Define function for XGBOOST Algorithm
+#Define function for XGBOOST Algorithm for Anomaly Detection
 def model_xgboost(X_train, X_test, y_train, y_test, k):
+    """
+      XGBoost Algorithm for anomaly detection.
+
+      Parameters:
+          X_train: Input training data, where rows are samples and columns are features.
+          X_test: testing Input test data, where rows are samples and columns are features.
+          y_train: Target training data, where rows are samples and columns are labels.
+          y_test: Target test data, where rows are samples and columns are labels.
+          k: number of estimators.
+
+      Returns:
+          roc_auc_score_xgboost: ROC AUC score.
+          f1_score_xgboost: F1 score.
+          runtime_xgboost: Runtime of XBoost Algorithm.
+      """
     # Record the start time
     start_time = time.time()
 
@@ -56,12 +86,32 @@ def model_xgboost(X_train, X_test, y_train, y_test, k):
     # Evaluation metrics
     roc_auc_xgboost = roc_auc_score(y_test, y_test_pred)
     f1_score_xgboost = f1_score(y_test, y_test_pred, average='weighted')
-    end_time_xgboost = round(time.time() - start_time, 3)
+    runtime_xgboost = round(time.time() - start_time, 3)
 
-    return roc_auc_xgboost, f1_score_xgboost, end_time_xgboost
+    print(f'Evaluation metrics for XGBoost model, are: \n'
+          f'ROC AUC: {roc_auc_xgboost}\n'
+          f'F1 score: {f1_score_xgboost}\n'
+          f'Time elapsed: {runtime_xgboost}')
 
-#Define function for SVM Algorithm
+    return roc_auc_xgboost, f1_score_xgboost, runtime_xgboost
+
+#Define function for SVM (Support Vector Machine) Algorithm for Anomaly Detection
 def model_svm(X_train, X_test, y_train, y_test):
+    """
+      SVM Algorithm for anomaly detection.
+
+      Parameters:
+          X_train: Input training data, where rows are samples and columns are features.
+          X_test: Input test data, where rows are samples and columns are features.
+          y_train: Target training data, where rows are samples and columns are labels.
+          y_test: Target test data, where rows are samples and columns are labels.
+
+
+      Returns:
+          roc_auc_score_knn: ROC AUC score.
+          f1_score_knn: F1 score.
+          runtime_knn: Runtime of SVM Algorithm.
+      """
     #Record the start time
     start_time = time.time()
 
@@ -80,17 +130,32 @@ def model_svm(X_train, X_test, y_train, y_test):
     #Evaluation metrics
     roc_auc_svm = roc_auc_score(y_test, y_test_pred)
     f1_score_svm = f1_score(y_test, y_test_pred, average='weighted')
-    end_time_svm = round(time.time() - start_time, 3)
+    runtime_svm = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for SVM model, are: \n'
           f'ROC AUC: {roc_auc_svm}\n'
           f'F1 score: {f1_score_svm}\n' 
-          f'Time elapsed: {end_time_svm}')
+          f'Time elapsed: {runtime_svm}')
 
-    return roc_auc_svm, f1_score_svm, end_time_svm
+    return roc_auc_svm, f1_score_svm, runtime_svm
 
 #Define function for Naive Bayes Algorithm
 def model_nb(X_train, X_test, y_train, y_test):
+    """
+    SVM Algorithm for anomaly detection.
+
+    Parameters:
+        X_train: Input training data, where rows are samples and columns are features.
+        X_test: Input test data, where rows are samples and columns are features.
+        y_train: Target training data, where rows are samples and columns are labels.
+        y_test: Target test data, where rows are samples and columns are labels.
+
+
+    Returns:
+        roc_auc_score_svm: ROC AUC score.
+        f1_score_svm: F1 score.
+        runtime_svm: Runtime of Naive Bayes Algorithm.
+    """
     #Record the start time
     start_time = time.time()
 
@@ -109,17 +174,32 @@ def model_nb(X_train, X_test, y_train, y_test):
     #Evaluation metrics
     roc_auc_nb = roc_auc_score(y_test, y_test_pred)
     f1_score_nb = f1_score(y_test, y_test_pred, average='weighted')
-    end_time_nb = round(time.time() - start_time, 3)
+    runtime_nb = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for Naive Bayes model, are: \n'
           f'ROC AUC: {roc_auc_nb}\n'
           f'F1 score: {f1_score_nb}\n' 
-          f'Time elapsed: {end_time_nb}')
+          f'Time elapsed: {runtime_nb}')
 
-    return roc_auc_nb, f1_score_nb, end_time_nb
+    return roc_auc_nb, f1_score_nb, runtime_nb
 
 #Define function for Random Forest Algorithm
 def model_rf(X_train, X_test, y_train, y_test, k):
+    """
+        Random Forest Algorithm for anomaly detection.
+
+        Parameters:
+            X_train: Input training data, where rows are samples and columns are features.
+            X_test: Input test data, where rows are samples and columns are features.
+            y_train: Target training data, where rows are samples and columns are labels.
+            y_test: Target test data, where rows are samples and columns are labels.
+
+
+        Returns:
+            roc_auc_score_rf: ROC AUC score.
+            f1_score_rf: F1 score.
+            runtime_rf: Runtime of Random Forest Algorithm.
+        """
     #Record the start time
     start_time = time.time()
 
@@ -138,17 +218,32 @@ def model_rf(X_train, X_test, y_train, y_test, k):
     #Evaluation metrics
     roc_auc_rf = roc_auc_score(y_test, y_test_pred)
     f1_score_rf = f1_score(y_test, y_test_pred, average='weighted')
-    end_time_rf = round(time.time() - start_time, 3)
+    runtime_rf = round(time.time() - start_time, 3)
 
-    print(f'Evaluation metrics for Naive Bayes model, are: \n'
+    print(f'Evaluation metrics for Random Forest model, are: \n'
           f'ROC AUC: {roc_auc_rf}\n'
           f'F1 score: {f1_score_rf}\n' 
-          f'Time elapsed: {end_time_rf}')
+          f'Time elapsed: {runtime_rf}')
 
-    return roc_auc_rf, f1_score_rf, end_time_rf
+    return roc_auc_rf, f1_score_rf, runtime_rf
 
-#Define function for Catboost Algorithm
+#Define function for CatBoost Algorithm
 def model_cb(X_train, X_test, y_train, y_test, k):
+    """
+        CatBoost Algorithm for anomaly detection.
+
+        Parameters:
+            X_train: Input training data, where rows are samples and columns are features.
+            X_test: Input test data, where rows are samples and columns are features.
+            y_train: Target training data, where rows are samples and columns are labels.
+            y_test: Target test data, where rows are samples and columns are labels.
+
+
+        Returns:
+            roc_auc_score_cb: ROC AUC score.
+            f1_score_cb: F1 score.
+            runtime_cb: Runtime of CatBoost Algorithm.
+        """
     #Record the start time
     start_time = time.time()
 
@@ -167,11 +262,11 @@ def model_cb(X_train, X_test, y_train, y_test, k):
     #Evaluation metrics
     roc_auc_cb = roc_auc_score(y_test, y_test_pred)
     f1_score_cb = f1_score(y_test, y_test_pred, average='weighted')
-    end_time_cb = round(time.time() - start_time, 3)
+    runtime_cb = round(time.time() - start_time, 3)
 
-    print(f'Evaluation metrics for Naive Bayes model, are: \n'
+    print(f'Evaluation metrics for CatBoost model are: \n'
           f'ROC AUC: {roc_auc_cb}\n'
           f'F1 score: {f1_score_cb}\n' 
-          f'Time elapsed: {end_time_cb}')
+          f'Time elapsed: {runtime_cb}')
 
-    return roc_auc_cb, f1_score_cb, end_time_cb
+    return roc_auc_cb, f1_score_cb, runtime_cb
