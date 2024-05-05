@@ -10,7 +10,7 @@ dataset_sizes = [100, 200, 300, 400, 500, 600]
 
 clf_name = 'XGBOD'
 
-clf = XGBOD(n_components=4,random_state=100)
+clf = XGBOD(n_components=4, random_state=42)
 
 #List of evaluation metrics
 execution_times = []

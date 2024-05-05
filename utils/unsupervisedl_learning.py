@@ -125,14 +125,14 @@ def model_iforest(X, y, k):
     return roc_auc_iforest, f1_score_iforest, runtime_iforest
 
 # Define function for PCA (Principal Component Analysis) Algorithm
-def model_pca(X, y, k):
+def model_pca(X, y):
     """
     Isolation PCA Algorithm for anomaly detection.
 
     Parameters:
         X: Input dataframe, where rows are samples and columns are features.
         y: True labels, used to for evaluation metrics
-        k: number of neighbors.
+
 
     Returns:
         roc_auc_score_pca: ROC AUC score.
@@ -164,14 +164,13 @@ def model_pca(X, y, k):
     return roc_auc_pca, f1_score_pca, runtime_pca
 
 # Define function for COPOD (Copula-Based Outlier Detection) Algorithm
-def model_copod(X, y, k):
+def model_copod(X, y):
     """
     Isolation Forest Algorithm for anomaly detection.
 
     Parameters:
         X: Input dataframe, where rows are samples and columns are features.
         y: True labels, used to for evaluation metrics
-        k: number of neighbors.
 
     Returns:
         roc_auc_score_copod: ROC AUC score.

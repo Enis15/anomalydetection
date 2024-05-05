@@ -1,48 +1,32 @@
-from pyod.models.xgbod import XGBOD
-from pyod.utils.data import generate_data
-from pyod.utils.data import evaluate_print
-from joblib import dump, load
-import matplotlib.pyplot as plt
-from sklearn.metrics import RocCurveDisplay
-from sklearn.metrics import roc_curve, roc_auc_score
-import time
+from xgboost import XGBClassifier
+from sklearn.model_selection import train_test_split
+import pandas as pd
+from sklearn.metrics import f1_score, recall_score, precision_score, roc_auc_score
 
-#datasets_size = [100000, 200000, 30000, 40000, 50000, 60000]
-execution_time = []
-X_train, X_test, y_train, y_test = generate_data(n_train=500, n_test=500, n_features=2, contamination=0.1, random_state=42)
+#Load the dataset
+df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
 
-clf_name = 'XGBOD'
-clf = XGBOD(n_components=4,random_state=100)
+#Determining the X and y values
+X = df.drop('Class', axis=1)
+y = df['Class'].values
 
-#for size in datasets_size:
-start_time = time.time()
+#Split the df into train and test datasets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-clf.fit(X_train, y_train)
+params = {
+    'objective': 'binary:logistic',
+    'max_depth': 6,
+    'alpha': 10,
+    'learning_rate': 0.05,
+    'n_estimators': 100,
+}
 
-y_train_pred = clf.labels_
-y_train_scores = clf.decision_scores_
-y_train_scores = clf.decision_function(X_train)
+xgb_clf = XGBClassifier(**params)
+xgb_clf.fit(X_train, y_train)
 
-y_test_pred = clf.predict(X_test)
-y_test_scores = clf.decision_function(X_test)
+y_pred = xgb_clf.predict(X_test)
 
-roc_score = roc_auc_score(y_test, y_test_scores)
-evaluation = evaluate_print(clf_name, y_test, y_train_scores)
-print('Evaluation for dataset size 600:', evaluation)
-
-fpr, tpr, _ = roc_curve(y_test, y_test_scores)
-
-display = RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_score, estimator_name='XGBOD')
-display.plot()
-plt.title('Receiver Operating Characteristic (ROC) Curve')
-    #plt.show()
-
-execution_time.append(time.time() - start_time)
-print('Run time is:', round(time.time() - start_time, 3), 'seconds')
-
-plt.plot('600', execution_time, marker='o')
-plt.xlabel('Dataset Size')
-plt.ylabel('Execution Time (seconds)')
-plt.title('Scalability of XGBOD')
-plt.grid(True)
-plt.show()
+f1_scores = f1_score(y_test, y_pred, average='weighted')
+print(f1_scores)
+roc_auc_scores = roc_auc_score(y_test, y_pred)
+print(roc_auc_scores)

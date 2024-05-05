@@ -31,7 +31,7 @@ X = df.drop('anomaly', axis=1)
 y = df['anomaly'].values
 
 #Split the df into train and test datasets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 #Running the algorithms
 results_knn = model_knn(X_train, X_test, y_train, y_test, 5)

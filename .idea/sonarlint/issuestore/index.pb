@@ -25,8 +25,6 @@ X
 (Synthetic_tests(USL)/isolation_forest.py,8/2/8246d53e8c723a9f72843c9762a5116276934855
 R
 "Synthetic_test(SL)/xgb(multids).py,0/0/0092157351b114bdafa01cf661257e274fd7af42
-B
-Extra/ecod(1ds).py,a/0/a0fda8891c6c1dc1dbb9d1113ff7549db99f73c3
 Å
 Q.idea/sonarlint/securityhotspotstore/a/e/ae9ddf453f55affea2d6b9e3973cac1eb2efb4e1,e/3/e36d3b35b0aa033dfcf067b2cd16117a306b1e80
 Å
@@ -41,8 +39,6 @@ w
 G.idea/sonarlint/issuestore/0/0/0092157351b114bdafa01cf661257e274fd7af42,c/b/cb2795377386dca083a7e66c216262b5bf5d559a
 Å
 Q.idea/sonarlint/securityhotspotstore/0/0/0092157351b114bdafa01cf661257e274fd7af42,0/1/010d050dc3696464fff61b191527a094ed782fda
-Å
-Q.idea/sonarlint/securityhotspotstore/a/0/a0fda8891c6c1dc1dbb9d1113ff7549db99f73c3,5/1/51be6c95b6708aaacba0268d08cca0ec05c2ec60
 Å
 Q.idea/sonarlint/securityhotspotstore/9/0/909762385fc6eb20f922a91c6865741308b57f2c,e/0/e0ea4108d198a3d2e4e87c48063db9d2bffad652
 w
@@ -120,8 +116,6 @@ G.idea/sonarlint/issuestore/8/4/84e95bd0ea795e5307464eb72e7bd95d9f673c00,3/5/35
 w
 G.idea/sonarlint/issuestore/c/b/cb2795377386dca083a7e66c216262b5bf5d559a,f/9/f966186059a429949526413f5666660b1e7b74ba
 Å
-Q.idea/sonarlint/securityhotspotstore/5/1/51be6c95b6708aaacba0268d08cca0ec05c2ec60,f/e/fe6a14161cb035b5fb877a84baa53ef46f47adf4
-Å
 Q.idea/sonarlint/securityhotspotstore/f/1/f1e760ed2b2ad4f17633909e481c82a90b504c3c,9/b/9baedaff07d64619b0d28df68421e335f4ae4b32
 Å
 Q.idea/sonarlint/securityhotspotstore/4/1/41e225119f83daf5536e628449d2ce94ad19cc03,8/0/80b6e342fe6cd8335e94abbf9f154975f560b43e
@@ -131,8 +125,6 @@ w
 G.idea/sonarlint/issuestore/c/d/cd729f2ef0e6a369956a62864402be9051919a7f,0/5/05e167434f9289b7e7a51ddf6427279ba383f917
 w
 G.idea/sonarlint/issuestore/c/e/ce7799643a95553c6bee1d403d6cb738907a7f2c,6/5/65f46fc5d7d358d8fe2bc02d83fd56e91094b603
-Å
-Q.idea/sonarlint/securityhotspotstore/6/0/609ce69bb9ac8a210d16d2e8eacaa5a401d5797b,e/7/e7e4069c013c35fbbdb565009971d1a782e23a56
 Å
 Q.idea/sonarlint/securityhotspotstore/0/1/010d050dc3696464fff61b191527a094ed782fda,7/2/72f5d3ad7a30c8b224461d8f8169cdd182a09982
 Å
@@ -167,10 +159,6 @@ Q.idea/sonarlint/securityhotspotstore/4/6/466dd6b5f3f31429581454815a49d1dc11c8fc
 Q.idea/sonarlint/securityhotspotstore/6/2/6248197ca7a44d8bc42b5bd6cd80cd6e99143261,e/6/e68af489be556b4e70e080dbc49a41420ffa3c95
 Å
 Q.idea/sonarlint/securityhotspotstore/c/d/cd729f2ef0e6a369956a62864402be9051919a7f,9/7/97bfcac5d1f87cb9ca828e0aaa42876e675044cb
-w
-G.idea/sonarlint/issuestore/1/b/1b562d6501c6227d113e58c550c1e54080ed2d70,3/7/37d389c85c3cfb98f908b3b93651f37e476520fb
-w
-G.idea/sonarlint/issuestore/6/0/609ce69bb9ac8a210d16d2e8eacaa5a401d5797b,b/1/b19acf616aa5e16ae9ebafa83f4444ed06e78e3a
 Å
 Q.idea/sonarlint/securityhotspotstore/8/d/8de913bd2d75a6d51e1c2a7993c959e9ff47426a,c/4/c4cb3a97b656c02e7a9eaa78a46184b74653075a
 w
@@ -203,8 +191,6 @@ w
 G.idea/sonarlint/issuestore/2/8/288fe6aa08b0bfa537d8a3a28e964e14b70276a4,4/6/46ad7a5d5ce6e50886c109323fd46df0d727c06a
 w
 G.idea/sonarlint/issuestore/2/9/298e49a1f2a040c847ba960c7db27e5c643f8dcb,2/8/283269da3ce8d0329d0f6455a085047c9f52b725
-w
-G.idea/sonarlint/issuestore/5/1/51be6c95b6708aaacba0268d08cca0ec05c2ec60,8/8/88c9cd44ac2beff3f3f99cc6998018aadededfe0
 Å
 Q.idea/sonarlint/securityhotspotstore/2/8/288fe6aa08b0bfa537d8a3a28e964e14b70276a4,f/3/f339cfca5f4ecf599139d3656d9f2c9cd4ce4d29
 w
@@ -248,8 +234,6 @@ Q.idea/sonarlint/securityhotspotstore/2/a/2a1be752d4f2a8ae54bcc7f8200c5b725c92cc
 w
 G.idea/sonarlint/issuestore/0/1/010d050dc3696464fff61b191527a094ed782fda,f/5/f5494cf764e60b7bd4703a10ccb9a9fe9a69f6a4
 Å
-Q.idea/sonarlint/securityhotspotstore/1/b/1b562d6501c6227d113e58c550c1e54080ed2d70,4/f/4facf847751f43eca1854b5f5bd993ff74f21032
-Å
 Q.idea/sonarlint/securityhotspotstore/b/3/b38212093128e11d4e9052147d88eef7f57fa9c2,4/5/45dd65d93f2fd34929e633654876b4d76d37d1bd
 w
 G.idea/sonarlint/issuestore/d/4/d486a22a71439c71fa4a04fd00f9037751a672ac,d/5/d5b5693f0ed2f97f63e4220f6b0d525bcd99ee78
@@ -285,3 +269,13 @@ T
 $models/catboost_info/learn_error.tsv,0/0/006298ba5bf8eded507445d2f4766e7ec194e8e6
 R
 "models/catboost_info/time_left.tsv,7/f/7f1d83b6bf42b19ef01e7941f61b739f95459b9a
+B
+Extra/param_opt.py,b/0/b0fffecdb2c310e751011ab228366fb784780b1a
+E
+utils/paramet_tune.py,d/5/d5aef82aeea65906188f09150d12f4854fc5c5ee
+E
+Extra/knn_roc_auc.csv,f/1/f19ea9196f09f97bcd5785631ff082207cd0f85e
+F
+Extra/Metrics(DS1).csv,d/0/d09b1e17c51ce8a5218447fcad8ebca4aa321eb3
+G
+models/Metrics(DS1).csv,c/0/c06d99990df228056ccbd5ce5c40aa70d2636d7e

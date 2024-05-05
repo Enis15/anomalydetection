@@ -33,8 +33,8 @@ for size in dataset_sizes:
     #Make predicitons on test data
     #y_pred = clf.predict(X_test)
     # Get the prediction lables and scores for the training data
-    y_train_pred = clf.labels_  # Outlier labels (1 = outliers & 0 = inliers)
-    y_train_scores = clf.decision_scores_  # The raw outlier scores
+    #y_train_pred = clf.labels_  # Outlier labels (1 = outliers & 0 = inliers)
+    #y_train_scores = clf.decision_scores_  # The raw outlier scores
 
     # Get the prediction labels and scores for the test data
     y_test_pred = clf.predict(X_test)  # Outlier labels (1 = outliers & 0 = inliers)

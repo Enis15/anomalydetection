@@ -1,30 +1,10 @@
-from pyod.models.knn import KNN
-from pyod.utils.data import generate_data
-from sklearn.metrics import roc_auc_score
-from pyod.utils.data import evaluate_print
-from pyod.utils.example import visualize
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+from utils.supervised_learning import model_knn
+X, y = make_classification(n_samples=10000, n_classes=2 ,n_features=15, random_state=5)
 
+print(X.shape, y.shape)
 
-X_train, y_train, X_test, y_test = generate_data(n_train=100000, n_test=10000, n_features=10, contamination=0.1)
-
-clf_name = 'KNN'
-clf=KNN()
-clf.fit(X_train)
-
-"""
-X_test_reshape = X_test.reshape(1, -1)
-print(X_test_reshape)
-y_test_pred = clf.predict(X_test_reshape)  # outlier labels (0 or 1)
-y_test_scores = clf.decision_function(X_test_reshape)  # outlier score
-"""
-
-# Predict on the testing data
-X_test_reshape = X_test.reshape(-1, 10)  # Reshape testing data to match the number of features
-y_test_pred = clf.predict(X_test_reshape)  # outlier labels (0 or 1)
-y_test_scores = clf.decision_function(X_test_reshape)  # outlier score
-
-roc_score = roc_auc_score(y_test, y_test_scores)
-
-print("Test Predicitons:", y_test_pred)
-print("Test Scores:", y_test_scores)
-print("ROC-AUC:", roc_score)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+print(X_train.shape, y_train.shape, X_test.shape, y_test.shape)
+knn = model_knn(X_train, X_test, y_train, y_test, 5)

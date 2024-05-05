@@ -1,11 +1,11 @@
 from sklearn.metrics import roc_auc_score, f1_score, accuracy_score, recall_score, precision_score
 import time
 from pyod.models.knn import KNN
-from pyod.models.xgbod import XGBOD
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 from catboost import CatBoostClassifier
+from xgboost import XGBClassifier
 
 #Define function for KNN (K-Nearest Neighbors) Algorithm for Anomaly Detection
 def model_knn(X_train, X_test, y_train, y_test, k):
@@ -52,7 +52,7 @@ def model_knn(X_train, X_test, y_train, y_test, k):
     return roc_auc_knn, f1_score_knn, runtime_knn
 
 #Define function for XGBOOST Algorithm for Anomaly Detection
-def model_xgboost(X_train, X_test, y_train, y_test, k):
+def model_xgboost(X_train, X_test, y_train, y_test, n_estimators, max_depth):
     """
       XGBoost Algorithm for anomaly detection.
 
@@ -61,7 +61,7 @@ def model_xgboost(X_train, X_test, y_train, y_test, k):
           X_test: testing Input test data, where rows are samples and columns are features.
           y_train: Target training data, where rows are samples and columns are labels.
           y_test: Target test data, where rows are samples and columns are labels.
-          k: number of estimators.
+          n_estimators: number of estimators.
 
       Returns:
           roc_auc_score_xgboost: ROC AUC score.
@@ -71,21 +71,25 @@ def model_xgboost(X_train, X_test, y_train, y_test, k):
     # Record the start time
     start_time = time.time()
 
+    #Create a dictonary with the parameters needed to initate the classifier
+    params = {
+        'objective': 'binary:logistic',
+        'max_depth': max_depth,
+        'learning_rate': 0.05,
+        'n_estimators': n_estimators,
+    }
+
     # Define the model and the parameters
-    model = XGBOD(n_estimators=k, n_jobs=-1)
+    model = XGBClassifier()
     model.fit(X_train, y_train)
 
-    # Get the prediction lables and scores for the training data
-    y_train_pred = model.labels_  # Outlier labels (1 = outliers & 0 = inliers)
-    y_train_scores = model.decision_scores_  # The raw outlier scores
-
-    # Get the prediction labels and scores for the test data
-    y_test_pred = model.predict(X_test)  # Outlier labels (1 = outliers & 0 = inliers)
-    y_test_scores = model.decision_function(X_test)  # The raw outlier scores
+     # Get the prediction labels and scores for the test data
+    y_pred = model.predict(X_test)  # Outlier labels (1 = outliers & 0 = inliers)
+    #y__scores = model.decision_function(X_test)  # The raw outlier scores
 
     # Evaluation metrics
-    roc_auc_xgboost = roc_auc_score(y_test, y_test_pred)
-    f1_score_xgboost = f1_score(y_test, y_test_pred, average='weighted')
+    roc_auc_xgboost = roc_auc_score(y_test, y_pred)
+    f1_score_xgboost = f1_score(y_test, y_pred, average='weighted')
     runtime_xgboost = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for XGBoost model, are: \n'
@@ -193,7 +197,7 @@ def model_rf(X_train, X_test, y_train, y_test, k):
             X_test: Input test data, where rows are samples and columns are features.
             y_train: Target training data, where rows are samples and columns are labels.
             y_test: Target test data, where rows are samples and columns are labels.
-
+            k: The number of estimators.
 
         Returns:
             roc_auc_score_rf: ROC AUC score.
