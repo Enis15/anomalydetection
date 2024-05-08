@@ -46,7 +46,7 @@ def model_lof(X, y, k):
     return roc_auc_lof, f1_score_lof, runtime_lof
 
 #Define function for CBLOF (Cluster Based Local Outlier Factor) Algorithm
-def model_cblof(X, y, k):
+def model_cblof(X, y):
     """
     CBLOF Algorithm for anomaly detection.
 
@@ -65,7 +65,7 @@ def model_cblof(X, y, k):
     start_time = time.time()
 
     #Define the model and the parameters
-    model = CBLOF(n_clusters=k)
+    model = CBLOF()
     model.fit(X)
 
     #Get the prediction labels and scores for the test data

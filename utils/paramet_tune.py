@@ -1,5 +1,9 @@
+from catboost import CatBoostClassifier
 from hpsklearn import HyperoptEstimator, random_forest_classifier, k_neighbors_classifier, xgboost_classification, isolation_forest
+from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
+from sklearn.metrics import f1_score
 
+#Parameter tuning using hpsklearn for the available algorithms(Knn, RandomForest, XGBoost & IsolationForest)
 def paramet_tune(X_train, y_train, model_name='knn'):
 
     model_dict = {
@@ -18,3 +22,42 @@ def paramet_tune(X_train, y_train, model_name='knn'):
     estim.fit(X_train, y_train)
 
     return estim.best_model()
+
+class Catboost_tune:
+
+    def __init__(self, X_train, X_test, y_train, y_test):
+        self.X_train = X_train
+        self.X_test = X_test
+        self.y_train = y_train
+        self.y_test = y_test
+
+    def objective(self, params):
+        model = CatBoostClassifier(
+            iterations = int(params['iterations']),
+            learning_rate = params['learning_rate'],
+            depth = int(params['depth']),
+            loss_function = 'Logloss',
+            verbose = False
+        )
+
+        model.fit(self.X_train, self.y_train)
+
+        y_pred = model.predict(self.X_test)
+
+        f1_scores = f1_score(self.y_test, y_pred, average='weighted')
+
+        return {'loss': -1, 'status': STATUS_OK}
+
+    def tune_model(self):
+        space = {
+            'iterations': hp.quniform('iterations', 100, 500, 10),
+            'learning_rate': hp.loguniform('learning_rate', -5, 0),
+            'depth': hp.quniform('depth', 4, 10, 1),
+        }
+        trials = Trials()
+
+        best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
+        print('Best parameters: ', best)
+
+
+
