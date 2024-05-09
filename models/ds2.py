@@ -1,12 +1,12 @@
-import pandas as pd
-from sklearn.preprocessing import StandardScaler
+from utils.supervised_learning import model_knn, model_xgboost, model_svm, model_cb, model_nb, model_rf
+from utils.unsupervised_learning import model_lof, model_iforest, model_ecod, model_pca, model_cblof, model_copod
+from utils.paramet_tune import paramet_tune, Catboost_tune, LOF_tune
 from sklearn.model_selection import train_test_split
-from utils.supervised_learning import model_knn
-from utils.supervised_learning import model_xgboost
-from utils.supervised_learning import model_svm
-from utils.supervised_learning import model_nb
-from utils.supervised_learning import model_rf
-from utils.supervised_learning import model_cb
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
+from multiprocessing import freeze_support
+import matplotlib.pyplot as plt
+
 
 # Load the dataset
 df = pd.read_csv('../data/datasets/Labeled_DS/Fraud.csv')

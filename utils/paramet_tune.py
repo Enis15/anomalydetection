@@ -1,4 +1,5 @@
 from catboost import CatBoostClassifier
+from pyod.models.lof import LOF
 from hpsklearn import HyperoptEstimator, random_forest_classifier, k_neighbors_classifier, xgboost_classification, isolation_forest
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
 from sklearn.metrics import f1_score
@@ -59,5 +60,33 @@ class Catboost_tune:
         best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
         print('Best parameters: ', best)
 
+class LOF_tune:
+
+    def __init__(self, X, y):
+        self.X = X
+        self.y = y
+
+    def objective(self, params):
+        n_neighbors = int(params['n_neighbors'])
+
+        clf = LOF(n_neighbors=n_neighbors)
+        clf.fit(self.X)
+
+        y_pred = clf.predict(self.X)
+
+        f1_scores = f1_score(self.y, y_pred, average='weighted')
+
+        return {'loss': -1, 'status': STATUS_OK}
+
+    def tune_model(self):
+
+        space = {
+            'n_neighbors': hp.quniform('n_neighbors', 3, 30, 1)
+        }
+
+        trials = Trials()
+
+        best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=10, trials=trials)
+        print('Best parameters: ', best)
 
 

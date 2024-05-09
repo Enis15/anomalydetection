@@ -77,7 +77,7 @@ def model_cblof(X, y):
     f1_score_cblof = f1_score(y, X_labels, average='weighted')
     runtime_cblof = round(time.time() - start_time, 3)
 
-    print(f'Evaluation metrics for CBLOF model, with n_clusters = {k}, are: \n'
+    print(f'Evaluation metrics for CBLOF model are: \n'
           f'ROC AUC: {roc_auc_cblof}\n'
           f'F1 score: {f1_score_cblof}\n' 
           f'Time elapsed: {runtime_cblof}')

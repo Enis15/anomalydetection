@@ -1,19 +1,9 @@
-from utils.supervised_learning import model_knn
-from utils.supervised_learning import model_xgboost
-from utils.supervised_learning import model_svm
-from utils.supervised_learning import model_nb
-from utils.supervised_learning import model_rf
-from utils.supervised_learning import model_cb
-from utils.unsupervised_learning import model_lof
-from utils.unsupervised_learning import model_pca
-from utils.unsupervised_learning import model_ecod
-from utils.unsupervised_learning import model_cblof
-from utils.unsupervised_learning import model_iforest
-from utils.unsupervised_learning import model_copod
+from utils.supervised_learning import model_knn, model_xgboost, model_svm, model_cb, model_nb, model_rf
+from utils.unsupervised_learning import model_lof, model_iforest, model_ecod, model_pca, model_cblof, model_copod
+from utils.paramet_tune import paramet_tune, Catboost_tune, LOF_tune
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
-from utils.paramet_tune import paramet_tune
 from multiprocessing import freeze_support
 import matplotlib.pyplot as plt
 
@@ -35,7 +25,7 @@ if __name__ == '__main__':
     freeze_support()
 
     #SUPERVISED LEARNING ALGORITHMS
-    # --------------------------------
+    # ------------------------------
     #MODEL K-NEAREST NEIGHBORS (KNN)
     #Tune the KNN model to get the best hyperparameters
     best_knn_model = paramet_tune(X_train, y_train, model_name='knn')
@@ -92,14 +82,16 @@ if __name__ == '__main__':
     roc_auc_pca, f1_score_pca, runtime_pca = model_pca(X, y)
 
     #MODEL ISOLATION FOREST (IF)
+    # Tune the Isolation Forest model to get the best hyperparameters
+    best_if_model = paramet_tune(X_train, y_train, model_name='isolation_forest')
+    print(best_if_model)  # Get the results of parameter tuning
+    if_value = best_if_model['learner'].n_estimators  # Save the value of n_estimators
 
-    k_if = 1000
-    #Evaluate the PCA model
-    roc_auc_if, f1_score_if, runtime_if = model_iforest(X, y, k_if)
+    #Evaluate the IF model
+    roc_auc_if, f1_score_if, runtime_if = model_iforest(X, y, if_value)
 
     #MODEL CLUSTER BASED LOCAL OUTLIER FACTOR (CBLOF)
 
-    k_cblof = 4
     #Evaluate the CBLOF model
     roc_auc_cblof, f1_score_cblof, runtime_cblof = model_cblof(X, y)
 
@@ -108,7 +100,7 @@ if __name__ == '__main__':
     #Evaluate the COPOD model
     roc_auc_copod, f1_score_copod, runtime_copod = model_copod(X, y)
 
-    #MODELEMPIRICAL CUMULATIVE DISTRIBUTION BASED OUTLIER DETECTION (ECOD)
+    #MODEL EMPIRICAL CUMULATIVE DISTRIBUTION BASED OUTLIER DETECTION (ECOD)
 
     #Evaluate the ECOD model
     roc_auc_ecod, f1_score_ecod, runtime_ecod = model_ecod(X, y)
@@ -134,6 +126,7 @@ if __name__ == '__main__':
     plt.ylabel('ROC AUC')
     plt.title('ROC AUC vs Runtime comparison')
     plt.show()
+    #plt.savefig('ROC_AUC_vs_Runtime.png', bbox_inches='tight')
 
 
     '''    metrics = pd.DataFrame({

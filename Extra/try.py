@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from hyperopt import hp, fmin, tpe, STATUS_OK, Trials
 from sklearn.metrics import f1_score, accuracy_score
 from utils.paramet_tune import Catboost_tune
+from utils.paramet_tune import LOF_tune
 
 df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
 
@@ -43,5 +44,8 @@ best = fmin(fn=objective, space=space, algo=tpe.suggest, max_evals=50, trials=tr
 print('Best parameters:', best)
 '''
 
-tuner = Catboost_tune(X_train, X_test, y_train, y_test)
+#tuner = Catboost_tune(X_train, X_test, y_train, y_test)
+#tuner.tune_model()
+
+tuner = LOF_tune(X, y)
 tuner.tune_model()
