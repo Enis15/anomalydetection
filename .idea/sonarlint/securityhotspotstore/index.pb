@@ -287,3 +287,43 @@ Z
 *Extra/catboost_info/catboost_training.json,4/4/44a6a284f5255f6b2fe3962776a079852cf1ae6b
 N
 utils/unsupervised_learning.py,4/3/430df8359ec5e4858b7e8f32e7e2a4a648fecb9e
+G
+models/scalability_test,b/5/b56cfead8f9ee3637690da7e31e6d4ed154250b1
+J
+models/scalability_test.py,b/7/b704a94987e42b7fc229093714b270e74f6016d9
+V
+&Extra/Synthetic_test(SL)/naivebayes.py,2/b/2ba891b932758437a958816d26c029b7d0831fce
+S
+#Extra/Synthetic_tests(USL)/cblof.py,e/6/e660a1ee647d509a68296e7e571964e19d39cf1e
+V
+&models/Scalability_test(F1_scores).csv,5/6/561d5fb66a6260ab894dce441c1eff882194d432
+T
+$models/Scalability_test(ROC_AUC).csv,6/0/605a87a573a2a5dc9156b4019b91fdb18e691321
+T
+$Extra/Synthetic_test(SL)/Catboost.py,a/b/abe0d716eb52c526819c20e0538b7da5eb6a27f0
+U
+%results/Scalability_test(ROC_AUC).csv,0/7/07074c89cb8a407bfe118baf51d2ffb50d550e69
+U
+%results/Scalability_test(Runtime).csv,b/5/b58c1d9900237b4785402385be8c281e971eeb92
+W
+'results/Scalability_test(F1_scores).csv,d/e/ded9011532a1f0bc3b663ed5e5c1a9d8f7fc7aa1
+Q
+!Extra/Synthetic_tests(USL)/PCA.py,8/5/855e2ef875f4aa6ac743b9394f82e381134e7beb
+S
+#Extra/Synthetic_tests(USL)/copod.py,2/a/2aa33c0272049e8348c82ac8faa6689fd30ef461
+Q
+!Extra/Synthetic_tests(USL)/lof.py,3/a/3aed746764ed2bb5749e94f4c4f0d38eb2c81939
+R
+"Extra/Synthetic_tests(USL)/ecod.py,4/a/4a98d76251f20ae5e310ced25d0ceadbdbd1c8e2
+^
+.Extra/Synthetic_tests(USL)/isolation_forest.py,8/3/8337f3818732eb548f2a4674282b1210d48dffcb
+X
+(Extra/Synthetic_test(SL)/xgb(multids).py,4/5/45c4b9f17184ed623181554c99d24b9a092ed0b9
+O
+Extra/Synthetic_test(SL)/svm.py,b/e/bec760e8e8df25ee0780a9bc220aa395fa96af47
+X
+(Extra/Synthetic_test(SL)/randomforest.py,4/e/4ea00148c98f32c7a9f1df4667c707991a907a4e
+O
+Extra/Synthetic_test(SL)/knn.py,5/e/5e4113db3605c38a89b7f608415183a227b2dd5e
+U
+%Extra/Synthetic_tests(USL)/k-means.py,6/b/6b4f2f1ccf9bbf4e2a8e26a18bb3ad9b4092ef18

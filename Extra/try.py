@@ -2,10 +2,14 @@
 from catboost import CatBoostClassifier
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from utils.supervised_learning import model_knn
 from hyperopt import hp, fmin, tpe, STATUS_OK, Trials
 from sklearn.metrics import f1_score, accuracy_score
 from utils.paramet_tune import Catboost_tune
 from utils.paramet_tune import LOF_tune
+from utils.unsupervised_learning import model_lof, model_kmeans
+from utils.supervised_learning import model_cb
+
 
 df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
 
@@ -42,10 +46,22 @@ trials = Trials()
 
 best = fmin(fn=objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
 print('Best parameters:', best)
-'''
+
 
 #tuner = Catboost_tune(X_train, X_test, y_train, y_test)
 #tuner.tune_model()
 
-tuner = LOF_tune(X, y)
-tuner.tune_model()
+tuner = Catboost_tune(X_train, X_test, y_train, y_test)
+best_hyperparameters = tuner.tune_model()
+print(best_hyperparameters)
+
+best_iterations = int(best_hyperparameters['iterations'])
+best_learning_rate = best_hyperparameters['learning_rate']
+best_depth = int(best_hyperparameters['depth'])
+
+model = model_cb(X_train, X_test, y_train, y_test, best_iterations, best_learning_rate, best_depth)
+
+'''
+
+roc, f1, time = model_kmeans(X, y, 4)
+print(roc, f1, time)

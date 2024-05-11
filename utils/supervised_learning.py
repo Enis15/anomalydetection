@@ -1,9 +1,9 @@
 from sklearn.metrics import roc_auc_score, f1_score, accuracy_score, recall_score, precision_score
 import time
-from pyod.models.knn import KNN
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from catboost import CatBoostClassifier
 from xgboost import XGBClassifier
 
@@ -28,20 +28,20 @@ def model_knn(X_train, X_test, y_train, y_test, k):
     start_time = time.time()
 
     #Define the model and the parameters
-    model = KNN(n_neighbors=k, contamination=0.1)
+    model = KNeighborsClassifier(n_neighbors=k, metric='minkowski', n_jobs=-1)
     model.fit(X_train, y_train)
 
     #Get the prediction lables and scores for the training data
-    y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
-    y_train_scores = model.decision_scores_ #The raw outlier scores
+    #y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
+    #y_train_scores = model.decision_scores_ #The raw outlier scores
 
     #Get the prediction labels and scores for the test data
-    y_test_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
-    y_test_scores = model.decision_function(X_test) #The raw outlier scores
+    y_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
+    #y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
-    roc_auc_knn = roc_auc_score(y_test, y_test_pred)
-    f1_score_knn = f1_score(y_test, y_test_pred, average='weighted')
+    roc_auc_knn = round(roc_auc_score(y_test, y_pred), 3)
+    f1_score_knn = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_knn = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for KNN model, with k = {k}, are: \n'
@@ -88,8 +88,8 @@ def model_xgboost(X_train, X_test, y_train, y_test, n_estimators, max_depth):
     #y__scores = model.decision_function(X_test)  # The raw outlier scores
 
     # Evaluation metrics
-    roc_auc_xgboost = roc_auc_score(y_test, y_pred)
-    f1_score_xgboost = f1_score(y_test, y_pred, average='weighted')
+    roc_auc_xgboost = round(roc_auc_score(y_test, y_pred), 3)
+    f1_score_xgboost = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_xgboost = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for XGBoost model, are: \n'
@@ -128,12 +128,12 @@ def model_svm(X_train, X_test, y_train, y_test):
     #y_train_scores = model.decision_scores_ #The raw outlier scores
 
     #Get the prediction labels and scores for the test data
-    y_test_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
+    y_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
     y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
-    roc_auc_svm = roc_auc_score(y_test, y_test_pred)
-    f1_score_svm = f1_score(y_test, y_test_pred, average='weighted')
+    roc_auc_svm = round(roc_auc_score(y_test, y_pred), 3)
+    f1_score_svm = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_svm = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for SVM model, are: \n'
@@ -172,12 +172,12 @@ def model_nb(X_train, X_test, y_train, y_test):
     #y_train_scores = model.decision_scores_ #The raw outlier scores
 
     #Get the prediction labels and scores for the test data
-    y_test_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
+    y_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
     #y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
-    roc_auc_nb = roc_auc_score(y_test, y_test_pred)
-    f1_score_nb = f1_score(y_test, y_test_pred, average='weighted')
+    roc_auc_nb = round(roc_auc_score(y_test, y_pred), 3)
+    f1_score_nb = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_nb = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for Naive Bayes model, are: \n'
@@ -216,12 +216,12 @@ def model_rf(X_train, X_test, y_train, y_test, k):
     #y_train_scores = model.decision_scores_ #The raw outlier scores
 
     #Get the prediction labels and scores for the test data
-    y_test_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
+    y_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
     #y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
-    roc_auc_rf = roc_auc_score(y_test, y_test_pred)
-    f1_score_rf = f1_score(y_test, y_test_pred, average='weighted')
+    roc_auc_rf = round(roc_auc_score(y_test, y_pred), 3)
+    f1_score_rf = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_rf = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for Random Forest model, are: \n'
@@ -232,7 +232,7 @@ def model_rf(X_train, X_test, y_train, y_test, k):
     return roc_auc_rf, f1_score_rf, runtime_rf
 
 #Define function for CatBoost Algorithm
-def model_cb(X_train, X_test, y_train, y_test, k):
+def model_cb(X_train, X_test, y_train, y_test, iterations, learning_rate, depth):
     """
         CatBoost Algorithm for anomaly detection.
 
@@ -252,20 +252,19 @@ def model_cb(X_train, X_test, y_train, y_test, k):
     start_time = time.time()
 
     #Define the model and the parameters
-    model = CatBoostClassifier(iterations = k, learning_rate = 0.1)
+    model = CatBoostClassifier(iterations=iterations,
+                               learning_rate=learning_rate,
+                               depth=depth,
+                               verbose=False)
+
     model.fit(X_train, y_train)
 
-    #Get the prediction lables and scores for the training data
-    #y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
-    #y_train_scores = model.decision_scores_ #The raw outlier scores
-
     #Get the prediction labels and scores for the test data
-    y_test_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
-    #y_test_scores = model.decision_function(X_test) #The raw outlier scores
+    y_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
 
     #Evaluation metrics
-    roc_auc_cb = roc_auc_score(y_test, y_test_pred)
-    f1_score_cb = f1_score(y_test, y_test_pred, average='weighted')
+    roc_auc_cb = round(roc_auc_score(y_test, y_pred), 3)
+    f1_score_cb = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_cb = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for CatBoost model are: \n'
