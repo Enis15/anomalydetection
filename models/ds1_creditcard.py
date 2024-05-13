@@ -1,6 +1,6 @@
 from utils.supervised_learning import model_knn, model_xgboost, model_svm, model_cb, model_nb, model_rf
 from utils.unsupervised_learning import model_lof, model_iforest, model_ecod, model_pca, model_kmeans, model_copod
-from utils.paramet_tune import paramet_tune, Catboost_tune, LOF_tune
+from utils.paramet_tune import paramet_tune, Catboost_tune, LOF_tune, Kmeans_tune
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import pandas as pd
@@ -117,9 +117,10 @@ if __name__ == '__main__':
     #MODEL CLUSTER BASED LOCAL OUTLIER FACTOR (K-Means)
     #Tune the K-Means model to get the best hyperparameters
     #Code for hyper tune K-Means
-    k_means = 8
+    k_means_tuner = Kmeans_tune(X_train)
+    k_clusters = k_means_tuner.tune_model()
     #Evaluate the K-Means model
-    roc_auc_kmeans, f1_score_kmeans, runtime_kmeans = model_kmeans(X, y, k_means)
+    roc_auc_kmeans, f1_score_kmeans, runtime_kmeans = model_kmeans(X, y, k_clusters)
 
     #MODEL COPULA BASED OUTLIER DETECTION (COPOD)
 

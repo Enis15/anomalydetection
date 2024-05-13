@@ -1,8 +1,9 @@
 from catboost import CatBoostClassifier
-from pyod.models.lof import LOF
+from sklearn.neighbors import LocalOutlierFactor
+from sklearn.cluster import KMeans
 from hpsklearn import HyperoptEstimator, random_forest_classifier, k_neighbors_classifier, xgboost_classification, isolation_forest
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, silhouette_score
 
 #Parameter tuning using hpsklearn for the available algorithms(Knn, RandomForest, XGBoost & IsolationForest)
 def paramet_tune(X_train, y_train, model_name='knn'):
@@ -125,7 +126,7 @@ class LOF_tune:
 
     def __init__(self, X, y):
         """
-        Inititialize the hyperparameter tuning object.
+        Initialize the hyperparameter tuning object.
 
         Parameters:
              X (array-like): Training data features.
@@ -146,7 +147,7 @@ class LOF_tune:
         """
         n_neighbors = int(params['n_neighbors'])
 
-        clf = LOF(n_neighbors=n_neighbors)
+        clf = LocalOutlierFactor(n_neighbors=n_neighbors, metric='minkowski', n_jobs=-1)
         clf.fit(self.X)
 
         y_pred = clf.predict(self.X)
@@ -173,5 +174,74 @@ class LOF_tune:
         print('Best parameters: ', best)
 
         return int(best['n_neighbors'])
+
+
+class Kmeans_tune:
+    """
+    Hyperparameter tuning for K=means classifier.
+
+    Parameters:
+        X_train (array-like): Training data features.
+        y_train (array-like): Training data labels.
+
+    Methods:
+        -objective(params): Defines the optimization objective for hyperparameter tuning.
+        -tune_model(): Performs hyperparameter tuning using Bayesian optimization.
+
+    Examples usage:
+    kmeans_tuner=Kmeans_tune(X_train, y_train)
+    best_n_neighbors = kmeans_tuner.tune_model() --> Used to train the final K-means model with optimal parameters.
+    """
+
+    def __init__(self, X):
+        """
+        Initialize the hyperparameter tuning object.
+
+        Parameters:
+             X (array-like): Training data features.
+             y (array-like): Ground truth labels.
+        """
+        self.X = X
+
+    def objective(self, params):
+        """
+        Defines the optimization objective for hyperparameter tuning.
+
+        Parameters:
+            params (dict): Dictionary of hyperparameter tuning parameters.
+
+        Returns:
+            dict: Dictionary containing the loss (negative silhouette score) and status.
+        """
+        n_neighbors = int(params['n_neighbors'])
+
+        clf = KMeans(n_clusters=n_neighbors, random_state=42)
+        clf.fit(self.X)
+
+        #y_pred = clf.predict(self.X)
+
+        silhouette_avg = silhouette_score(self.X, clf.labels_, metric='euclidean')
+
+        return {'loss': -silhouette_avg, 'status': STATUS_OK}
+
+    def tune_model(self):
+        """
+        Performs hyperparameter tuning using Bayesian optimization.
+
+        Returns:
+            dict: Best number of neighbors obtained from tuning.
+        """
+
+        space = {
+            'n_neighbors': hp.quniform('n_neighbors', 2, 30, 1)
+        }
+
+        trials = Trials()
+
+        best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=2, trials=trials)
+        print('Best parameters: ', best)
+
+        return int(best['n_neighbors'])
+
 
 

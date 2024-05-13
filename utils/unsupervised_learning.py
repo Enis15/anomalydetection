@@ -76,7 +76,7 @@ def model_kmeans(X, y, k):
     f1_score_kmeans = round(f1_score(y, y_pred, average='weighted'), 3)
     runtime_kmeans = round(time.time() - start_time, 3)
 
-    print(f'Evaluation metrics for K-Means model are: \n'
+    print(f'Evaluation metrics for K-Means model, with k {k} are: \n'
           f'ROC AUC: {roc_auc_kmeans}\n'
           f'F1 score: {f1_score_kmeans}\n' 
           f'Time elapsed: {runtime_kmeans}')

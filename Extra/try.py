@@ -5,8 +5,7 @@ from sklearn.model_selection import train_test_split
 from utils.supervised_learning import model_knn
 from hyperopt import hp, fmin, tpe, STATUS_OK, Trials
 from sklearn.metrics import f1_score, accuracy_score
-from utils.paramet_tune import Catboost_tune
-from utils.paramet_tune import LOF_tune
+from utils.paramet_tune import Catboost_tune, LOF_tune, Kmeans_tune
 from utils.unsupervised_learning import model_lof, model_kmeans
 from utils.supervised_learning import model_cb
 
@@ -63,5 +62,7 @@ model = model_cb(X_train, X_test, y_train, y_test, best_iterations, best_learnin
 
 '''
 
-roc, f1, time = model_kmeans(X, y, 4)
-print(roc, f1, time)
+k_means_tuner = Kmeans_tune(X_train)
+k_clusters = k_means_tuner.tune_model()
+# Evaluate the K-Means model
+roc_auc_kmeans, f1_score_kmeans, runtime_kmeans = model_kmeans(X, y, k_clusters)
