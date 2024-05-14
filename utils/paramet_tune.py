@@ -3,7 +3,7 @@ from sklearn.neighbors import LocalOutlierFactor
 from sklearn.cluster import KMeans
 from hpsklearn import HyperoptEstimator, random_forest_classifier, k_neighbors_classifier, xgboost_classification, isolation_forest
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
-from sklearn.metrics import f1_score, silhouette_score
+from sklearn.metrics import f1_score, silhouette_score, accuracy_score
 
 #Parameter tuning using hpsklearn for the available algorithms(Knn, RandomForest, XGBoost & IsolationForest)
 def paramet_tune(X_train, y_train, model_name='knn'):
@@ -25,15 +25,21 @@ def paramet_tune(X_train, y_train, model_name='knn'):
         'xgboost': xgboost_classification('my_xgb'),
         'isolation_forest': isolation_forest('my_isol'),
     }
-
+    #Get the model from the dictionary based on the provided model
     model = model_dict.get(model_name.lower())
 
     if model is None:
         raise ValueError(f'Invalid model name: {model_name}')
 
-    estim = HyperoptEstimator(classifier=model)
-    estim.fit(X_train, y_train)
+    estim = HyperoptEstimator(classifier=model, algo=tpe.suggest, max_evals=50, trial_timeout=220)
 
+    #Try fitting the model
+    try:
+        estim.fit(X_train, y_train)
+    except Exception as e:
+        print(f"Error during hyperparameter tuning: {e}")
+        return None
+    #Return the best model hyperparameters
     return estim.best_model()
 
 class Catboost_tune:
@@ -102,8 +108,8 @@ class Catboost_tune:
         }
         trials = Trials()
 
-        best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=3, trials=trials)
-        print('Best parameters: ', best)
+        best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
+        print('Best parameters:', best)
 
         return best
 
@@ -148,9 +154,8 @@ class LOF_tune:
         n_neighbors = int(params['n_neighbors'])
 
         clf = LocalOutlierFactor(n_neighbors=n_neighbors, metric='minkowski', n_jobs=-1)
-        clf.fit(self.X)
 
-        y_pred = clf.predict(self.X)
+        y_pred = clf.fit_predict(self.X)
 
         f1_scores = f1_score(self.y, y_pred, average='weighted')
 
@@ -193,7 +198,7 @@ class Kmeans_tune:
     best_n_neighbors = kmeans_tuner.tune_model() --> Used to train the final K-means model with optimal parameters.
     """
 
-    def __init__(self, X):
+    def __init__(self, X, y):
         """
         Initialize the hyperparameter tuning object.
 
@@ -202,6 +207,7 @@ class Kmeans_tune:
              y (array-like): Ground truth labels.
         """
         self.X = X
+        self.y = y
 
     def objective(self, params):
         """
@@ -218,11 +224,11 @@ class Kmeans_tune:
         clf = KMeans(n_clusters=n_neighbors, random_state=42)
         clf.fit(self.X)
 
-        #y_pred = clf.predict(self.X)
+        y_pred = clf.predict(self.X)
 
-        silhouette_avg = silhouette_score(self.X, clf.labels_, metric='euclidean')
+        f1score = f1_score(self.y, y_pred, average='weighted')
 
-        return {'loss': -silhouette_avg, 'status': STATUS_OK}
+        return {'loss': -f1score, 'status': STATUS_OK}
 
     def tune_model(self):
         """
@@ -238,7 +244,7 @@ class Kmeans_tune:
 
         trials = Trials()
 
-        best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=2, trials=trials)
+        best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
         print('Best parameters: ', best)
 
         return int(best['n_neighbors'])

@@ -1,4 +1,4 @@
-from sklearn.metrics import roc_auc_score, f1_score, accuracy_score, recall_score, precision_score
+from sklearn.metrics import roc_auc_score, f1_score
 import time
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
@@ -31,13 +31,8 @@ def model_knn(X_train, X_test, y_train, y_test, k):
     model = KNeighborsClassifier(n_neighbors=k, metric='minkowski', n_jobs=-1)
     model.fit(X_train, y_train)
 
-    #Get the prediction lables and scores for the training data
-    #y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
-    #y_train_scores = model.decision_scores_ #The raw outlier scores
-
     #Get the prediction labels and scores for the test data
     y_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
-    #y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
     roc_auc_knn = round(roc_auc_score(y_test, y_pred), 3)
@@ -85,7 +80,6 @@ def model_xgboost(X_train, X_test, y_train, y_test, n_estimators, max_depth):
 
      # Get the prediction labels and scores for the test data
     y_pred = model.predict(X_test)  # Outlier labels (1 = outliers & 0 = inliers)
-    #y__scores = model.decision_function(X_test)  # The raw outlier scores
 
     # Evaluation metrics
     roc_auc_xgboost = round(roc_auc_score(y_test, y_pred), 3)
@@ -123,13 +117,8 @@ def model_svm(X_train, X_test, y_train, y_test):
     model = svm.SVC()
     model.fit(X_train, y_train)
 
-    #Get the prediction lables and scores for the training data(SVC doesn't support .labels)
-    #y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
-    #y_train_scores = model.decision_scores_ #The raw outlier scores
-
     #Get the prediction labels and scores for the test data
     y_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
-    y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
     roc_auc_svm = round(roc_auc_score(y_test, y_pred), 3)
@@ -167,13 +156,8 @@ def model_nb(X_train, X_test, y_train, y_test):
     model = GaussianNB()
     model.fit(X_train, y_train)
 
-    #Get the prediction lables and scores for the training data(NB doesn't support .labels)
-    #y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
-    #y_train_scores = model.decision_scores_ #The raw outlier scores
-
     #Get the prediction labels and scores for the test data
     y_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
-    #y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
     roc_auc_nb = round(roc_auc_score(y_test, y_pred), 3)
@@ -208,16 +192,11 @@ def model_rf(X_train, X_test, y_train, y_test, k):
     start_time = time.time()
 
     #Define the model and the parameters
-    model = RandomForestClassifier(n_estimators=k, n_jobs=-1, random_state = 42)
+    model = RandomForestClassifier(n_estimators=k, n_jobs=-1)
     model.fit(X_train, y_train)
-
-    #Get the prediction lables and scores for the training data
-    #y_train_pred = model.labels_ #Outlier labels (1 = outliers & 0 = inliers)
-    #y_train_scores = model.decision_scores_ #The raw outlier scores
 
     #Get the prediction labels and scores for the test data
     y_pred = model.predict(X_test)  #Outlier labels (1 = outliers & 0 = inliers)
-    #y_test_scores = model.decision_function(X_test) #The raw outlier scores
 
     #Evaluation metrics
     roc_auc_rf = round(roc_auc_score(y_test, y_pred), 3)

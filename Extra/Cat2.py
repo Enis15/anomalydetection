@@ -45,3 +45,4 @@ for dataset in datasets:
     kmeans_val['ROC_AUC'].append(roc_auc_kmeans)
     kmeans_val['F1_score'].append(f1_score_kmeans)
     kmeans_val['Runtime'].append(runtime_kmeans)
+

@@ -33,6 +33,14 @@ y = df['anomaly'].values
 #Split the df into train and test datasets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
+#Standardize the data
+scaler = StandardScaler()
+
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+print(X_train, X_test)
+
 #Running the algorithms
 results_knn = model_knn(X_train, X_test, y_train, y_test, 5)
 #results_xgboost = model_xgboost(X_train, X_test, y_train, y_test, 4)

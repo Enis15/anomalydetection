@@ -1,4 +1,4 @@
-from sklearn.metrics import roc_auc_score, f1_score, accuracy_score, recall_score, precision_score
+from sklearn.metrics import roc_auc_score, f1_score
 import time
 from pyod.models.iforest import IForest
 from sklearn.neighbors import LocalOutlierFactor
@@ -8,7 +8,7 @@ from pyod.models.copod import COPOD
 from sklearn.cluster import KMeans
 
 #Define function for LOF (Local Outlier Factor) Algorithm
-def model_lof(X, y, k):
+def model_lof(X, y, n_neighbors):
     """
     LOF Algorithm for anomaly detection.
 
@@ -26,19 +26,18 @@ def model_lof(X, y, k):
     start_time = time.time()
 
     #Define the model and the parameters
-    model = LocalOutlierFactor(n_neighbors=k, metric='minkowski', n_jobs=-1)
+    model = LocalOutlierFactor(n_neighbors=n_neighbors, metric='minkowski', n_jobs=-1)
     model.fit(X)
 
     #Get the prediction labels and scores for the test data
     X_labels = model.fit_predict(X)  #Outlier labels (1 = outliers & 0 = inliers)
-    #X_scores = model.decision_function(X) #The raw outlier scores
 
     #Evaluation metrics
     roc_auc_lof = round(roc_auc_score(y, X_labels), 3)
     f1_score_lof = round(f1_score(y, X_labels, average='weighted'), 3)
     runtime_lof = round(time.time() - start_time, 3)
 
-    print(f'Evaluation metrics for LOF model, with n_neighbors = {k}, are: \n'
+    print(f'Evaluation metrics for LOF model, with n_neighbors = {n_neighbors}, are: \n'
           f'ROC AUC: {roc_auc_lof}\n'
           f'F1 score: {f1_score_lof}\n' 
           f'Time elapsed: {runtime_lof}')
@@ -69,11 +68,11 @@ def model_kmeans(X, y, k):
     model.fit(X)
 
     #Get the prediction labels and scores for the test data
-    y_pred = model.predict(X)  #Outlier labels (1 = outliers & 0 = inliers)
+    X_labels = model.predict(X)  #Outlier labels (1 = outliers & 0 = inliers)
 
     #Evaluation metrics
-    roc_auc_kmeans= round(roc_auc_score(y, y_pred), 3)
-    f1_score_kmeans = round(f1_score(y, y_pred, average='weighted'), 3)
+    roc_auc_kmeans= round(roc_auc_score(y, X_labels), 3)
+    f1_score_kmeans = round(f1_score(y, X_labels, average='weighted'), 3)
     runtime_kmeans = round(time.time() - start_time, 3)
 
     print(f'Evaluation metrics for K-Means model, with k {k} are: \n'
@@ -85,7 +84,7 @@ def model_kmeans(X, y, k):
 
 
 # Define function for IForest (Isolation Forest) Algorithm
-def model_iforest(X, y, k):
+def model_iforest(X, y, n_estimators):
     """
     Isolation Forest Algorithm for anomaly detection.
 
@@ -104,7 +103,7 @@ def model_iforest(X, y, k):
     start_time = time.time()
 
     # Define the model and the parameters
-    model = IForest(n_estimators=k)
+    model = IForest(n_estimators=n_estimators)
     model.fit(X)
 
     # Get the prediction labels and scores for the test data
