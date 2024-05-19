@@ -8,7 +8,7 @@ from utils.supervised_learning import model_knn, model_xgboost, model_svm, model
 # Unsupervised learning models
 from utils.unsupervised_learning import model_lof, model_iforest, model_ecod, model_pca, model_kmeans, model_copod
 # Hyperparameter tuning functions
-from utils.paramet_tune import paramet_tune, Catboost_tune, LOF_tune, Kmeans_tune
+from utils.paramet_tune import paramet_tune, Catboost_tuner, LOF_tuner, Kmeans_tuner
 
 # Load the dataset
 df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
@@ -71,7 +71,7 @@ if __name__ == '__main__':
     append_metrics('Naive Bayes', None, roc_auc_nb, f1_score_nb, runtime_nb)
 
     # CatBoost (CB)
-    catboost_tuner = Catboost_tune(X_train, X_test, y_train, y_test)
+    catboost_tuner = Catboost_tuner(X_train, X_test, y_train, y_test)
     best_catboost = catboost_tuner.tune_model()
     cb_iterations = int(best_catboost['iterations'])
     cb_learning_rate = best_catboost['learningrate']
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     '''
 
     # Local Outlier Factor (LOF)
-    lof_tune = LOF_tune(X, y)
+    lof_tune = LOF_tuner(X, y)
     k_lof = lof_tune.tune_model()
     roc_auc_lof, f1_score_lof, runtime_lof = model_lof(X, y, k_lof)
     append_metrics('LOF', k_lof, roc_auc_lof, f1_score_lof, runtime_lof)
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     append_metrics('IForest', if_value, roc_auc_if, f1_score_if, runtime_if)
 
     # K-Means
-    k_means_tuner = Kmeans_tune(X, y)
+    k_means_tuner = Kmeans_tuner(X, y)
     k_clusters = k_means_tuner.tune_model()
     roc_auc_kmeans, f1_score_kmeans, runtime_kmeans = model_kmeans(X, y, k_clusters)
     append_metrics('K-Means', k_clusters, roc_auc_kmeans, f1_score_kmeans, runtime_kmeans)

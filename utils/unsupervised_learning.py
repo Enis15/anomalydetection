@@ -7,7 +7,7 @@ from pyod.models.ecod import ECOD
 from pyod.models.copod import COPOD
 from sklearn.cluster import KMeans
 
-#Define function for LOF (Local Outlier Factor) Algorithm
+# Define function for LOF (Local Outlier Factor) Algorithm
 def model_lof(X, y, n_neighbors):
     """
     LOF Algorithm for anomaly detection.
@@ -15,22 +15,23 @@ def model_lof(X, y, n_neighbors):
     Parameters:
         X: Input dataframe, where rows are samples and columns are features.
         y: True labels, used to for evaluation metrics
-        k: number of neighbors.
+        n_neighbors: number of neighbors.
 
     Returns:
-        roc_auc_score_lof: ROC AUC score.
-        f1_score_lof: F1 score.
-        runtime_lof: Runtime of LOF.
+        tuple: roc_auc score, f1 score and runtime of LOF algorithm.
+
     """
-    #Record the start time
+    # Record the start time
     start_time = time.time()
 
-    #Define the model and the parameters
+    # Define the model and the parameters
     model = LocalOutlierFactor(n_neighbors=n_neighbors, metric='minkowski', n_jobs=-1)
-    model.fit(X)
 
-    #Get the prediction labels and scores for the test data
-    X_labels = model.fit_predict(X)  #Outlier labels (1 = outliers & 0 = inliers)
+    # Get the prediction labels and scores for the test data
+    X_labels = model.fit_predict(X)  # Outlier labels (1 = outliers & -1 = inliners)
+
+    # Convert LOF labels (-1, 1) to (1, 0)
+    X_labels = (X_labels == -1).astype(int)
 
     #Evaluation metrics
     roc_auc_lof = round(roc_auc_score(y, X_labels), 3)
@@ -55,10 +56,7 @@ def model_kmeans(X, y, k):
         k: number of clusters.
 
     Returns:
-        roc_auc_score_kmeans: ROC AUC score.
-        f1_score_kmeans: F1 score.
-        runtime_kmeans: Runtime of K-Means Clustering.
-
+    tuple: roc_auc score, f1 score and runtime of K-Means Clustering.
   """
     #Record the start time
     start_time = time.time()
@@ -91,23 +89,20 @@ def model_iforest(X, y, n_estimators):
     Parameters:
         X: Input dataframe, where rows are samples and columns are features.
         y: True labels, used to for evaluation metrics
-        k: number of neighbors.
+        n_estimators: Number of trees in the forest.
 
     Returns:
-        roc_auc_score_iforest: ROC AUC score.
-        f1_score_iforest: F1 score.
-        runtime_iforest: Runtime of Isolation Forest.
-
+        tuple: roc_auc score, f1 score and runtime of Isolation Forest algorithm.
   """
     # Record the start time
     start_time = time.time()
 
     # Define the model and the parameters
-    model = IForest(n_estimators=n_estimators)
+    model = IForest(n_estimators=n_estimators, random_state=42)
     model.fit(X)
 
     # Get the prediction labels and scores for the test data
-    X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliers)
+    X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliners)
     X_scores = model.decision_function(X)  # The raw outlier scores
 
     # Evaluation metrics
@@ -115,7 +110,7 @@ def model_iforest(X, y, n_estimators):
     f1_score_iforest = round(f1_score(y, X_labels, average='weighted'), 3)
     runtime_iforest= round(time.time() - start_time, 3)
 
-    print(f'Evaluation metrics for Isolation Forest model, with n_estimators = {k}, are: \n'
+    print(f'Evaluation metrics for Isolation Forest model, with n_estimators = {n_estimators}, are: \n'
           f'ROC AUC: {roc_auc_iforest}\n'
           f'F1 score: {f1_score_iforest}\n'
           f'Time elapsed: {runtime_iforest}')
@@ -125,7 +120,7 @@ def model_iforest(X, y, n_estimators):
 # Define function for PCA (Principal Component Analysis) Algorithm
 def model_pca(X, y):
     """
-    Isolation PCA Algorithm for anomaly detection.
+    PCA Algorithm for anomaly detection.
 
     Parameters:
         X: Input dataframe, where rows are samples and columns are features.
@@ -133,10 +128,7 @@ def model_pca(X, y):
 
 
     Returns:
-        roc_auc_score_pca: ROC AUC score.
-        f1_score_pca: F1 score.
-        runtime_pca: Runtime of PCA.
-
+        tuple: roc_auc score, f1 score and runtime of PCA algorithm.
   """
     # Record the start time
     start_time = time.time()
@@ -146,7 +138,7 @@ def model_pca(X, y):
     model.fit(X)
 
     # Get the prediction labels and scores for the test data
-    X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliers)
+    X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliners)
     X_scores = model.decision_function(X)  # The raw outlier scores
 
     # Evaluation metrics
@@ -164,18 +156,16 @@ def model_pca(X, y):
 # Define function for COPOD (Copula-Based Outlier Detection) Algorithm
 def model_copod(X, y):
     """
-    Isolation Forest Algorithm for anomaly detection.
+    Copula-Base Outlier Detection Algorithm for anomaly detection.
 
     Parameters:
         X: Input dataframe, where rows are samples and columns are features.
         y: True labels, used to for evaluation metrics
 
     Returns:
-        roc_auc_score_copod: ROC AUC score.
-        f1_score_copod: F1 score.
-        runtime_copod: Runtime of COPOD.
-
+        tuple: roc_auc score, f1 score and runtime of COPOD algorithm.
   """
+
     # Record the start time
     start_time = time.time()
 
@@ -184,7 +174,7 @@ def model_copod(X, y):
     model.fit(X)
 
     # Get the prediction labels and scores for the test data
-    X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliers)
+    X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliners)
     X_scores = model.decision_function(X)  # The raw outlier scores
 
     # Evaluation metrics
@@ -202,17 +192,14 @@ def model_copod(X, y):
 # Define function for ECOD (Empirical Cumulative Outlier Detection) Algorithm
 def model_ecod(X, y):
     """
-    Isolation Forest Algorithm for anomaly detection.
+    ECOD Algorithm for anomaly detection.
 
     Parameters:
         X: Input dataframe, where rows are samples and columns are features.
         y: True labels, used to for evaluation metrics
 
     Returns:
-        roc_auc_score_ecod: ROC AUC score.
-        f1_score_ecod: F1 score.
-        runtime_ecod: Runtime of ECOD.
-
+        tuple: roc_auc score, f1 score and runtime of ECOD algorithm.
   """
     # Record the start time
     start_time = time.time()
@@ -222,7 +209,7 @@ def model_ecod(X, y):
     model.fit(X)
 
     # Get the prediction labels and scores for the test data
-    X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliers)
+    X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliners)
     X_scores = model.decision_function(X)  # The raw outlier scores
 
     # Evaluation metrics
