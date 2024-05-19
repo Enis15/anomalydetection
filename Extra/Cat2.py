@@ -63,13 +63,13 @@ if __name__ == '__main__':
 
     # MODEL RANDOM FOREST (RF)
     # Tune the Random Forest model to get the best hyperparameters
-    rf_tuner = RandomForest_tuner(X_train, X_test, y_train, y_test)
-    best_rf_model = rf_tuner.tune_model()
+    #rf_tuner = RandomForest_tuner(X_train, X_test, y_train, y_test)
+    #best_rf_model = rf_tuner.tune_model()
 
-    rf_estimator = int(best_rf_model['n_estimators'])
-    rf_depth = int(best_rf_model['max_depth'])
-    roc_auc_rf, f1_score_rf, runtime_rf = model_rf(X_train, X_test, y_train, y_test, rf_estimator, rf_depth)
-    append_metrics('Random Forest Classifier', rf_estimator, roc_auc_rf, f1_score_rf, runtime_rf)
+    #rf_estimator = int(best_rf_model['n_estimators'])
+    #rf_depth = int(best_rf_model['max_depth'])
+    #roc_auc_rf, f1_score_rf, runtime_rf = model_rf(X_train, X_test, y_train, y_test, rf_estimator, rf_depth)
+    #append_metrics('Random Forest Classifier', rf_estimator, roc_auc_rf, f1_score_rf, runtime_rf)
 
 
     # Evaluate the KNN model using the best parameters
@@ -125,12 +125,12 @@ if __name__ == '__main__':
 
     # MODEL LOCAL OUTLIER FACTOR (LOF)
     # Tune the LOF model to get the best hyperparameters
-    lof_tune = LOF_tuner(X, y)
-    k_lof = lof_tune.tune_model()
+    #lof_tune = LOF_tuner(X, y)
+    #k_lof = lof_tune.tune_model()
 
     # Evaluate the LOF model
-    roc_auc_lof, f1_score_lof, runtime_lof = model_lof(X, y, k_lof)
-    append_metrics('LOF', k_lof, roc_auc_lof, f1_score_lof, runtime_lof)
+    #roc_auc_lof, f1_score_lof, runtime_lof = model_lof(X, y, k_lof)
+    #append_metrics('LOF', k_lof, roc_auc_lof, f1_score_lof, runtime_lof)
 
     # MODEL PRINCIPAL COMPONENT ANALYSIS (PCA)
     #  Evaluate the PCA model
@@ -139,13 +139,13 @@ if __name__ == '__main__':
 
     # MODEL ISOLATION FOREST (IF)
     # Tune the Isolation Forest model to get the best hyperparameters
-    best_if_model = paramet_tune(X_train, y_train, model_name='isolation_forest')
-    print(best_if_model)  # Get the results of parameter tuning
-    if_value = best_if_model['learner'].n_estimators  # Save the value of n_estimators
+    #best_if_model = paramet_tune(X_train, y_train, model_name='isolation_forest')
+    #print(best_if_model)  # Get the results of parameter tuning
+    #if_value = best_if_model['learner'].n_estimators  # Save the value of n_estimators
 
     # Evaluate the IF model
-    roc_auc_if, f1_score_if, runtime_if = model_iforest(X, y, if_value)
-    append_metrics('Isolation Forest', if_value, roc_auc_if, f1_score_if, runtime_if)
+    #roc_auc_if, f1_score_if, runtime_if = model_iforest(X, y, if_value)
+    #append_metrics('Isolation Forest', if_value, roc_auc_if, f1_score_if, runtime_if)
 
     # MODEL CLUSTER BASED LOCAL OUTLIER FACTOR (K-Means)
     # Tune the K-Means model to get the best hyperparameters

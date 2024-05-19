@@ -175,5 +175,6 @@ if __name__ == '__main__':
     plt.xlabel('Runtime')
     plt.ylabel('ROC AUC')
     plt.title('ROC AUC vs Runtime comparison')
-    plt.show()
     plt.savefig('./ROC_AUC_vs_Runtime.png', bbox_inches='tight')
+    plt.show()
+
