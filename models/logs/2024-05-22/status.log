@@ -1,0 +1,13 @@
+2024-05-22 00:29:40,172 - __main__ - INFO - Starting Model Evaluation
+2024-05-22 00:29:40,172 - __main__ - INFO - Starting KNN Evaluation
+2024-05-22 00:29:51,266 - __main__ - INFO - Best K-Nearest Neighbor Model: None
+2024-05-22 00:29:51,270 - __main__ - ERROR - Error evaluating KNN model:'NoneType' object is not subscriptable
+2024-05-22 00:29:51,270 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-05-22 00:37:39,665 - __main__ - INFO - Starting KNN Evaluation
+2024-05-22 00:37:54,219 - __main__ - INFO - Best K-Nearest Neighbor Model: None
+2024-05-22 00:37:54,220 - __main__ - ERROR - Error evaluating KNN model:'NoneType' object is not subscriptable
+2024-05-22 00:37:54,220 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-05-22 00:38:33,181 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-05-22 00:38:34,189 - __main__ - INFO - Best XGBoost Model: None
+2024-05-22 00:38:34,190 - __main__ - ERROR - Error evaluating XGBoost Classifier model:'NoneType' object is not subscriptable
+2024-05-22 00:38:34,190 - __main__ - INFO - Starting SVM Classifier Evaluation

@@ -1,24 +1,63 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from utils.supervised_learning import model_knn
+from models.ds1_creditcard import X_train, X_test, y_train, y_test
 from hyperopt import hp, fmin, tpe, STATUS_OK, Trials
 from sklearn.metrics import f1_score, accuracy_score
 from utils.paramet_tune import Catboost_tuner, LOF_tuner, Kmeans_tuner, RandomForest_tuner
 from utils.unsupervised_learning import model_lof, model_kmeans
-from utils.supervised_learning import model_cb, model_rf
+from utils.supervised_learning import model_cb, model_rf, model_knn, model_nb, model_svm
 from utils.paramet_tune import paramet_tune
 from multiprocessing import freeze_support
 import matplotlib.pyplot as plt
+from adjustText import adjust_text
+from utils.logger import logger
+
+_logger = logger(__name__)
+
+if __name__ == '__main__':
+    # Ensure compatibility
+    freeze_support()
+
+    # DataFrame to store the evaluation metrics
+    metrics = []
+
+    # Function to append results to metrics list
+    def append_metrics(modelname, estimator, roc_auc, f1_score, runtime):
+        metrics.append({
+            'Model': modelname,
+            'Estimator': estimator,
+            'ROC_AUC_Score': roc_auc,
+            'F1 Score': f1_score,
+            'Runtime': runtime
+        })
+
+    _logger.info('Starting model evaluation')
+
+    try:
+        # MODEL SUPPORT VECTOR MACHINE (SVM)
+        _logger.info('Evaluating SVM model')
+        roc_auc_svm, f1_score_svm, runtime_svm = model_svm(X_train, X_test, y_train, y_test)
+        append_metrics('SVM', None, roc_auc_svm, f1_score_svm, runtime_svm)
+        _logger.info(f'SVM Evaluation: ROC AUC={roc_auc_svm}, F1 Score={f1_score_svm}, Runtime={runtime_svm}')
+    except Exception as e:
+        _logger.error(f'Error evaluating SVM model: {e}')
+
+    try:
+        # MODEL NAIVE BAYES (NB)
+        _logger.info('Evaluating Naive Bayes model')
+        roc_auc_nb, f1_score_nb, runtime_nb = model_nb(X_train, 5, y_train, y_test)
+        append_metrics('Naive Bayes', None, roc_auc_nb, f1_score_nb, runtime_nb)
+        _logger.info(f'Naive Bayes Evaluation: ROC AUC={roc_auc_nb}, F1 Score={f1_score_nb}, Runtime={runtime_nb}')
+    except Exception as e:
+        _logger.error(f'Error evaluating Naive Bayes model: {e}')
 
 
-df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
 
-#Determining the X and y values
-X = df.drop('Class', axis=1)
-y = df['Class'].values
 
-#Split the df into train and test datasets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+
+
+
 
 '''
 def objective(params):
@@ -85,25 +124,3 @@ if __name__ == '__main__':
     roc_auc_rf, f1_score_rf, runtime_rf = model_rf(X_train, X_test, y_train, y_test, rf_value, max_depth=rf_depth)
     append_metrics('Random Forest', rf_value, roc_auc_rf, f1_score_rf, runtime_rf)
     '''
-
-metrics_df = pd.DataFrame({
-        'Model': ['KNN', 'Random Forest Classifier', 'XGBoost', 'SVM', 'Naive Bayes', 'CATBoost', 'LOF', 'PCA', 'Isolation_Forest', 'K-means', 'COPOD', 'ECOD'],
-        'Estimator': [8, 190, 3400, None, None, 330, 13, None, 66, 2, None, None],
-        'ROC_AUC_Score': [0.504, 0.904, 0.908, 0.5, 0.828, 0.923, 0.638, 0.902, 0.889, 0.433, 0.887, 0.893],
-        'F1 Score': [0.998, 1.0, 1.0, 0.998, 0.995, 1.0, 0.991, 0.946, 0.946, 0.697, 0.946, 0.946],
-        'Runtime': [16.894, 62.63, 0.901, 9.378, 0.074, 5.362, 289.7, 0.705, 2.165, 0.389, 0.389, 14.229]})
-
-# Save the metrics to a CSV file
-metrics_df.to_csv('./Metrics(DS1).csv', index=False)
-
-# Visualize the results
-plt.figure(figsize=(10, 6))
-plt.scatter(metrics_df['Runtime'], metrics_df['ROC_AUC_Score'], color='blue')
-for i, txt in enumerate(metrics_df['Model']):
-    plt.annotate(txt, (metrics_df['Runtime'][i], metrics_df['ROC_AUC_Score'][i]))
-plt.xlabel('Runtime')
-plt.ylabel('ROC AUC')
-plt.title('ROC AUC vs Runtime comparison')
-plt.savefig('./ROC_AUC_vs_Runtime(2).png', bbox_inches='tight')
-plt.show()
-

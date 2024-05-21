@@ -1,12 +1,16 @@
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from utils.supervised_learning import model_knn
-from utils.supervised_learning import model_xgboost
-from utils.supervised_learning import model_svm
-from utils.supervised_learning import model_nb
-from utils.supervised_learning import model_rf
-from utils.supervised_learning import model_cb
+from sklearn.preprocessing import StandardScaler
+from multiprocessing import freeze_support
+from adjustText import adjust_text
+import matplotlib.pyplot as plt
+
+# Supervised learning models
+from utils.supervised_learning import model_knn, model_xgboost, model_svm, model_cb, model_nb, model_rf
+# Unsupervised learning models
+from utils.unsupervised_learning import model_lof, model_iforest, model_ecod, model_pca, model_kmeans, model_copod
+# Hyperparameter tuning functions
+from utils.paramet_tune import paramet_tune, Catboost_tuner, LOF_tuner, Kmeans_tuner, RandomForest_tuner
 
 #Load the dataset
 df = pd.read_csv('../data/datasets/Labeled_DS/fin_paysys/bs140513_032310.csv')

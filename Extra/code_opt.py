@@ -131,3 +131,31 @@ if __name__ == '__main__':
     plt.title('ROC AUC vs Runtime comparison')
     plt.show()
     plt.savefig('./ROC_AUC_vs_Runtime.png', bbox_inches='tight')
+
+
+'''
+metrics_df = pd.DataFrame({
+        'Model': ['KNN', 'Random Forest Classifier', 'XGBoost', 'SVM', 'Naive Bayes', 'CATBoost', 'LOF', 'PCA', 'Isolation_Forest', 'K-means', 'COPOD', 'ECOD'],
+        'Estimator': [8, 190, 3400, None, None, 330, 13, None, 66, 2, None, None],
+        'ROC_AUC_Score': [0.504, 0.904, 0.908, 0.5, 0.828, 0.923, 0.638, 0.902, 0.889, 0.433, 0.887, 0.893],
+        'F1 Score': [0.998, 1.0, 1.0, 0.998, 0.995, 1.0, 0.991, 0.946, 0.946, 0.697, 0.946, 0.946],
+        'Runtime': [16.894, 62.63, 0.901, 9.378, 0.074, 5.362, 289.7, 0.705, 2.165, 0.389, 0.389, 14.229]})
+
+# Save the metrics to a CSV file
+metrics_df.to_csv('./Metrics(DS1).csv', index=False)
+
+# Visualize the results
+plt.figure(figsize=(10, 6))
+plt.scatter(metrics_df['Runtime'], metrics_df['ROC_AUC_Score'], color='blue', s=100)
+texts = []
+for i, txt in enumerate(metrics_df['Model']):
+    texts.append(plt.text(metrics_df['Runtime'][i], metrics_df['ROC_AUC_Score'][i], txt, fontsize=10))
+    #plt.annotate(txt, (metrics_df['Runtime'][i], metrics_df['ROC_AUC_Score'][i]), fontsize=10, ha='right')
+adjust_text(texts=texts, arrowprops=dict(arrowstyle='-', color='grey'))
+plt.grid(True)
+plt.xlabel('Runtime', fontsize=14, fontweight='bold')
+plt.ylabel('ROC AUC', fontsize=14, fontweight='bold')
+plt.title('ROC AUC vs Runtime comparison', fontsize=16, fontweight='bold')
+plt.savefig('./ROC_AUC_vs_Runtime(2).png', bbox_inches='tight')
+plt.show()
+'''

@@ -83,8 +83,6 @@ Q.idea/sonarlint/securityhotspotstore/d/4/d486a22a71439c71fa4a04fd00f9037751a672
 Q.idea/sonarlint/securityhotspotstore/5/0/50e216b4439d2538168c3ddca9c0c2fe23bd1c02,0/c/0c0225e236baaec3a0edb17799b59bae8d233f2f
 Å
 Q.idea/sonarlint/securityhotspotstore/2/9/298e49a1f2a040c847ba960c7db27e5c643f8dcb,0/b/0b8ad89e32e5ab56e5e888841c913e7862b0ecda
-Å
-Q.idea/sonarlint/securityhotspotstore/b/3/b38212093128e11d4e9052147d88eef7f57fa9c2,4/5/45dd65d93f2fd34929e633654876b4d76d37d1bd
 w
 G.idea/sonarlint/issuestore/d/4/d486a22a71439c71fa4a04fd00f9037751a672ac,d/5/d5b5693f0ed2f97f63e4220f6b0d525bcd99ee78
 W
@@ -113,16 +111,10 @@ T
 $models/catboost_info/learn_error.tsv,0/0/006298ba5bf8eded507445d2f4766e7ec194e8e6
 R
 "models/catboost_info/time_left.tsv,7/f/7f1d83b6bf42b19ef01e7941f61b739f95459b9a
-B
-Extra/param_opt.py,b/0/b0fffecdb2c310e751011ab228366fb784780b1a
 E
 utils/paramet_tune.py,d/5/d5aef82aeea65906188f09150d12f4854fc5c5ee
-E
-Extra/knn_roc_auc.csv,f/1/f19ea9196f09f97bcd5785631ff082207cd0f85e
 F
 Extra/Metrics(DS1).csv,d/0/d09b1e17c51ce8a5218447fcad8ebca4aa321eb3
-G
-models/Metrics(DS1).csv,c/0/c06d99990df228056ccbd5ce5c40aa70d2636d7e
 S
 #Extra/catboost_info/learn_error.tsv,4/0/40235d14ae0a2757a50ba1dfd44c2a9a5acf708d
 Q
@@ -167,7 +159,11 @@ U
 %Extra/Synthetic_tests(USL)/k-means.py,6/b/6b4f2f1ccf9bbf4e2a8e26a18bb3ad9b4092ef18
 A
 Extra/code_opt.py,8/a/8ad1b9177ab25eb89c18011767b157f9c290eca1
-K
-results/scalability_test.py,f/7/f761e439edf195ae7a7254adf9502e4869694295
 H
 results/Metrics(DS1).csv,1/c/1c34b5b70341b92dd78cf317318c68e6c1805a13
+?
+utils/logger.py,9/a/9ae917856d076c6b498f6c3a35655d48ab47504b
+P
+ Extra/logs/2024-05-21/status.log,7/b/7b3460442e1555fe2ee1b3c0a5cb51506bd37b3e
+Q
+!models/logs/2024-05-22/status.log,2/7/27a1ef5bd5fd89d0414febe29454d58947a779e7
