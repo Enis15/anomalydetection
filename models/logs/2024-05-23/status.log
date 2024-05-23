@@ -6,3 +6,155 @@
 2024-05-23 01:51:42,648 - __main__ - INFO - Starting KNN-tuner Evaluation
 2024-05-23 01:51:42,649 - __main__ - ERROR - Error evaluating KNN model:KNeighborsClassifier.__init__() got an unexpected keyword argument 'random_state'
 2024-05-23 01:51:42,657 - __main__ - INFO - The evaluation results are saved to CSV file.
+2024-05-23 21:27:30,730 - __main__ - INFO - Starting KNN Evaluation
+2024-05-23 21:27:32,753 - __main__ - INFO - Best K-Nearest Neighbor Model: None
+2024-05-23 21:27:32,753 - __main__ - ERROR - Error evaluating KNN model:'NoneType' object is not subscriptable
+2024-05-23 21:27:32,753 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-05-23 21:27:32,759 - __main__ - ERROR - Error evaluating Random Forest Classifier model:Unknown label type: unknown. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.
+2024-05-23 21:27:32,759 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-05-23 21:27:35,675 - __main__ - INFO - Best XGBoost Model: None
+2024-05-23 21:27:35,675 - __main__ - ERROR - Error evaluating XGBoost Classifier model:'NoneType' object is not subscriptable
+2024-05-23 21:27:35,675 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-05-23 21:27:35,678 - __main__ - ERROR - Error evaluating SVM model:Unknown label type: unknown. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.
+2024-05-23 21:27:35,678 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-05-23 21:27:35,692 - __main__ - ERROR - Error evaluating Naive Bayes model:Unknown label type: (array([0, 1], dtype=object),)
+2024-05-23 21:27:35,693 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-05-23 21:27:37,363 - __main__ - ERROR - Error evaluating CatBoost model:Classification metrics can't handle a mix of unknown and binary targets
+2024-05-23 21:27:37,363 - __main__ - INFO - Starting LOF Evaluation
+2024-05-23 21:27:37,818 - __main__ - ERROR - Error evaluating LOF model:Classification metrics can't handle a mix of unknown and binary targets
+2024-05-23 21:27:37,818 - __main__ - INFO - Starting PCA Evaluation
+2024-05-23 21:27:37,858 - __main__ - ERROR - Error evaluating PCA model:unknown format is not supported
+2024-05-23 21:27:37,858 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-05-23 21:27:42,306 - __main__ - INFO - Best Isolation Forest Model: None
+2024-05-23 21:27:42,307 - __main__ - ERROR - Error evaluating Isolation Forest model:'NoneType' object is not subscriptable
+2024-05-23 21:27:42,307 - __main__ - INFO - Starting K-Means Evaluation
+2024-05-23 21:27:42,441 - __main__ - ERROR - Error evaluating K-Means model:Classification metrics can't handle a mix of unknown and multiclass targets
+2024-05-23 21:27:42,441 - __main__ - INFO - Starting COPOD Evaluation
+2024-05-23 21:27:43,244 - __main__ - ERROR - Error evaluating COPOD model:unknown format is not supported
+2024-05-23 21:27:43,257 - __main__ - INFO - Starting ECOD Evaluation
+2024-05-23 21:27:43,804 - __main__ - ERROR - Error evaluating ECOD model:unknown format is not supported
+2024-05-23 21:27:43,807 - __main__ - INFO - The evaluation results are saved to CSV file.
+2024-05-23 21:38:25,751 - __main__ - INFO - Starting KNN Evaluation
+2024-05-23 22:05:26,740 - __main__ - INFO - Best K-Nearest Neighbor Model: {'learner': KNeighborsClassifier(algorithm='brute', leaf_size=21, metric='cityblock',
+                     n_jobs=1, n_neighbors=9, p=3.8964022259980537,
+                     weights='distance'), 'preprocs': (StandardScaler(with_mean=False),), 'ex_preprocs': ()}
+2024-05-23 22:05:30,067 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.798, F1 SCORE=0.994, Runtime=3.324
+2024-05-23 22:05:30,067 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-05-23 22:35:44,696 - __main__ - INFO - Best Random Forest Model: {'max_depth': 23.0, 'n_estimators': 880.0}
+2024-05-23 22:36:43,105 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=0.879, F1 SCORE=0.996, Runtime=58.382
+2024-05-23 22:36:43,108 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-05-23 23:08:48,764 - __main__ - INFO - Best XGBoost Model: {'learner': XGBClassifier(base_score=0.5, booster=None, callbacks=None,
+              colsample_bylevel=0.8881123870760684, colsample_bynode=None,
+              colsample_bytree=0.6468510770608018, device=None,
+              early_stopping_rounds=None, enable_categorical=False,
+              eval_metric=None, feature_types=None, gamma=0.8549212750429295,
+              grow_policy=None, importance_type=None,
+              interaction_constraints=None, learning_rate=0.005041404915144838,
+              max_bin=None, max_cat_threshold=None, max_cat_to_onehot=None,
+              max_delta_step=0, max_depth=8, max_leaves=None,
+              min_child_weight=1, missing=nan, monotone_constraints=None,
+              multi_strategy=None, n_estimators=5200, n_jobs=1,
+              num_parallel_tree=None, random_state=None, ...), 'preprocs': (StandardScaler(with_mean=False, with_std=False),), 'ex_preprocs': ()}
+2024-05-23 23:09:49,261 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.896, F1 Score=0.996, Runtime=60.491
+2024-05-23 23:09:49,262 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-05-23 23:11:57,824 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.744, F1 Score=0.993, Runtime=128.561
+2024-05-23 23:11:57,824 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-05-23 23:11:57,945 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.886, F1 Score=0.987, Runtime=0.12
+2024-05-23 23:11:57,945 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-05-23 23:21:25,371 - __main__ - INFO - Best CatBoost Classifier Model: <utils.paramet_tune.Catboost_tuner object at 0x14d8fd9c0>
+2024-05-23 23:21:39,482 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score= 0.894, F1 Score= 0.996, Runtime= 14.108
+2024-05-23 23:21:39,482 - __main__ - INFO - Starting LOF Evaluation
+2024-05-23 23:26:17,133 - __main__ - INFO - Best n_neighbors for LOF Model: 30
+2024-05-23 23:26:23,946 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.5, F1 Score=0.975, Runtime=6.803
+2024-05-23 23:26:23,946 - __main__ - INFO - Starting PCA Evaluation
+2024-05-23 23:26:24,430 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.814, F1 Score=0.94, Runtime=0.482
+2024-05-23 23:26:24,430 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-05-23 23:29:58,115 - __main__ - INFO - Best Isolation Forest Model: {'learner': IsolationForest(n_estimators=14, n_jobs=1, random_state=2, verbose=False), 'preprocs': (Normalizer(norm='max'),), 'ex_preprocs': ()}
+2024-05-23 23:29:59,516 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.822, F1 Score=0.94, Runtime=1.399
+2024-05-23 23:29:59,517 - __main__ - INFO - Starting K-Means Evaluation
+2024-05-23 23:30:27,544 - __main__ - INFO - Best K-Means Model: <utils.paramet_tune.Kmeans_tuner object at 0x16a5df850>
+2024-05-23 23:30:28,433 - __main__ - INFO - K-Means Evaluation: ROC AUC Score=0.52, F1 Score=0.662, Runtime=0.888
+2024-05-23 23:30:28,433 - __main__ - INFO - Starting COPOD Evaluation
+2024-05-23 23:30:33,305 - __main__ - INFO - COPOD Evaluation: ROC AUC Score=0.908, F1 Score=0.943, Runtime=4.865
+2024-05-23 23:30:33,306 - __main__ - INFO - Starting ECOD Evaluation
+2024-05-23 23:30:38,128 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.894, F1 Score=0.943, Runtime=4.811
+2024-05-23 23:30:38,137 - __main__ - INFO - The evaluation results are saved to CSV file.
+2024-05-23 23:34:52,427 - __main__ - INFO - Starting KNN Evaluation
+2024-05-23 23:34:54,946 - __main__ - INFO - Best K-Nearest Neighbor Model: None
+2024-05-23 23:34:54,947 - __main__ - ERROR - Error evaluating KNN model:'NoneType' object is not subscriptable
+2024-05-23 23:34:54,947 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-05-23 23:34:54,954 - __main__ - ERROR - Error evaluating Random Forest Classifier model:Unknown label type: unknown. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.
+2024-05-23 23:34:54,955 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-05-23 23:35:00,795 - __main__ - INFO - Best XGBoost Model: None
+2024-05-23 23:35:00,796 - __main__ - ERROR - Error evaluating XGBoost Classifier model:'NoneType' object is not subscriptable
+2024-05-23 23:35:00,796 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-05-23 23:35:00,800 - __main__ - ERROR - Error evaluating SVM model:Unknown label type: unknown. Maybe you are trying to fit a classifier, which expects discrete classes on a regression target with continuous values.
+2024-05-23 23:35:00,800 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-05-23 23:35:00,815 - __main__ - ERROR - Error evaluating Naive Bayes model:Unknown label type: (array([0, 1], dtype=object),)
+2024-05-23 23:35:00,815 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-05-23 23:35:01,949 - __main__ - ERROR - Error evaluating CatBoost model:Classification metrics can't handle a mix of unknown and binary targets
+2024-05-23 23:35:01,949 - __main__ - INFO - Starting LOF Evaluation
+2024-05-23 23:35:02,287 - __main__ - ERROR - Error evaluating LOF model:Classification metrics can't handle a mix of unknown and binary targets
+2024-05-23 23:35:02,287 - __main__ - INFO - Starting PCA Evaluation
+2024-05-23 23:35:02,330 - __main__ - ERROR - Error evaluating PCA model:unknown format is not supported
+2024-05-23 23:35:02,330 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-05-23 23:35:04,623 - __main__ - INFO - Best Isolation Forest Model: None
+2024-05-23 23:35:04,624 - __main__ - ERROR - Error evaluating Isolation Forest model:'NoneType' object is not subscriptable
+2024-05-23 23:35:04,624 - __main__ - INFO - Starting K-Means Evaluation
+2024-05-23 23:35:04,779 - __main__ - ERROR - Error evaluating K-Means model:Classification metrics can't handle a mix of unknown and multiclass targets
+2024-05-23 23:35:04,779 - __main__ - INFO - Starting COPOD Evaluation
+2024-05-23 23:35:05,569 - __main__ - ERROR - Error evaluating COPOD model:unknown format is not supported
+2024-05-23 23:35:05,570 - __main__ - INFO - Starting ECOD Evaluation
+2024-05-23 23:35:06,122 - __main__ - ERROR - Error evaluating ECOD model:unknown format is not supported
+2024-05-23 23:35:06,125 - __main__ - INFO - The evaluation results are saved to CSV file.
+2024-05-23 23:36:51,769 - __main__ - INFO - Starting KNN Evaluation
+2024-05-23 23:37:05,792 - __main__ - INFO - Best K-Nearest Neighbor Model: {'learner': KNeighborsClassifier(algorithm='brute', leaf_size=29, metric='manhattan',
+                     n_jobs=1, n_neighbors=7, p=3.3876253813730988,
+                     weights='distance'), 'preprocs': (Normalizer(),), 'ex_preprocs': ()}
+2024-05-23 23:37:06,588 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=1.0, F1 SCORE=1.0, Runtime=0.794
+2024-05-23 23:37:06,588 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-05-23 23:37:16,832 - __main__ - INFO - Starting KNN Evaluation
+2024-05-23 23:39:48,671 - __main__ - INFO - Best K-Nearest Neighbor Model: {'learner': KNeighborsClassifier(algorithm='ball_tree', leaf_size=20, metric='l1', n_jobs=1,
+                     n_neighbors=11, p=4.894949415009043, weights='distance'), 'preprocs': (Normalizer(),), 'ex_preprocs': ()}
+2024-05-23 23:39:49,348 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=1.0, F1 SCORE=1.0, Runtime=0.676
+2024-05-23 23:39:49,348 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-05-23 23:41:31,367 - __main__ - INFO - Best Random Forest Model: {'max_depth': 10.0, 'n_estimators': 530.0}
+2024-05-23 23:41:33,336 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=1.0, F1 SCORE=1.0, Runtime=1.967
+2024-05-23 23:41:33,336 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-05-23 23:45:27,833 - __main__ - INFO - Best XGBoost Model: {'learner': XGBClassifier(base_score=0.5, booster=None, callbacks=None,
+              colsample_bylevel=0.5149273579145666, colsample_bynode=None,
+              colsample_bytree=0.942050728009725, device=None,
+              early_stopping_rounds=None, enable_categorical=False,
+              eval_metric=None, feature_types=None, gamma=1.7981100957883807,
+              grow_policy=None, importance_type=None,
+              interaction_constraints=None, learning_rate=0.018554459007345214,
+              max_bin=None, max_cat_threshold=None, max_cat_to_onehot=None,
+              max_delta_step=0, max_depth=10, max_leaves=None,
+              min_child_weight=62, missing=nan, monotone_constraints=None,
+              multi_strategy=None, n_estimators=5600, n_jobs=1,
+              num_parallel_tree=None, random_state=None, ...), 'preprocs': (StandardScaler(with_mean=False, with_std=False),), 'ex_preprocs': ()}
+2024-05-23 23:45:30,447 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=1.0, F1 Score=1.0, Runtime=2.613
+2024-05-23 23:45:30,448 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-05-23 23:45:31,553 - __main__ - INFO - SVM Evaluation: ROC AUC Score=1.0, F1 Score=1.0, Runtime=1.106
+2024-05-23 23:45:31,554 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-05-23 23:45:31,573 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.989, F1 Score=0.982, Runtime=0.019
+2024-05-23 23:45:31,573 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-05-23 23:47:14,932 - __main__ - INFO - Best CatBoost Classifier Model: <utils.paramet_tune.Catboost_tuner object at 0x13b67f730>
+2024-05-23 23:47:18,078 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score= 1.0, F1 Score= 1.0, Runtime= 3.145
+2024-05-23 23:47:18,078 - __main__ - INFO - Starting LOF Evaluation
+2024-05-23 23:47:45,279 - __main__ - INFO - Best n_neighbors for LOF Model: 29
+2024-05-23 23:47:45,935 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.5, F1 Score=0.722, Runtime=0.654
+2024-05-23 23:47:45,936 - __main__ - INFO - Starting PCA Evaluation
+2024-05-23 23:47:46,018 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.642, F1 Score=0.813, Runtime=0.082
+2024-05-23 23:47:46,018 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-05-23 23:50:00,403 - __main__ - INFO - Best Isolation Forest Model: {'learner': IsolationForest(max_features=0.9, n_estimators=11, n_jobs=1, random_state=0,
+                verbose=False), 'preprocs': (Normalizer(),), 'ex_preprocs': ()}
+2024-05-23 23:50:00,680 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.507, F1 Score=0.718, Runtime=0.275
+2024-05-23 23:50:00,680 - __main__ - INFO - Starting K-Means Evaluation
+2024-05-23 23:50:06,112 - __main__ - INFO - Best K-Means Model: <utils.paramet_tune.Kmeans_tuner object at 0x14ee5e4a0>
+2024-05-23 23:50:06,220 - __main__ - INFO - K-Means Evaluation: ROC AUC Score=0.564, F1 Score=0.594, Runtime=0.108
+2024-05-23 23:50:06,220 - __main__ - INFO - Starting COPOD Evaluation
+2024-05-23 23:50:07,136 - __main__ - INFO - COPOD Evaluation: ROC AUC Score=0.626, F1 Score=0.801, Runtime=0.914
+2024-05-23 23:50:07,136 - __main__ - INFO - Starting ECOD Evaluation
+2024-05-23 23:50:07,708 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.621, F1 Score=0.798, Runtime=0.571
+2024-05-23 23:50:07,712 - __main__ - INFO - The evaluation results are saved to CSV file.

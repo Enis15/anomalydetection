@@ -30,15 +30,16 @@ print(df.dtypes)
 # Dropping irrelevant columns for the anomaly detection
 df = df.drop(['timestamp', 'sending_address', 'receiving_address'], axis=1)
 
-# Labeling columns of type 'object'
-columns_obj = ['transaction_type', 'location_region', 'purchase_pattern', 'age_group']
-for i in columns_obj:
+# Encoding categorical features
+columns_label = ['transaction_type', 'location_region', 'purchase_pattern', 'age_group']
+for i in columns_label:
     label = LabelEncoder()
     df[i] = label.fit_transform(df[i])
 
 # Relabeling column target column 'anomaly', where low risk:0, moderate & high risk =1
-pd.set_option('future.no_silent_downcasting', True) #Ensure downcasting behavior is consistent with future versions of pandas
+pd.set_option('future.no_silent_downcasting', True) # Ensure downcasting behavior is consistent with future versions of pandas
 df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
+df['anomaly'] = df['anomaly'].astype(int)
 
 # Determining the X and y values
 X = df.drop('anomaly', axis=1)
@@ -53,16 +54,12 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-print(X_train, X_test)
-
-
 if __name__ == '__main__':
     # Ensure compatability
     freeze_support()
 
     # DataFrame to store the evaluation metrics
     metrics = []
-
 
     # Function to append results to metrics list
     def append_metrics(modelname, estimator, roc_auc, f1_score, runtime):
@@ -80,9 +77,9 @@ if __name__ == '__main__':
     SUPERVISED LEARNING ALGORITHMS
     ===============================
 
-    This section of the code evaluates the performance of supervised learning algorithms, incl. KNN(K-Nearest Neighbor), 
-    Random Forest Classifier, XGBoost(Extreme Gradient Boosting), SVM(Support Vector Machine), Naive Bayes and 
-    CATBoost(Categorical Boosting). Some of the algorithms have been fine-tuned using the hyperopt/hpsklearn library, 
+    This section of the code evaluates the performance of supervised learning algorithms, incl. KNN(K-Nearest Neighbor),
+    Random Forest Classifier, XGBoost(Extreme Gradient Boosting), SVM(Support Vector Machine), Naive Bayes and
+    CATBoost(Categorical Boosting). Some of the algorithms have been fine-tuned using the hyperopt/hpsklearn library,
     while the others use default parameters provided by sklearn library.
     '''
     try:
@@ -182,9 +179,9 @@ if __name__ == '__main__':
     ================================
     UNSUPERVISED LEARNING ALGORITHMS
     ================================
-    This section evaluates the performance of various unsupervised learning algorithms, incl. LOF(Local Outlier Factor), 
-    Isolation Forest, PCA(Principal Component Analysis), K-Means, COPOD(Copula-Based Outlier Detection), and 
-    ECOD(Empirical Cumulative Distribution Based Outlier Detection). Some of the algorithms have been fine-tuned using 
+    This section evaluates the performance of various unsupervised learning algorithms, incl. LOF(Local Outlier Factor),
+    Isolation Forest, PCA(Principal Component Analysis), K-Means, COPOD(Copula-Based Outlier Detection), and
+    ECOD(Empirical Cumulative Distribution Based Outlier Detection). Some of the algorithms have been fine-tuned using
     the hyperopt/hpsklearn library, while the others use default parameters provided by sklearn library.
     '''
     try:

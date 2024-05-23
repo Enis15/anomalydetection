@@ -1,4 +1,6 @@
 Model,Estimator,ROC_AUC_Score,F1 Score,Runtime
+KNN,4,0.809,0.999,138.133
+Random Forest Classifier,220.0,0.888,1.0,355.152
 XGBoost,1400.0,0.936,1.0,133.301
 SVM,,0.725,0.999,3158.488
 Naive Bayes,,0.551,0.997,1.278
