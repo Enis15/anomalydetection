@@ -156,6 +156,6 @@ plt.grid(True)
 plt.xlabel('Runtime', fontsize=14, fontweight='bold')
 plt.ylabel('ROC AUC', fontsize=14, fontweight='bold')
 plt.title('ROC AUC vs Runtime comparison', fontsize=16, fontweight='bold')
-plt.savefig('./ROC_AUC_vs_Runtime(2).png', bbox_inches='tight')
+plt.savefig('./KNN(DS2).png', bbox_inches='tight')
 plt.show()
 '''

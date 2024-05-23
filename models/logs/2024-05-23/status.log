@@ -1,0 +1,8 @@
+2024-05-23 00:13:47,195 - __main__ - INFO - Starting KNN Evaluation
+2024-05-23 01:49:24,505 - __main__ - INFO - Best K-Nearest Neighbor Model: {'learner': KNeighborsClassifier(algorithm='kd_tree', leaf_size=37, metric='manhattan',
+                     n_jobs=1, n_neighbors=4, p=3.240805767463002,
+                     weights='distance'), 'preprocs': (Normalizer(norm='max'),), 'ex_preprocs': ()}
+2024-05-23 01:51:42,646 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.809, F1 SCORE=0.999, Runtime=138.133
+2024-05-23 01:51:42,648 - __main__ - INFO - Starting KNN-tuner Evaluation
+2024-05-23 01:51:42,649 - __main__ - ERROR - Error evaluating KNN model:KNeighborsClassifier.__init__() got an unexpected keyword argument 'random_state'
+2024-05-23 01:51:42,657 - __main__ - INFO - The evaluation results are saved to CSV file.

@@ -167,3 +167,11 @@ P
  Extra/logs/2024-05-21/status.log,7/b/7b3460442e1555fe2ee1b3c0a5cb51506bd37b3e
 Q
 !models/logs/2024-05-22/status.log,2/7/27a1ef5bd5fd89d0414febe29454d58947a779e7
+G
+models/Metrics(DS2).csv,e/7/e7d3e3820f8674c7579e43c7d16a91ddb54067dc
+Q
+!models/logs/2024-05-23/status.log,9/7/97a80ab7fda60f22120470575e90b1134a3015f3
+H
+results/Metrics(DS2).csv,5/2/5289ebdcb37e0fb55d286d20e6765f1d1494061c
+C
+models/KNN(DS2).csv,f/7/f7c4cf06b8414c47fd7ef639ed226c15dba69c64

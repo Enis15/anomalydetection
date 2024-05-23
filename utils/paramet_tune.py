@@ -1,5 +1,5 @@
 from catboost import CatBoostClassifier
-from sklearn.neighbors import LocalOutlierFactor
+from sklearn.neighbors import LocalOutlierFactor, KNeighborsClassifier
 from sklearn.cluster import KMeans
 from sklearn.ensemble import RandomForestClassifier
 from hpsklearn import HyperoptEstimator, random_forest_classifier, k_neighbors_classifier, xgboost_classification, isolation_forest
@@ -316,4 +316,66 @@ class RandomForest_tuner:
 
         return best
 
+class KNN_tuner:
+    """
+    Hyperparameter tuning for Random Forest classifier.
+    Parameters:
+        X_train (array-like): Training data features.
+        y_train (array-like): Ground truth labels.
+        X_test (array-like): Testing data features.
+        y_test (array-like): Testing data labels.
 
+        Methods:
+            -objective(params): Defines the optimization objective for hyperparameter tuning.
+            -tune_model(): Performs hyperparameter tuning using Random Forest classifier.
+        Examples usage:
+        random_forest_tuner=RandomForest_tuner(X_train, y_train)
+        best_n_estimator = random_forest_tuner.tune_model() --> Used to train the final LOF model with optimal parameters.
+    """
+
+    def __init__(self, X_train, X_test, y_train, y_test):
+        self.X_train = X_train
+        self.X_test = X_test
+        self.y_train = y_train
+        self.y_test = y_test
+
+    def objective(self, params):
+        """
+        Defines the optimization objective for hyperparameter tuning.
+
+            Parameters:
+                params (dict): Dictionary of hyperparameter tuning parameters.
+
+            Returns:
+                dict: Dictionary containing the loss (negative Accuracy score) and status.
+            """
+        n_neighbors = int(params['n_neighbors'])
+
+
+        clf = KNeighborsClassifier(n_neighbors=n_neighbors, n_jobs=-1)
+        clf.fit(self.X_train, self.y_train)
+
+        y_pred = clf.predict(self.X_test)
+
+        accuracy_scores = accuracy_score(self.y_test, y_pred)
+
+        return {'loss': -accuracy_scores, 'status': STATUS_OK, 'accuracy_score': accuracy_scores}
+
+    def tune_model(self):
+        """
+        Performs hyperparameter tuning using Bayesian optimization.
+
+        Returns:
+            dict: Best number of neighbors obtained from tuning.
+        """
+
+        space = {
+            'n_neighbors': hp.quniform('n_neighbors', 2, 30, 1)
+        }
+
+        trials = Trials()
+
+        best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
+        print('Best parameters: ', best)
+
+        return best
