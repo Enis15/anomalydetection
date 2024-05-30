@@ -4,7 +4,7 @@ import numpy as np
 from data_manipulation import data_preprocessing
 
 
-df = pd.read_csv('../../data/datasets/Unlabeled_DS/CreditCardTransaction.csv')
+df = pd.read_csv('../Unlabeled_DS/CreditCardTransaction.csv')
 
 plt.boxplot(df['TrnxAmount'])
 plt.show()

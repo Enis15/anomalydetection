@@ -102,7 +102,7 @@ def anomaly_detection(df, target_column, threshold):
     print('F1 Score:', f1)
 
 # Load data
-df = pd.read_csv('../../data/datasets/Unlabeled_DS/cust_trans.csv')
+df = pd.read_csv('../Unlabeled_DS/cust_trans.csv')
 
 # Perform anomaly detection
 anomaly_detection(df, 'Transaction Amount', 1000)
