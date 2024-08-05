@@ -1,126 +1,84 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from models.ds1_creditcard import X_train, X_test, y_train, y_test
-from hyperopt import hp, fmin, tpe, STATUS_OK, Trials
-from sklearn.metrics import f1_score, accuracy_score
-from utils.paramet_tune import Catboost_tuner, LOF_tuner, Kmeans_tuner, RandomForest_tuner
-from utils.unsupervised_learning import model_lof, model_kmeans
-from utils.supervised_learning import model_cb, model_rf, model_knn, model_nb, model_svm
-from utils.paramet_tune import paramet_tune
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 from multiprocessing import freeze_support
-import matplotlib.pyplot as plt
 from adjustText import adjust_text
+import matplotlib.pyplot as plt
+
+# Import the logger function
 from utils.logger import logger
 
+# Supervised learning models
+from utils.supervised_learning import model_knn, model_xgboost, model_svm, model_cb, model_nb, model_rf
+# Unsupervised learning models
+from utils.unsupervised_learning import model_lof, model_iforest, model_ecod, model_pca, model_dbscan, model_copod
+# Hyperparameter tuning functions
+from utils.paramet_tune import paramet_tune, Catboost_tuner, LOF_tuner, DBSCAN_tuner, RandomForest_tuner
+
+# Initialize the logger
 _logger = logger(__name__)
 
-if __name__ == '__main__':
-    # Ensure compatibility
-    freeze_support()
-
-    # DataFrame to store the evaluation metrics
-    metrics = []
-
-    # Function to append results to metrics list
-    def append_metrics(modelname, estimator, roc_auc, f1_score, runtime):
-        metrics.append({
-            'Model': modelname,
-            'Estimator': estimator,
-            'ROC_AUC_Score': roc_auc,
-            'F1 Score': f1_score,
-            'Runtime': runtime
-        })
-
-    _logger.info('Starting model evaluation')
-
-    try:
-        # MODEL SUPPORT VECTOR MACHINE (SVM)
-        _logger.info('Evaluating SVM model')
-        roc_auc_svm, f1_score_svm, runtime_svm = model_svm(X_train, X_test, y_train, y_test)
-        append_metrics('SVM', None, roc_auc_svm, f1_score_svm, runtime_svm)
-        _logger.info(f'SVM Evaluation: ROC AUC={roc_auc_svm}, F1 Score={f1_score_svm}, Runtime={runtime_svm}')
-    except Exception as e:
-        _logger.error(f'Error evaluating SVM model: {e}')
-
-    try:
-        # MODEL NAIVE BAYES (NB)
-        _logger.info('Evaluating Naive Bayes model')
-        roc_auc_nb, f1_score_nb, runtime_nb = model_nb(X_train, 5, y_train, y_test)
-        append_metrics('Naive Bayes', None, roc_auc_nb, f1_score_nb, runtime_nb)
-        _logger.info(f'Naive Bayes Evaluation: ROC AUC={roc_auc_nb}, F1 Score={f1_score_nb}, Runtime={runtime_nb}')
-    except Exception as e:
-        _logger.error(f'Error evaluating Naive Bayes model: {e}')
-
-
-
-
-
-
-
-
-
 '''
-def objective(params):
-    model = CatBoostClassifier(
-        iterations=int(params['iterations']),
-        learning_rate=params['learning_rate'],
-        depth=int(params['depth']),
-        loss_function='Logloss',
-        verbose=False
-    )
+Dataset description
+'''
 
-    model.fit(X_train, y_train)
-    y_pred = model.predict(X_test)
-    f1_score(y_test, y_pred)
+# Load the dataset
+df = pd.read_csv('../data/datasets/Labeled_DS/metaverse_transactions_dataset.csv')
 
-    return {'loss': -1, 'status': STATUS_OK}
+# Dropping irrelevant columns for the anomaly detection
+df = df.drop(['timestamp', 'sending_address', 'receiving_address'], axis=1)
 
-space = {
-    'iterations': hp.quniform('iterations', 100, 500, 10),
-    'learning_rate': hp.loguniform('learning_rate', -5, 0),
-    'depth': hp.quniform('depth', 4, 10, 1),
-}
+# Encoding categorical features
+columns_label = ['transaction_type', 'location_region', 'purchase_pattern', 'age_group']
+for i in columns_label:
+    label = LabelEncoder()
+    df[i] = label.fit_transform(df[i])
 
-trials = Trials()
+# Relabeling column target column 'anomaly', where low risk:0, moderate & high risk =1
+pd.set_option('future.no_silent_downcasting', True) # Ensure downcasting behavior is consistent with future versions of pandas
+df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
+df['anomaly'] = df['anomaly'].astype(int)
 
-best = fmin(fn=objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
-print('Best parameters:', best)
+# Determining the X and y values
+X = df.drop('anomaly', axis=1)
+y = df['anomaly'].values
 
+# Split the df into train and test datasets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-#tuner = Catboost_tune(X_train, X_test, y_train, y_test)
-#tuner.tune_model()
+# Standardize the data
+scaler = StandardScaler()
 
-tuner = Catboost_tune(X_train, X_test, y_train, y_test)
-best_hyperparameters = tuner.tune_model()
-print(best_hyperparameters)
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
 
-best_iterations = int(best_hyperparameters['iterations'])
-best_learning_rate = best_hyperparameters['learning_rate']
-best_depth = int(best_hyperparameters['depth'])
+metrics = []
 
-model = model_cb(X_train, X_test, y_train, y_test, best_iterations, best_learning_rate, best_depth)
+# Function to append results to metrics list
+def append_metrics(modelname, estimator, roc_auc, f1_score, runtime):
+    metrics.append({
+        'Model': modelname,
+        'Estimator': estimator,
+        'ROC_AUC_Score': roc_auc,
+        'F1_Score': f1_score,
+        'Runtime': runtime
+    })
 
+try:
+    # MODEL DBSCAN
+    _logger.info('Starting DBSCAN Evaluation')
+    # Tune the DBSCAN model to get the best hyperparameters
+    # Code for hyper tune DBSCAN
+    dbscan_tuner = DBSCAN_tuner(X, y)
+    dbscan_cluster = dbscan_tuner.tune_model()
+    _logger.info(f'Best K-Means Model: {dbscan_cluster}')
 
-
-if __name__ == '__main__':
-
-    freeze_support()
-    metrics = []
-
-    def append_metrics(model_name, estimator, roc_auc, f1_score, runtime):
-        metrics.append({
-            'Model': model_name,
-            'Estimator': estimator,
-            'ROC_AUC': roc_auc,
-            'F1_Score': f1_score,
-            'Runtime': runtime
-        })
-
-    rf_tuner = RandomForest_tuner(X_train, X_test, y_train, y_test)
-    best_rf_model = rf_tuner.tune_model()
-
-    rf_value = int(best_rf_model['n_estimators'])
-    rf_depth = int(best_rf_model['max_depth'])
-    roc_auc_rf, f1_score_rf, runtime_rf = model_rf(X_train, X_test, y_train, y_test, rf_value, max_depth=rf_depth)
-    append_metrics('Random Forest', rf_value, roc_auc_rf, f1_score_rf, runtime_rf)
-    '''
+    best_eps = dbscan_cluster['eps']
+    best_min_samples = int(dbscan_cluster['min_samples'])
+    # Evaluate the DBSCAN model
+    roc_auc_dbscan, f1_score_dbscan, runtime_dbscan = model_dbscan(X, y, eps=best_eps, min_samples=best_min_samples)
+    append_metrics('DBSCAN', best_eps, roc_auc_dbscan, f1_score_dbscan, runtime_dbscan)
+    _logger.info(
+        f'DBSCAN Evaluation: ROC AUC Score={roc_auc_dbscan}, F1 Score={f1_score_dbscan}, Runtime={runtime_dbscan}')
+except Exception as e:
+    _logger.error(f'Error evaluating DBSCAN model:{e}')

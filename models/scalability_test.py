@@ -9,7 +9,7 @@ from utils.logger import logger
 # Supervised learning models
 from utils.supervised_learning import model_knn, model_rf, model_nb, model_cb, model_svm, model_xgboost
 # Unsupervised learning models
-from utils.unsupervised_learning import model_lof, model_pca, model_iforest, model_ecod, model_copod, model_kmeans
+from utils.unsupervised_learning import model_lof, model_pca, model_iforest, model_ecod, model_copod, model_dbscan
 
 # Initialize the logger
 _logger = logger(__name__)
@@ -26,7 +26,7 @@ roc_auc = {
     'LOF': [],
     'PCA': [],
     'Isolation Forest': [],
-    'K-Means': [],
+    'DBSCAN': [],
     'COPOD': [],
     'ECOD': []
 }
@@ -41,7 +41,7 @@ f1_scores = {
     'LOF': [],
     'PCA': [],
     'Isolation Forest': [],
-    'K-Means': [],
+    'DBSCAN': [],
     'COPOD': [],
     'ECOD': []
 }
@@ -56,7 +56,7 @@ runtimes = {
     'LOF': [],
     'PCA': [],
     'Isolation Forest': [],
-    'K-Means': [],
+    'DBSCAN': [],
     'COPOD': [],
     'ECOD': []
 }
@@ -202,16 +202,16 @@ for dataset in datasets:
         _logger.error(f'Error evaluating Isolation Forest model:{e}')
 
     try:
-        # MODEL K-Means clustering
-        _logger.info('Starting K-Means Evaluation')
+        # MODEL DBSCAN clustering
+        _logger.info('Starting DBSCAN Evaluation')
         # Evaluate the K-means model
-        roc_auc_kmeans, f1_score_kmeans, runtime_kmeans = model_kmeans(X, y, 8) #Using default value of k=8
-        _logger.info(f'K Means Evaluation: ROC AUC Score={roc_auc_kmeans}, F1 Score={f1_score_kmeans}, Runtime={runtime_kmeans}')
-        roc_auc['K-Means'].append(roc_auc_kmeans)
-        f1_scores['K-Means'].append(f1_score_kmeans)
-        runtimes['K-Means'].append(runtime_kmeans)
+        roc_auc_dbscan, f1_score_dbscan, runtime_dbscan = model_dbscan(X, y, eps=0.5, min_samples=5) #Using default value of k=8
+        _logger.info(f'DBSCAN Evaluation: ROC AUC Score={roc_auc_dbscan}, F1 Score={f1_score_dbscan}, Runtime={runtime_dbscan}')
+        roc_auc['DBSCAN'].append(roc_auc_dbscan)
+        f1_scores['DBSCAN'].append(f1_score_dbscan)
+        runtimes['DBSCAN'].append(runtime_dbscan)
     except Exception as e:
-        _logger.error(f'Error evaluating K Means model:{e}')
+        _logger.error(f'Error evaluating DBSCAN model:{e}')
 
     try:
         # MODEL COPULA BASED OUTLIER DETECTION (COPOD)
@@ -275,3 +275,15 @@ plt.legend(loc='best')
 plt.savefig('./Scalability_test(Runtime).png')
 plt.show()
 
+# try:
+#     # MODEL K-Means clustering
+#     _logger.info('Starting K-Means Evaluation')
+#     # Evaluate the K-means model
+#     roc_auc_kmeans, f1_score_kmeans, runtime_kmeans = model_kmeans(X, y, 8)  # Using default value of k=8
+#     _logger.info(
+#         f'K Means Evaluation: ROC AUC Score={roc_auc_kmeans}, F1 Score={f1_score_kmeans}, Runtime={runtime_kmeans}')
+#     roc_auc['K-Means'].append(roc_auc_kmeans)
+#     f1_scores['K-Means'].append(f1_score_kmeans)
+#     runtimes['K-Means'].append(runtime_kmeans)
+# except Exception as e:
+#     _logger.error(f'Error evaluating K Means model:{e}')

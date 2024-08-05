@@ -1,0 +1,24 @@
+
+˜python:S1192ú"RDefine a constant instead of duplicating this literal 'Best parameters: ' 3 times.(Ÿ†¿¢8ºœæ’ú1J$8e000dd2-3587-4177-80ee-0cba2a5d2ec3
+—python:S117
+"SRename this parameter "X_train" to match the regular expression ^[_a-z][a-z0-9_]*$.(¶„àâ8»œæ’ú1J$655517c9-07a8-48a5-8b7e-b201d4b827b2
+’python:S116B"NRename this field "X_test" to match the regular expression ^[_a-z][_a-z0-9]*$.(¸ù¼„8»œæ’ú1J$09cbdcc9-6ee5-4690-8ffd-c63a790cb3c0
+“python:S116A"ORename this field "X_train" to match the regular expression ^[_a-z][_a-z0-9]*$.(¿Şß´8»œæ’ú1J$c1f03e1e-8a26-44db-9639-2cfd49756389
+¬python:S101-"hRename class "Catboost_tuner" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(²Ô¹œ8¼œæ’ú1J$10ac501e-860a-4715-babd-fc1e9f3c8c1d
+–python:S117@"RRename this parameter "X_test" to match the regular expression ^[_a-z][a-z0-9_]*$.(–®›î8¼œæ’ú1J$85b8af02-6486-4e12-bf74-979c251220ed
+—python:S117@"SRename this parameter "X_train" to match the regular expression ^[_a-z][a-z0-9_]*$.(–®›î8¼œæ’ú1J$9837d604-8f34-42e2-9169-6267f6a05832
+¬python:S101s"cRename class "LOF_tuner" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ğØÆªüÿÿÿÿ8¼œæ’ú1J$27093473-3394-468f-91a8-990268cd142c
+’python:S117„"MRename this parameter "X" to match the regular expression ^[_a-z][a-z0-9_]*$.(–ÇƒÛ8¼œæ’ú1J$203b6b6b-b3b7-463c-8fee-a892df85e8fa
+«python:S101º"fRename class "Kmeans_tuner" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(Ÿ¾”ı8¼œæ’ú1J$681c5500-56b8-494c-8fe8-91b4242ad0ae
+’python:S117Ë"MRename this parameter "X" to match the regular expression ^[_a-z][a-z0-9_]*$.(–ÇƒÛ8¼œæ’ú1J$bf891dc1-5b6d-47f4-997b-eb7199bb98b9
+”python:S116"ORename this field "X_train" to match the regular expression ^[_a-z][_a-z0-9]*$.(¿Şß´8¼œæ’ú1J$6c1d7820-f135-4272-a9a1-5da195013b3e
+“python:S116‘"NRename this field "X_test" to match the regular expression ^[_a-z][_a-z0-9]*$.(¸ù¼„8¼œæ’ú1J$e5a8031f-ccf0-495f-95be-d5faee655d50
+±python:S101ş"lRename class "RandomForest_tuner" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(õúÓ¢8¼œæ’ú1J$a92bce6e-4ec8-4f9e-b74d-6e840d2ebe3d
+—python:S117"RRename this parameter "X_test" to match the regular expression ^[_a-z][a-z0-9_]*$.(–®›î8½œæ’ú1J$66e2eeb0-70bc-4854-86ca-3f91d54a47ca
+˜python:S117"SRename this parameter "X_train" to match the regular expression ^[_a-z][a-z0-9_]*$.(–®›î8½œæ’ú1J$b91983f9-7678-4af6-a460-34f517725df8
+spython:S6973¢"NSpecify important hyperparameters when instantiating a Scikit-learn estimator.(ó«ÃÂüÿÿÿÿ8Ğ¥Åê‚2
+”python:S116Ñ"ORename this field "X_train" to match the regular expression ^[_a-z][_a-z0-9]*$.(¿Şß´8½œæ’ú1J$96b546bb-fbfe-4f57-80ea-557176e932ad
+“python:S116Ò"NRename this field "X_test" to match the regular expression ^[_a-z][_a-z0-9]*$.(¸ù¼„8½œæ’ú1J$a4ce7c93-058f-4baa-9b71-d0b433669aa6
+¨python:S101¿"cRename class "KNN_tuner" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(ŠáÚ»8½œæ’ú1J$931e9ea0-73a9-416f-ae24-e7176c0a1091
+—python:S117Ğ"RRename this parameter "X_test" to match the regular expression ^[_a-z][a-z0-9_]*$.(–®›î8½œæ’ú1J$0476406c-5caf-45d5-92b5-7aa75b73f2dd
+˜python:S117Ğ"SRename this parameter "X_train" to match the regular expression ^[_a-z][a-z0-9_]*$.(–®›î8½œæ’ú1J$33cf00fa-b4e9-40a8-8bf8-956338c5aa74

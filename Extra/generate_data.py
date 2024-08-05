@@ -1,43 +1,41 @@
-'''
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-from utils.supervised_learning import model_knn
-X, y = make_classification(n_samples=10000, n_classes=2 ,n_features=15, random_state=5)
-
-print(X.shape, y.shape)
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-print(X_train.shape, y_train.shape, X_test.shape, y_test.shape)
-knn = model_knn(X_train, X_test, y_train, y_test, 5)
-'''
 import pandas as pd
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
-from utils.supervised_learning import model_knn, model_rf, model_nb, model_cb, model_svm, model_xgboost
-from utils.unsupervised_learning import model_lof, model_pca, model_iforest, model_ecod, model_copod, model_cblof
-import matplotlib.pyplot as plt
-from math import sqrt
+from sklearn.preprocessing import StandardScaler, normalize
 
-datasets = [50, 150, 350, 550, 750, 1000]
+from utils.supervised_learning import model_knn, model_rf, model_nb, model_cb, model_svm, model_xgboost
+from utils.unsupervised_learning import model_lof, model_pca, model_iforest, model_ecod, model_copod, model_dbscan
+import matplotlib.pyplot as plt
+# Import the logger function
+from utils.logger import logger
+
+# Initialize the logger
+_logger = logger(__name__)
+
+
+datasets = [50000, 150000, 350000, 550000, 750000, 1000000]
 
 roc_auc = {
-    'CBLOF': [],
-    'Random Forest': [],
-    'PCA': []
-}
-f1_scores = {
-    'CBLOF': [],
-    'Random Forest': [],
-    'PCA': []
-}
-runtimes = {
-    'CBLOF': [],
-    'Random Forest': [],
-    'PCA': []
+    'DBSCAN': [],
 }
 
-for i in datasets:
-    X, y = make_classification(n_samples=i, n_features=15, n_classes=2, random_state=42)
+f1_scores = {
+    'DBSCAN': [],
+
+}
+runtimes = {
+    'DBSCAN': [],
+
+}
+
+for dataset in datasets:
+
+    X, y = make_classification(n_samples=dataset, n_features=25, n_classes=2, random_state=42)
+
+    scaler = StandardScaler()
+    X = scaler.fit_transform(X)
+    X = normalize(X)
+
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
@@ -48,29 +46,19 @@ for i in datasets:
 
     Testing the scalability of the supervised models with default parameters for each model.
     '''
-    # MODEL K-NEAREST NEIGHBORS (CBLOF)
-    k_value = 8
-    # Evaluate the CBLOF model using the best parameters
-    roc_auc_cblof, f1_score_cblof, runtime_cblof = model_cblof(X, y)
+    try:
+        # MODEL DBSCAN clustering
+        _logger.info('Starting DBSCAN Evaluation')
+        # Evaluate the DBSCAN model
+        roc_auc_dbscan, f1_score_dbscan, runtime_dbscan = model_dbscan(X, y, eps=0.8, min_samples=150)
+        _logger.info(f'DBSCAN Evaluation: ROC AUC Score={roc_auc_dbscan}, F1 Score={f1_score_dbscan}, Runtime={runtime_dbscan}')
+        roc_auc['DBSCAN'].append(roc_auc_dbscan)
+        f1_scores['DBSCAN'].append(f1_score_dbscan)
+        runtimes['DBSCAN'].append(runtime_dbscan)
+    except Exception as e:
+        _logger.error(f'Error evaluating DBSCAN model:{e}')
 
-    roc_auc['CBLOF'].append(roc_auc_cblof)
-    f1_scores['CBLOF'].append(f1_score_cblof)
-    runtimes['CBLOF'].append(runtime_cblof)
 
-    # MODEL RANDOM FOREST (RF)
-    rf_value = 10
-    # Evaluate the KNN model using the best parameters
-    roc_auc_rf, f1_score_rf, runtime_rf = model_rf(X_train, X_test, y_train, y_test, rf_value)
-
-    roc_auc['Random Forest'].append(roc_auc_rf)
-    f1_scores['Random Forest'].append(f1_score_rf)
-    runtimes['Random Forest'].append(runtime_rf)
-    # Evaluate the PCA model
-    roc_auc_pca, f1_score_pca, runtime_pca = model_pca(X, y)
-
-    roc_auc['PCA'].append(roc_auc_pca)
-    f1_scores['PCA'].append(f1_score_pca)
-    runtimes['PCA'].append(runtime_pca)
 
 
 '''

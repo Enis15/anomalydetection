@@ -11,9 +11,9 @@ from utils.logger import logger
 # Supervised learning models
 from utils.supervised_learning import model_knn, model_xgboost, model_svm, model_cb, model_nb, model_rf
 # Unsupervised learning models
-from utils.unsupervised_learning import model_lof, model_iforest, model_ecod, model_pca, model_kmeans, model_copod
+from utils.unsupervised_learning import model_lof, model_iforest, model_ecod, model_pca, model_dbscan, model_copod
 # Hyperparameter tuning functions
-from utils.paramet_tune import paramet_tune, Catboost_tuner, LOF_tuner, Kmeans_tuner, RandomForest_tuner
+from utils.paramet_tune import IsolationForest_tuner, KNN_tuner, XGBoost_tuner, Catboost_tuner, LOF_tuner, RandomForest_tuner, DBSCAN_tuner
 
 # Initialize the logger
 _logger = logger(__name__)
@@ -67,7 +67,7 @@ if __name__ == '__main__':
             'Model': modelname,
             'Estimator': estimator,
             'ROC_AUC_Score': roc_auc,
-            'F1 Score': f1_score,
+            'F1_Score': f1_score,
             'Runtime': runtime
         })
 
@@ -225,20 +225,22 @@ if __name__ == '__main__':
         _logger.error(f'Error evaluating Isolation Forest model:{e}')
 
     try:
-        # MODEL CLUSTER BASED LOCAL OUTLIER FACTOR (K-Means)
-        _logger.info('Starting K-Means Evaluation')
-        # Tune the K-Means model to get the best hyperparameters
-        # Code for hyper tune K-Means
-        k_means_tuner = Kmeans_tuner(X, y)
-        k_clusters = k_means_tuner.tune_model()
-        _logger.info(f'Best K-Means Model: {k_means_tuner}')
-        # Evaluate the K-Means model
-        roc_auc_kmeans, f1_score_kmeans, runtime_kmeans = model_kmeans(X, y, k_clusters)
-        append_metrics('K-Means', k_clusters, roc_auc_kmeans, f1_score_kmeans, runtime_kmeans)
-        _logger.info(
-            f'K-Means Evaluation: ROC AUC Score={roc_auc_kmeans}, F1 Score={f1_score_kmeans}, Runtime={runtime_kmeans}')
+        # MODEL DBSCAN
+        _logger.info('Starting DBSCAN Evaluation')
+        # Tune the DBSCAN model to get the best hyperparameters
+        # Code for hyper tune DBSCAN
+        dbscan_tuner = DBSCAN_tuner(X, y)
+        dbscan_cluster = dbscan_tuner.tune_model()
+        _logger.info(f'Best K-Means Model: {dbscan_cluster}')
+
+        best_eps = dbscan_cluster['eps']
+        best_min_samples = int(dbscan_cluster['min_samples'])
+        # Evaluate the DBSCAN model
+        roc_auc_dbscan, f1_score_dbscan, runtime_dbscan = model_dbscan(X, y, eps=best_eps, min_samples=best_min_samples)
+        append_metrics('DBSCAN', best_eps, roc_auc_dbscan, f1_score_dbscan, runtime_dbscan )
+        _logger.info(f'DBSCAN Evaluation: ROC AUC Score={roc_auc_dbscan}, F1 Score={f1_score_dbscan}, Runtime={runtime_dbscan}')
     except Exception as e:
-        _logger.error(f'Error evaluating K-Means model:{e}')
+        _logger.error(f'Error evaluating DBSCAN model:{e}')
 
     try:
         # MODEL COPULA BASED OUTLIER DETECTION (COPOD)
@@ -270,7 +272,7 @@ if __name__ == '__main__':
     metrics_df.to_csv('./Metrics(DS4).csv', index=False)
     _logger.info('The evaluation results are saved to CSV file.')
 
-    # Visualizing the results
+    # Visualizing the results ROC-AUC Score - Runtime
     plt.figure(figsize=(10, 6))
     plt.scatter(metrics_df['Runtime'], metrics_df['ROC_AUC_Score'], color='blue', s=100)
     texts = []
@@ -284,3 +286,16 @@ if __name__ == '__main__':
     plt.savefig('./ROC_AUC_vs_Runtime(DS4).png', bbox_inches='tight')
     plt.show()
 
+# Visualizing the results F1 Score - Runtime
+plt.figure(figsize=(10, 6))
+plt.scatter(metrics_df['Runtime'], metrics_df['F1_Score'], color='blue', s=100)
+texts = []
+for i, txt in enumerate(metrics_df['Model']):
+    texts.append(plt.text(metrics_df['Runtime'][i], metrics_df['F1_Score'][i], txt, fontsize=12))
+adjust_text(texts=texts, arrowprops=dict(arrowstyle='-', color='grey'))
+plt.grid(True)
+plt.xlabel('Runtime', fontsize=14, fontweight='bold')
+plt.ylabel('F1 Score', fontsize=14, fontweight='bold')
+plt.title('F1 Score vs Runtime comparison', fontsize=16, fontweight='bold')
+plt.savefig('./F1_Score_vs_Runtime.png(DS4)', bbox_inches='tight')
+plt.show()

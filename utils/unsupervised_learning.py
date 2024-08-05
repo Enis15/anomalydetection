@@ -1,11 +1,14 @@
-from sklearn.metrics import roc_auc_score, f1_score
 import time
+import numpy as np
+from sklearn.metrics import roc_auc_score, f1_score
+
+# Import the models
 from pyod.models.iforest import IForest
 from sklearn.neighbors import LocalOutlierFactor
 from pyod.models.pca import PCA
 from pyod.models.ecod import ECOD
 from pyod.models.copod import COPOD
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, DBSCAN
 
 # Define function for LOF (Local Outlier Factor) Algorithm
 def model_lof(X, y, n_neighbors):
@@ -27,7 +30,7 @@ def model_lof(X, y, n_neighbors):
     # Define the model and the parameters
     model = LocalOutlierFactor(n_neighbors=n_neighbors, metric='minkowski', n_jobs=-1)
 
-    # Get the prediction labels and scores for the test data
+    # Get the prediction labels and scores
     X_labels = model.fit_predict(X)  # Outlier labels (1 = outliers & -1 = inliners)
 
     # Convert LOF labels (-1, 1) to (1, 0)
@@ -65,7 +68,7 @@ def model_kmeans(X, y, k):
     model = KMeans(n_clusters=k, init='random', random_state=42)
     model.fit(X)
 
-    #Get the prediction labels and scores for the test data
+    #Get the prediction labels and scores
     X_labels = model.predict(X)  #Outlier labels (1 = outliers & 0 = inliers)
 
     #Evaluation metrics
@@ -101,7 +104,7 @@ def model_iforest(X, y, n_estimators):
     model = IForest(n_estimators=n_estimators, random_state=42)
     model.fit(X)
 
-    # Get the prediction labels and scores for the test data
+    # Get the prediction labels and scores
     X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliners)
     X_scores = model.decision_function(X)  # The raw outlier scores
 
@@ -137,7 +140,7 @@ def model_pca(X, y):
     model = PCA()
     model.fit(X)
 
-    # Get the prediction labels and scores for the test data
+    # Get the prediction labels and scores
     X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliners)
     X_scores = model.decision_function(X)  # The raw outlier scores
 
@@ -173,7 +176,7 @@ def model_copod(X, y):
     model = COPOD()
     model.fit(X)
 
-    # Get the prediction labels and scores for the test data
+    # Get the prediction labels and scores
     X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliners)
     X_scores = model.decision_function(X)  # The raw outlier scores
 
@@ -208,7 +211,7 @@ def model_ecod(X, y):
     model = ECOD()
     model.fit(X)
 
-    # Get the prediction labels and scores for the test data
+    # Get the prediction labels and scores
     X_labels = model.predict(X)  # Outlier labels (1 = outliers & 0 = inliners)
     X_scores = model.decision_function(X)  # The raw outlier scores
 
@@ -223,3 +226,41 @@ def model_ecod(X, y):
           f'Time elapsed: {runtime_ecod}')
 
     return roc_auc_ecod, f1_score_ecod, runtime_ecod
+
+def model_dbscan(X, y, eps, min_samples):
+    """
+    DBSCAN Algorithm for anomaly detection.
+
+    Parameters:
+        X: Input dataframe, where rows are samples and columns are features.
+        y: True labels, used to for evaluation metrics
+
+    Returns:
+        tuple: roc_auc score, f1 score and runtime of DBSCAN algorithm.
+    """
+    # Record start time
+    start_time = time.time()
+
+    # Define model and its parameters
+    model = DBSCAN(eps=eps, min_samples=min_samples, metric='euclidean')
+    model.fit(X)
+
+    # Get the prediction labels
+    X_labels = model.labels_
+
+    # Convert DBSCAN labels (-1, 1) to (1, 0)
+    X_label = np.where(X_labels == -1, 1, 0)
+
+    # Evaluation Metrics
+    roc_auc_dbscan = round(roc_auc_score(y, X_label), 3)
+    f1_score_dbscan = round(f1_score(y, X_label, average='weighted'), 3)
+    runtime_dbscan = round(time.time() - start_time, 3)
+
+    print(f'Evaluation metrics for DBSCAN model are: \n'
+          f'ROC AUC: {roc_auc_dbscan}\n'
+          f'F1 score: {f1_score_dbscan}\n'
+          f'Time elapsed: {runtime_dbscan}')
+
+    return roc_auc_dbscan, f1_score_dbscan, runtime_dbscan
+
+

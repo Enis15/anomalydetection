@@ -1,85 +1,57 @@
-from sklearn import svm
-from pyod.utils.data import generate_data
+import os
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from multiprocessing import freeze_support
+from adjustText import adjust_text
 import matplotlib.pyplot as plt
-from sklearn.metrics import roc_curve, roc_auc_score, accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
-import time
+from sklearn.cluster import DBSCAN
+from sklearn.preprocessing import StandardScaler, normalize
 
+from sklearn.datasets import make_classification
+from sklearn.metrics import roc_auc_score, f1_score, accuracy_score
+from utils.paramet_tune import DBSCAN_tuner
+"""
+df = pd.read_csv('../data/datasets/Labeled_DS/Fraud.csv')
 
-#Dataset sizes to evaluate scalability
-dataset_sizes = [10000, 20000, 30000, 40000, 50000, 60000]
+df = df.drop({'nameOrig', 'nameDest'}, axis=1)
+df['type'] = df['type'].map({'CASH_OUT': 5, 'PAYMENT': 4, 'CASH_IN': 3, 'TRANSFER': 2, 'DEBIT': 1})
 
+X = df.drop(['isFraud'], axis=1)
+y = df['isFraud'].values
 
-clf_name = 'SVM'
-clf = svm.SVC()
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
 
-#List of evaluation metrics
-execution_times = []
-roc_auc_scores = []
-accuracy_scores = []
-precision_scores = []
-recall_scores = []
-f1_scores = []
+X = normalize(X)
+X = pd.DataFrame(X)
 
-for size in dataset_sizes:
-    #print(f'Evaluating dataset size: {size}')
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-    #Generating synthetic data
-    X_train, X_test, y_train, y_test = generate_data(n_train=size, n_test=(size*0.3), n_features=2, contamination=0.1, random_state=42)
+clf = DBSCAN(eps=0.3, min_samples=50)
+X_labels = clf.fit(X)
+lables = X_labels.labels_
+"""
 
-    #Measure execution time
-    start_time = time.time()
+X, y = make_classification(n_samples=10000, n_features=5, n_classes=2, random_state=42)
 
-    #Fit the model
-    clf.fit(X_train, y_train)
+dbscan_tuner = DBSCAN_tuner(X, y)
+best_model = dbscan_tuner.tune_model()
+b_eps = best_model['eps']
+b_min_samples = int(best_model['min_samples'])
 
-    #Make predicitons on test data
-    y_pred = clf.predict(X_test)
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
 
-    # Runtime evaluation
-    execution_times.append(time.time() - start_time)
+X = normalize(X)
+X = pd.DataFrame(X)
 
-    #Evalution metrics
-    roc_auc_scores.append(roc_auc_score(y_test, y_pred))
-    accuracy_scores.append(accuracy_score(y_test, y_pred))
-    precision_scores.append(precision_score(y_test, y_pred))
-    recall_scores.append(recall_score(y_test, y_pred))
-    f1_scores.append(f1_score(y_test, y_pred))
+clf = DBSCAN(eps=b_eps, min_samples=b_min_samples).fit(X)
+X_labels = clf.labels_
 
-    #print('Run time is:', round(time.time() - start_time, 3), 'seconds')
+print(X_labels)
 
-#Printing the results for the evaluation metrics
-for i, size in enumerate(dataset_sizes):
-    print(f'Evaluation metrics for dataset size {size} are: \n'
-      f'ROC_AUC: {roc_auc_scores[i]}\n'
-      f'Accuracy: {accuracy_scores[i]}\n'
-      f'Precision: {precision_scores[i]}\n'
-      f'Recall: {recall_scores[i]}\n'
-      f'F1: {f1_scores[i]}\n'
-      f'Execution time: {execution_times[i]}')
+roc_auc = roc_auc_score(y, X_labels, average='weighted')
+f1 = f1_score(y, X_labels, average='weighted')
 
-#Plot results
-plt.figure(figsize=(12, 6))
-
-#Plot for runtime
-plt.subplot(1, 2, 1)
-plt.plot(dataset_sizes, execution_times, marker='.', color='teal')
-plt.xlabel('Dataset size')
-plt.ylabel('Execution Time(seconds)')
-plt.title('Dataset size vs Execution time (SVM)')
-# plt.savefig('SVM_time.png', bbox_inches='tight')
-
-#Plots for the metrics
-plt.subplot(1, 2, 2)
-plt.plot(dataset_sizes, roc_auc_scores, marker='.', label='ROC AUC', color='royalblue')
-plt.plot(dataset_sizes, accuracy_scores, marker='.', label='Accuracy', color='forestgreen')
-plt.plot(dataset_sizes, precision_scores, marker='.', label='Precision', color='firebrick')
-plt.plot(dataset_sizes, recall_scores, marker='.', label='Recall', color='orange')
-plt.plot(dataset_sizes, f1_scores, marker='.', label='F1 score', color='violet')
-plt.xlabel('Dataset size')
-plt.ylabel('Score')
-plt.title('Dataset size vs Evaluation Metrics (SVM)')
-plt.legend()
-# plt.savefig('SVM_metrics.png', bbox_inches='tight')
-
-plt.tight_layout()
-plt.show()
+print(roc_auc)
+print(f1)
