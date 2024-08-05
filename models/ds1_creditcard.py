@@ -50,7 +50,6 @@ if __name__ == '__main__':
             'F1_Score': f1_score,
             'Runtime': runtime
         })
-
     '''
     ===============================
     SUPERVISED LEARNING ALGORITHMS
