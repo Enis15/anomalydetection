@@ -120,7 +120,7 @@ def model_svm(X, y, scorer, kf):
     start_time = time.time()
 
     # Define the model and the parameters
-    clf  = svm.SVC()
+    clf = svm.SVC()
 
     # Evaluation metrics for each fold
     results = cross_validate(estimator=clf, X=X, y=y, cv=kf, scoring=scorer)
