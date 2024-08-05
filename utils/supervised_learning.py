@@ -66,7 +66,7 @@ def model_xgboost(X, y, n_estimators, max_depth, learning_rate, scorer, kf):
     Returns:
         tuple: roc_auc score, f1 score and runtime of XGBooost algorithm.
     """
-    # Record the start time
+    # Record the start times
     start_time = time.time()
 
     # Create a dictionary with the parameters needed to initiate the classifier
