@@ -13,9 +13,9 @@ from pyod.models.iforest import IForest
 
 
 '''
-================================
+=======================================
 Isolation Forest parameter optimization
-================================
+=======================================
 '''
 
 class IsolationForest_tuner:
