@@ -21,27 +21,22 @@ Isolation Forest parameter optimization
 class IsolationForest_tuner:
     """
     Hyperparameter tuning for Local Outlier Factor (LOF) classifier.
-
     Parameters:
         X (array-like): Features.
         y (array-like): Labels.
-
     Methods:
         -objective(params): Defines the optimization objective for hyperparameter tuning.
         -tune_model(): Performs hyperparameter tuning using Bayesian optimization.
-
     Examples usage:
     if_tuner=IsolationForest_tuner(X, y)
     best_n_neighbors = if_tuner.tune_model() --> Used to train the final Isolation Forest model with optimal parameters.
     """
-
     def __init__(self, X, y):
         """
         Initialize the hyperparameter tuning object.
-
         Parameters:
-             X (array-like): Training data features.
-             y (array-like): Ground truth labels.
+            X (array-like): Training data features.
+            y (array-like): Ground truth labels.
         """
         self.X = X
         self.y = y
@@ -50,10 +45,8 @@ class IsolationForest_tuner:
     def objective(self, params):
         """
         Defines the optimization objective for hyperparameter tuning.
-
         Parameters:
             params (dict): Dictionary of hyperparameter tuning parameters.
-
         Returns:
             dict: Dictionary containing the loss (negative Accuracy score) and status.
         """
@@ -61,13 +54,11 @@ class IsolationForest_tuner:
         accuracy_scores = [] # To store the accuracy score for each fold
 
         # Perform cross validation manually
-
         for train_index, test_index in self.kf.split(self.X):
             X_train, X_test = self.X[train_index], self.X[test_index]
             y_train, y_test = self.y[train_index], self.y[test_index]
 
             # Define the model
-
             clf = IForest(n_estimators=n_estimators, random_state=42)
 
             # Fit the model
@@ -75,8 +66,7 @@ class IsolationForest_tuner:
 
             # Predict on labels as (0, 1)
             y_pred = clf.predict(X_test)
-
-           # Calculate the accuracy scores and appended to the list
+            # Calculate the accuracy scores and appended to the list
             accuracy = accuracy_score(y_test, y_pred)
             accuracy_scores.append(accuracy)
 
@@ -88,7 +78,6 @@ class IsolationForest_tuner:
     def tune_model(self):
         """
         Performs hyperparameter tuning using Bayesian optimization.
-
         Returns:
             dict: Best number of neighbors obtained from tuning.
         """
@@ -96,9 +85,7 @@ class IsolationForest_tuner:
         space = {
             'n_estimators': hp.quniform('n_estimators', 100, 1000, 10)
         }
-
         trials = Trials()
-
         # Save the best model
         best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
         print('Best parameters:', best)
@@ -114,19 +101,15 @@ XGBoost parameter optimization
 class XGBoost_tuner:
     """
     Hyperparameter tuning for XGBoost
-
     Parameters:
         X (array-like): Features.
         y (array-like): Labels.
-
     Methods:
         -objective(params): Defines the optimization objective for hyperparameter tuning.
         -tune_model(): Performs hyperparameter tuning using Bayesian optimization.
-
     Examples usage:
     xgboost_tuner=XGBoost_tuner(X, y)
     best_params = xgboost_tuner.tune_model() --> Used to train the final XGBoost model with optimal parameters.
-
     """
 
     def __init__(self, X, y):
@@ -137,10 +120,8 @@ class XGBoost_tuner:
     def objective(self, params):
         """
         Defines the optimization objective for hyperparameter tuning.
-
         Parameters:
         params (dict): Dictionary of hyperparameter tuning parameters.
-
         Returns:
         dict: Dictionary containing the loss (negative Accuracy score) and status.
         """
@@ -154,8 +135,7 @@ class XGBoost_tuner:
                             learning_rate = learning_rate)
 
         # Calculate the performance metrics with cross validation for each fold
-        results = cross_val_score(clf, X=self.X, y=self.y, cv=kf, scoring='accuracy')
-
+        results = cross_val_score(clf, X=self.X, y=self.y, cv=self.kf, scoring='accuracy')
         # Calculate the mean accuracy score for all folds
         accuracy = results.mean()
 
@@ -164,13 +144,11 @@ class XGBoost_tuner:
     def tune_model(self):
         '''
         Performs hyperparameter tuning using Bayesian optimization.
-
         Returns:
             dict: Dictionary containing the loss (negative Accuracy score) and status.
         '''
 
         # Define the space to search for the optimized parameters
-
         space = {
             'max_depth': hp.quniform('max_depth', 2, 10, 1),
             'n_estimators': hp.quniform('n_estimators', 100, 1000, 10),
@@ -178,7 +156,6 @@ class XGBoost_tuner:
         }
 
         trials = Trials()
-
         # Save the best model
         best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
         print('Best parameters:', best)
@@ -193,16 +170,12 @@ CatBoost parameter optimization
 class Catboost_tuner:
     """
     Hyperparameter tuning for CatBoost classifier.
-
     Parameters:
         X (array-like): Features.
         y (array-like): Labels.
-
-
     Methods:
         -objective(params): Defines the optimization objective for hyperparameter tuning.
         -tune_model(): Performs hyperparameter tuning using Bayesian optimization.
-
     Examples usage:
     catboost_tuner=Catboost_tuner(X, y)
     best_params = catboost_tuner.tune_model() --> Used to train the final CatBoost model with optimal parameters.
@@ -211,14 +184,13 @@ class Catboost_tuner:
     def __init__(self, X, y):
         self.X = X
         self.y = y
+        self.kf = KFold(n_splits=5, random_state=42, shuffle=True)
 
     def objective(self, params):
         """
         Defines the optimization objective for hyperparameter tuning.
-
         Parameters:
             params (dict): Dictionary of hyperparameter tuning parameters.
-
         Returns:
             dict: Dictionary containing the loss (negative Accuracy score) and status.
         """
@@ -236,7 +208,7 @@ class Catboost_tuner:
         )
 
         # Calculate the performance metrics with cross validation for each fold
-        results = cross_val_score(clf, X=self.X, y=self.y, cv=kf, scoring='accuracy')
+        results = cross_val_score(clf, X=self.X, y=self.y, cv=self.kf, scoring='accuracy')
 
         # Calculate the mean accuracy score for all folds
         accuracy = results.mean()
@@ -246,7 +218,6 @@ class Catboost_tuner:
     def tune_model(self):
         """
         Performs hyperparameter tuning using Bayesian optimization.
-
         Returns:
             dict: Best hyperparameters obtained from tuning.
         """
@@ -257,7 +228,6 @@ class Catboost_tuner:
             'depth': hp.quniform('depth', 4, 10, 1),
         }
         trials = Trials()
-
         # Save the best model
         best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
         print('Best parameters:', best)
@@ -273,15 +243,12 @@ LOF parameter optimization
 class LOF_tuner:
     """
     Hyperparameter tuning for Local Outlier Factor (LOF) classifier.
-
     Parameters:
         X (array-like): Features.
         y (array-like): Labels.
-
     Methods:
         -objective(params): Defines the optimization objective for hyperparameter tuning.
         -tune_model(): Performs hyperparameter tuning using Bayesian optimization.
-
     Examples usage:
     lof_tuner=LOF_tuner(X, y)
     best_n_neighbors = lof_tuner.tune_model() --> Used to train the final LOF model with optimal parameters.
@@ -290,10 +257,9 @@ class LOF_tuner:
     def __init__(self, X, y):
         """
         Initialize the hyperparameter tuning object.
-
         Parameters:
-             X (array-like): Training data features.
-             y (array-like): Ground truth labels.
+            X (array-like): Training data features.
+            y (array-like): Ground truth labels.
         """
         self.X = X
         self.y = y
@@ -302,10 +268,8 @@ class LOF_tuner:
     def objective(self, params):
         """
         Defines the optimization objective for hyperparameter tuning.
-
         Parameters:
             params (dict): Dictionary of hyperparameter tuning parameters.
-
         Returns:
             dict: Dictionary containing the loss (negative Accuracy score) and status.
         """
@@ -341,7 +305,6 @@ class LOF_tuner:
     def tune_model(self):
         """
         Performs hyperparameter tuning using Bayesian optimization.
-
         Returns:
             dict: Best number of neighbors obtained from tuning.
         """
@@ -351,11 +314,9 @@ class LOF_tuner:
         }
 
         trials = Trials()
-
         # Save the best model
         best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
         print('Best parameters:', best)
-
         return int(best['n_neighbors'])
 
 '''
@@ -370,7 +331,6 @@ class RandomForest_tuner:
     Parameters:
         X (array-like): Features.
         y (array-like): Labels.
-
         Methods:
             -objective(params): Defines the optimization objective for hyperparameter tuning.
             -tune_model(): Performs hyperparameter tuning using Random Forest classifier.
@@ -387,20 +347,21 @@ class RandomForest_tuner:
     def objective(self, params):
         """
         Defines the optimization objective for hyperparameter tuning.
-
             Parameters:
                 params (dict): Dictionary of hyperparameter tuning parameters.
-
             Returns:
                 dict: Dictionary containing the loss (negative Accuracy score) and status.
             """
         n_estimators = int(params['n_estimators'])
         max_depth = int(params['max_depth'])
 
+        # Define the model
         clf = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth, random_state=42, n_jobs=-1)
 
+        # Calculate the performance metrics with cross validation for each fold
         results = cross_val_score(clf, X=self.X, y=self.y, cv=5, scoring='accuracy')
 
+        # Calculate the mean accuracy score for all folds.
         accuracy = results.mean()
 
         return {'loss': -accuracy, 'status': STATUS_OK, 'accuracy_score': accuracy}
@@ -408,7 +369,6 @@ class RandomForest_tuner:
     def tune_model(self):
         """
         Performs hyperparameter tuning using Bayesian optimization.
-
         Returns:
             dict: Best number of neighbors obtained from tuning.
         """
@@ -419,11 +379,9 @@ class RandomForest_tuner:
         }
 
         trials = Trials()
-
         # Save the best model
         best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
         print('Best parameters:', best)
-
         return best
 
 '''
@@ -437,7 +395,6 @@ class KNN_tuner:
     Parameters:
         X (array-like): Features.
         y (array-like): Labels.
-
         Methods:
             -objective(params): Defines the optimization objective for hyperparameter tuning.
             -tune_model(): Performs hyperparameter tuning using Random Forest classifier.
@@ -454,19 +411,20 @@ class KNN_tuner:
     def objective(self, params):
         """
         Defines the optimization objective for hyperparameter tuning.
-
             Parameters:
                 params (dict): Dictionary of hyperparameter tuning parameters.
-
             Returns:
                 dict: Dictionary containing the loss (negative Accuracy score) and status.
             """
         n_neighbors = int(params['n_neighbors'])
 
+        # Define the model
         clf = KNeighborsClassifier(n_neighbors=n_neighbors, n_jobs=-1)
 
+        # Calculate the performance metrics with cross validation for each fold
         results = cross_val_score(clf, X=self.X, y=self.y, cv=5, scoring='accuracy')
 
+        # Calculate the mean accuracy score for all folds.
         accuracy = results.mean()
 
         return {'loss': -accuracy, 'status': STATUS_OK, 'accuracy_score': accuracy}
@@ -474,7 +432,6 @@ class KNN_tuner:
     def tune_model(self):
         """
         Performs hyperparameter tuning using Bayesian optimization.
-
         Returns:
             dict: Best number of neighbors obtained from tuning.
         """
@@ -484,11 +441,9 @@ class KNN_tuner:
         }
 
         trials = Trials()
-
         # Save the best model
         best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
         print('Best parameters: ', best)
-
         return best
 
 '''
@@ -500,28 +455,23 @@ DBSCAN parameter optimization
 class DBSCAN_tuner:
     """
     Hyperparameter tuning for K=means classifier.
-
     Parameters:
         X (array-like): Features.
         y (array-like): Labels.
-
     Methods:
         -objective(params): Defines the optimization objective for hyperparameter tuning.
         -tune_model(): Performs hyperparameter tuning using Bayesian optimization.
-
     Examples usage:
     dbscan_tuner=DBSCAN_tuner(X, y)
     best_eps = dbscan_tuner.tune_model() --> Used to run the final DBSCAN model with optimal parameters.
     """
 
-
     def __init__(self, X, y):
         """
         Initialize the hyperparameter tuning object.
-
         Parameters:
-             X (array-like):  Data features.
-             y (array-like): Ground truth labels.
+            X (array-like):  Data features.
+            y (array-like): Ground truth labels.
         """
         self.X = X
         self.y = y
@@ -530,10 +480,8 @@ class DBSCAN_tuner:
     def objective(self, params):
         """
         Defines the optimization objective for hyperparameter tuning.
-
         Parameters:
             params (dict): Dictionary of hyperparameter tuning parameters.
-
         Returns:
             dict: Dictionary containing the loss (negative Accuracy score) and status.
         """
@@ -568,7 +516,6 @@ class DBSCAN_tuner:
     def tune_model(self):
         """
         Performs hyperparameter tuning using Bayesian optimization.
-
         Returns:
             dict: Best number of neighbors obtained from tuning.
         """
@@ -579,7 +526,6 @@ class DBSCAN_tuner:
         }
 
         trials = Trials()
-
         # Save the best model
         best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
         print('Best parameters: ', best)

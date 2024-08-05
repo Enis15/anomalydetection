@@ -29,11 +29,9 @@ df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
 X = df.drop('Class', axis=1)
 y = df['Class'].values
 
-# Split the df into train and test datasets
-#X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-scorer = {'f1_score':make_scorer(f1_score), 'roc_auc':make_scorer(roc_auc_score)}
-kf = KFold(n_splits=5, shuffle=True, random_state=42)
+# Setting the fold splits for unsupervised learning models
+scorer = {'f1_score':make_scorer(f1_score), 'roc_auc':make_scorer(roc_auc_score)} # Metrics for cross validation performance
+kf = KFold(n_splits=5, shuffle=True, random_state=42) # Fold splits
 
 
 if __name__ == '__main__':
