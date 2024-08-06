@@ -1,2 +1,3 @@
-Model,Estimator,ROC_AUC_Score,F1 Score,Runtime
-KNN,4,0.809,0.999,138.133
+version https://git-lfs.github.com/spec/v1
+oid sha256:6013fd40f151cb03656081842582586bbd01c23c079f67456ef7816b024e15e9
+size 73

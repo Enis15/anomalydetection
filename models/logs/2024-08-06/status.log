@@ -1,0 +1,49 @@
+2024-08-06 00:18:09,286 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 04:02:01,963 - __main__ - INFO - Best K-Nearest Neighbor Model: {'n_neighbors': 100.0}
+2024-08-06 04:08:03,643 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.5, F1 SCORE=0.0, Runtime=361.673
+2024-08-06 04:08:03,644 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-08-06 12:07:09,072 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 12:12:36,016 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.5, F1 SCORE=0.0, Runtime=326.938
+2024-08-06 12:12:36,017 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-08-06 12:14:03,924 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 12:19:02,883 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.5, F1 SCORE=0.0, Runtime=298.955
+2024-08-06 12:19:02,884 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-08-06 12:33:09,561 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 12:34:37,484 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 12:35:37,749 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 12:36:14,993 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 15:01:59,810 - __main__ - ERROR - Error evaluating Random Forest Classifier model:model_rf() missing 2 required positional arguments: 'scorer' and 'kf'
+2024-08-06 15:01:59,811 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-08-06 15:36:19,406 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=0.895, F1 SCORE=0.864, Runtime=1997.252
+2024-08-06 15:36:19,410 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-08-06 15:57:59,969 - __main__ - INFO - Best XGBoost Model: {'learning_rate': 0.08655375417961024, 'max_depth': 6.0, 'n_estimators': 870.0}
+2024-08-06 15:58:16,771 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.906, F1 Score=0.796, Runtime=16.797
+2024-08-06 15:58:16,773 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-08-06 15:59:16,691 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.5, F1 Score=0.0, Runtime=59.917
+2024-08-06 15:59:16,693 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-08-06 15:59:17,168 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.818, F1 Score=0.237, Runtime=0.475
+2024-08-06 15:59:17,168 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-08-06 18:15:52,571 - __main__ - INFO - Best CatBoost Classifier Model: <utils.paramet_tune.Catboost_tuner object at 0x14fe5d120>
+2024-08-06 18:21:19,971 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score= 0.898, F1 Score= 0.87, Runtime= 327.394
+2024-08-06 18:21:19,972 - __main__ - INFO - Starting LOF Evaluation
+2024-08-06 18:21:20,043 - __main__ - ERROR - Error evaluating LOF model:"None of [Index([     1,      2,      3,      4,      5,      7,      8,      9,     10,\n           13,\n       ...\n       284793, 284796, 284797, 284799, 284800, 284801, 284802, 284804, 284805,\n       284806],\n      dtype='int64', length=227845)] are in the [columns]"
+2024-08-06 18:21:20,044 - __main__ - INFO - Starting PCA Evaluation
+2024-08-06 18:21:20,086 - __main__ - ERROR - Error evaluating PCA model:"None of [Index([     1,      2,      3,      4,      5,      7,      8,      9,     10,\n           13,\n       ...\n       284793, 284796, 284797, 284799, 284800, 284801, 284802, 284804, 284805,\n       284806],\n      dtype='int64', length=227845)] are in the [columns]"
+2024-08-06 18:21:20,087 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-08-06 18:21:20,129 - __main__ - ERROR - Error evaluating Isolation Forest model:"None of [Index([     1,      2,      3,      4,      5,      7,      8,      9,     10,\n           13,\n       ...\n       284793, 284796, 284797, 284799, 284800, 284801, 284802, 284804, 284805,\n       284806],\n      dtype='int64', length=227845)] are in the [columns]"
+2024-08-06 18:21:20,130 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-08-06 18:21:20,172 - __main__ - ERROR - Error evaluating DBSCAN model:"None of [Index([     1,      2,      3,      4,      5,      7,      8,      9,     10,\n           13,\n       ...\n       284793, 284796, 284797, 284799, 284800, 284801, 284802, 284804, 284805,\n       284806],\n      dtype='int64', length=227845)] are in the [columns]"
+2024-08-06 18:21:20,173 - __main__ - INFO - Starting COPOD Evaluation
+2024-08-06 18:21:20,213 - __main__ - ERROR - Error evaluating COPOD model:"None of [Index([     1,      2,      3,      4,      5,      7,      8,      9,     10,\n           13,\n       ...\n       284793, 284796, 284797, 284799, 284800, 284801, 284802, 284804, 284805,\n       284806],\n      dtype='int64', length=227845)] are in the [columns]"
+2024-08-06 18:21:20,213 - __main__ - INFO - Starting ECOD Evaluation
+2024-08-06 18:21:20,252 - __main__ - ERROR - Error evaluating ECOD model:"None of [Index([     1,      2,      3,      4,      5,      7,      8,      9,     10,\n           13,\n       ...\n       284793, 284796, 284797, 284799, 284800, 284801, 284802, 284804, 284805,\n       284806],\n      dtype='int64', length=227845)] are in the [columns]"
+2024-08-06 18:21:20,305 - __main__ - INFO - The evaluation results are saved to CSV file.
+2024-08-06 23:48:53,289 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 23:50:59,503 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 23:56:18,829 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.5, F1 SCORE=0.0, Runtime=319.323
+2024-08-06 23:56:18,831 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-08-06 23:57:34,287 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 23:58:44,668 - __main__ - INFO - Starting KNN Evaluation
+2024-08-06 23:59:08,566 - __main__ - INFO - Starting KNN Evaluation
+2024-08-07 00:00:39,122 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.871, F1 SCORE=0.786, Runtime=90.554
+2024-08-07 00:00:39,126 - __main__ - INFO - Starting Random Forest Classifier Evaluation

@@ -1,6 +1,6 @@
 import numpy as np
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import cross_val_score, KFold
 
 # Import the models
@@ -51,29 +51,30 @@ class IsolationForest_tuner:
             dict: Dictionary containing the loss (negative Accuracy score) and status.
         """
         n_estimators = int(params['n_estimators'])
-        accuracy_scores = [] # To store the accuracy score for each fold
+        roc_auc_scores = [] # To store the accuracy score for each fold
 
         # Perform cross validation manually
         for train_index, test_index in self.kf.split(self.X):
             X_train, X_test = self.X[train_index], self.X[test_index]
             y_train, y_test = self.y[train_index], self.y[test_index]
 
-            # Define the model
+            # Define the model and the parameters
             clf = IForest(n_estimators=n_estimators, random_state=42)
-
             # Fit the model
             clf.fit(X_train)
-
-            # Predict on labels as (0, 1)
+            # Predict on labels
             y_pred = clf.predict(X_test)
-            # Calculate the accuracy scores and appended to the list
-            accuracy = accuracy_score(y_test, y_pred)
-            accuracy_scores.append(accuracy)
+            y_pred =  (y_pred == -1).astype(int) # Convert the labels (-1, 1) to (0, 1)
+            # Calculate the decision scores
+            y_score = clf.decision_function(X_test) # Raw label scores
+            # Calculate the roc auc scores and appended to the list
+            roc_auc = roc_auc_score(y_test, y_score)
+            roc_auc_scores.append(roc_auc)
 
         # Calculate the mean accuracy score for all folds.
-        mean_accuracy = np.mean(accuracy_scores)
+        mean_roc_auc = np.mean(roc_auc_scores)
 
-        return {'loss': -mean_accuracy, 'status': STATUS_OK, 'accuracy_score': mean_accuracy}
+        return {'loss': -mean_roc_auc, 'status': STATUS_OK, 'accuracy_score': mean_roc_auc}
 
     def tune_model(self):
         """
@@ -133,13 +134,12 @@ class XGBoost_tuner:
         clf = XGBClassifier(max_depth = max_depth,
                             n_estimators = n_estimators,
                             learning_rate = learning_rate)
-
         # Calculate the performance metrics with cross validation for each fold
-        results = cross_val_score(clf, X=self.X, y=self.y, cv=self.kf, scoring='accuracy')
+        results = cross_val_score(clf, X=self.X, y=self.y, cv=self.kf, scoring='roc_auc')
         # Calculate the mean accuracy score for all folds
-        accuracy = results.mean()
+        mean_roc_auc = results.mean()
 
-        return {'loss': -accuracy, 'status': STATUS_OK, 'accuracy_score': accuracy}
+        return {'loss': -mean_roc_auc, 'status': STATUS_OK, 'accuracy_score': mean_roc_auc}
 
     def tune_model(self):
         '''
@@ -180,7 +180,6 @@ class Catboost_tuner:
     catboost_tuner=Catboost_tuner(X, y)
     best_params = catboost_tuner.tune_model() --> Used to train the final CatBoost model with optimal parameters.
     """
-
     def __init__(self, X, y):
         self.X = X
         self.y = y
@@ -197,7 +196,6 @@ class Catboost_tuner:
         iterations = int(params['iterations'])
         learning_rate = params['learning_rate']
         depth = int(params['depth'])
-
         # Define the model and its parameters
         clf = CatBoostClassifier(
             iterations= iterations,
@@ -206,14 +204,12 @@ class Catboost_tuner:
             loss_function='Logloss',
             verbose=False
         )
-
         # Calculate the performance metrics with cross validation for each fold
-        results = cross_val_score(clf, X=self.X, y=self.y, cv=self.kf, scoring='accuracy')
-
+        results = cross_val_score(clf, X=self.X, y=self.y, cv=self.kf, scoring='roc_auc')
         # Calculate the mean accuracy score for all folds
-        accuracy = results.mean()
+        mean_roc_auc = results.mean()
 
-        return {'loss': -accuracy, 'status': STATUS_OK, 'accuracy_score': accuracy}
+        return {'loss': -mean_roc_auc, 'status': STATUS_OK, 'accuracy_score': mean_roc_auc}
 
     def tune_model(self):
         """
@@ -253,7 +249,6 @@ class LOF_tuner:
     lof_tuner=LOF_tuner(X, y)
     best_n_neighbors = lof_tuner.tune_model() --> Used to train the final LOF model with optimal parameters.
     """
-
     def __init__(self, X, y):
         """
         Initialize the hyperparameter tuning object.
@@ -274,7 +269,7 @@ class LOF_tuner:
             dict: Dictionary containing the loss (negative Accuracy score) and status.
         """
         n_neighbors = int(params['n_neighbors'])
-        accuracy_scores = [] # To store the accuracy score for each fold
+        roc_auc_scores = [] # To store the accuracy score for each fold
 
         # Perform cross validation manually
         for train_index, test_index in self.kf.split(self.X):
@@ -283,24 +278,20 @@ class LOF_tuner:
 
             # Define the model
             clf = LocalOutlierFactor(n_neighbors=n_neighbors, metric='minkowski', n_jobs=-1)
-
             # Fit the model
             clf.fit(X_train)
-
             # Predict the labels
             y_pred = clf.fit_predict(X_test)
-
-            # Convert LOF labels (-1, 1) to (1, 0)
-            y_pred = (y_pred == -1).astype(int)
-
+            y_pred = (y_pred == -1).astype(int) # Convert LOF labels (-1, 1) to (1, 0)
+            # Calculate the decision scores
+            y_score = -clf.negative_outlier_factor_
             # Calculate the accuracy scores and appended to the list
-            accuracy = accuracy_score(y_test, y_pred)
-            accuracy_scores.append(accuracy)
-
+            roc_auc = roc_auc_score(y_test, y_score)
+            roc_auc_scores.append(roc_auc)
         # Calculate the mean accuracy score for all folds.
-        mean_accuracy = np.mean(accuracy_scores)
+        mean_roc_auc= np.mean(roc_auc_scores)
 
-        return {'loss': -mean_accuracy, 'status': STATUS_OK, 'accuracy_score': mean_accuracy}
+        return {'loss': -mean_roc_auc, 'status': STATUS_OK, 'accuracy_score': mean_roc_auc}
 
     def tune_model(self):
         """
@@ -338,7 +329,6 @@ class RandomForest_tuner:
         random_forest_tuner=RandomForest_tuner(X, y)
         best_n_estimator = random_forest_tuner.tune_model() --> Used to train the final LOF model with optimal parameters.
     """
-
     def __init__(self, X, y):
         self.X = X
         self.y = y
@@ -354,17 +344,14 @@ class RandomForest_tuner:
             """
         n_estimators = int(params['n_estimators'])
         max_depth = int(params['max_depth'])
-
         # Define the model
         clf = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth, random_state=42, n_jobs=-1)
-
         # Calculate the performance metrics with cross validation for each fold
-        results = cross_val_score(clf, X=self.X, y=self.y, cv=5, scoring='accuracy')
-
+        results = cross_val_score(clf, X=self.X, y=self.y, cv=self.kf, scoring='roc_auc')
         # Calculate the mean accuracy score for all folds.
-        accuracy = results.mean()
+        mean_roc_auc = results.mean()
 
-        return {'loss': -accuracy, 'status': STATUS_OK, 'accuracy_score': accuracy}
+        return {'loss': -mean_roc_auc, 'status': STATUS_OK, 'accuracy_score': mean_roc_auc}
 
     def tune_model(self):
         """
@@ -417,17 +404,14 @@ class KNN_tuner:
                 dict: Dictionary containing the loss (negative Accuracy score) and status.
             """
         n_neighbors = int(params['n_neighbors'])
-
         # Define the model
         clf = KNeighborsClassifier(n_neighbors=n_neighbors, n_jobs=-1)
-
         # Calculate the performance metrics with cross validation for each fold
-        results = cross_val_score(clf, X=self.X, y=self.y, cv=5, scoring='accuracy')
-
+        results = cross_val_score(clf, X=self.X, y=self.y, cv=self.kf, scoring='roc_auc')
         # Calculate the mean accuracy score for all folds.
-        accuracy = results.mean()
+        roc_auc = results.mean()
 
-        return {'loss': -accuracy, 'status': STATUS_OK, 'accuracy_score': accuracy}
+        return {'loss': -roc_auc, 'status': STATUS_OK, 'accuracy_score': roc_auc}
 
     def tune_model(self):
         """
@@ -465,7 +449,6 @@ class DBSCAN_tuner:
     dbscan_tuner=DBSCAN_tuner(X, y)
     best_eps = dbscan_tuner.tune_model() --> Used to run the final DBSCAN model with optimal parameters.
     """
-
     def __init__(self, X, y):
         """
         Initialize the hyperparameter tuning object.
@@ -487,31 +470,27 @@ class DBSCAN_tuner:
         """
         eps = params['eps']
         min_samples = int(params['min_samples'])
-        accuracy_scores = []
+        roc_auc_scores = []
 
         for train_index, test_index in self.kf.split(self.X):
             X_train, X_test = self.X[train_index], self.X[test_index]
             y_train, y_test = self.y[train_index], self.y[test_index]
 
             clf = DBSCAN(eps=eps, min_samples=min_samples, metric='euclidean')
-
             # Fit the model
             clf.fit(self.X_train)
-
             # Predict the labels
             y_pred = clf.labels_
-
             # Transform the labels (-1, 1) to (0, 1)
             y_pred = (y_pred == -1).astype(int)
-
             # Calculate the accuracy score for each fold
-            accuracy = accuracy_score(y_test, y_pred)
-            accuracy_scores.append(accuracy)
+            roc_auc = roc_auc_score(y_test, y_pred)
+            roc_auc_scores.append(roc_auc)
 
         # Calculate the mean accuracy score for all folds
-        mean_accuracy = np.mean(accuracy_scores)
+        mean_roc_auc = np.mean(roc_auc_scores)
 
-        return {'loss': -mean_accuracy, 'status': STATUS_OK, 'accuracy_score': mean_accuracy}
+        return {'loss': -mean_roc_auc, 'status': STATUS_OK, 'accuracy_score': mean_roc_auc}
 
     def tune_model(self):
         """
@@ -529,5 +508,4 @@ class DBSCAN_tuner:
         # Save the best model
         best = fmin(fn=self.objective, space=space, algo=tpe.suggest, max_evals=50, trials=trials)
         print('Best parameters: ', best)
-
         return best

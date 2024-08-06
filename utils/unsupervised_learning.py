@@ -4,7 +4,7 @@ from sklearn.metrics import roc_auc_score, f1_score
 from sklearn.model_selection import KFold
 
 # Import the models
-from pyod.models.iforest import IForest
+from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
 from pyod.models.pca import PCA
 from pyod.models.ecod import ECOD
@@ -42,19 +42,16 @@ def model_lof(X, y, n_neighbors):
 
         # Define the model and the parameters
         clf = LocalOutlierFactor(n_neighbors=n_neighbors, metric='minkowski', n_jobs=-1)
-
         # Fit the model
         clf.fit(X_train)
-
         # Predict the labels
         y_pred = clf.fit_predict(X_test)  # Outlier labels (1 = outliers & -1 = inliners)
-
-        # Convert LOF labels (-1, 1) to (1, 0)
-        y_pred = (y_pred == -1).astype(int)
-
+        y_pred = (y_pred == -1).astype(int) # Convert LOF labels (-1, 1) to (1, 0)
+        # Get the decision function scores
+        y_score = -clf.negative_outlier_factor_
         #Calculate the performance scores and append to the list
-        roc_auc_scores.append(roc_auc_score(y_pred, y_test))
-        f1_scores.append(f1_score(y_pred, y_test))
+        roc_auc_scores.append(roc_auc_score(y_test, y_score))
+        f1_scores.append(f1_score(y_test, y_pred))
 
     # Calculate the mean metrics for all folds
     roc_auc_lof = round(np.mean(roc_auc_scores), 3)
@@ -98,18 +95,17 @@ def model_iforest(X, y, n_estimators):
         y_train, y_test = y[train_index], y[test_index]
 
         # Define the model and the parameters
-        clf = IForest(n_estimators=n_estimators, random_state=42)
-
+        clf = IsolationForest(n_estimators=n_estimators, random_state=42)
         # Fit the model
         clf.fit(X_train)
-
         # Predict the labels
-        y_pred = clf.predict(X_test) # Labels (0, 1)
+        y_pred = clf.predict(X_test) # Outlier labels (1 = outliers & -1 = inliners)
+        y_pred = (y_pred == -1).astype(int) # Convert the labels (-1, 1) to (0, 1)
+        # Calculate the decision scores
         y_score = clf.decision_function(X_test) # Raw label scores
-
         # Calculate the performance score and append them to the lists
-        roc_auc_scores.append(roc_auc_score(y_pred, y_test))
-        f1_scores.append(f1_score(y_pred, y_test))
+        roc_auc_scores.append(roc_auc_score(y_test, y_score))
+        f1_scores.append(f1_score(y_test, y_pred))
 
     # Calculate the mean metrics for all folds
     roc_auc_iforest = round(np.mean(roc_auc_scores), 3)
@@ -153,17 +149,15 @@ def model_pca(X, y):
 
         # Define the model and the parameters
         clf = PCA()
-
         # Fit the model
         clf.fit(X_train)
-
         # Predict the labels
         y_pred = clf.predict(X_test)  # Labels (0, 1)
+        # Calculate the decision scores
         y_score = clf.decision_function(X_test)  # Raw label scores
-
         # Calculate the performance score and append them to the lists
-        roc_auc_scores.append(roc_auc_score(y_pred, y_test))
-        f1_scores.append(f1_score(y_pred, y_test))
+        roc_auc_scores.append(roc_auc_score(y_test, y_score))
+        f1_scores.append(f1_score(y_test, y_pred))
 
     # Calculate the mean metrics for all folds
     roc_auc_pca = round(np.mean(roc_auc_scores), 3)
@@ -206,17 +200,15 @@ def model_copod(X, y):
 
         # Define the model and the parameters
         clf = COPOD()
-
         # Fit the model
         clf.fit(X_train)
-
         # Predict the labels
         y_pred = clf.predict(X_test)  # Labels (0, 1)
+        # Calculate the decision function scores
         y_score = clf.decision_function(X_test)  # Raw label scores
-
         # Calculate the performance score and append them to the lists
-        roc_auc_scores.append(roc_auc_score(y_pred, y_test))
-        f1_scores.append(f1_score(y_pred, y_test))
+        roc_auc_scores.append(roc_auc_score(y_test, y_score))
+        f1_scores.append(f1_score(y_test, y_pred))
 
     # Calculate the mean metrics for all folds
     roc_auc_copod = round(np.mean(roc_auc_scores), 3)
@@ -259,17 +251,15 @@ def model_ecod(X, y):
 
         # Define the model and the parameters
         clf = ECOD()
-
         # Fit the model
         clf.fit(X)
-
         # Predict the labels
         y_pred = clf.predict(X_test)  # Labels (0, 1)
+        # Calculate the decision function scores
         y_score = clf.decision_function(X_test)  # Raw label scores
-
         # Calculate the performance score and append them to the lists
-        roc_auc_scores.append(roc_auc_score(y_pred, y_test))
-        f1_scores.append(f1_score(y_pred, y_test))
+        roc_auc_scores.append(roc_auc_score(y_test, y_score))
+        f1_scores.append(f1_score(y_test, y_pred))
 
     # Calculate the mean metrics for all folds
     roc_auc_ecod = round(np.mean(roc_auc_scores), 3)
@@ -277,9 +267,9 @@ def model_ecod(X, y):
     runtime_ecod = round(time.time() - start_time, 3)
 
     print(f"Evaluation metrics for ECOD model are: \n"
-          f"ROC AUC: {roc_auc_scores} & Average ROC AUC {roc_auc_ecod}\n"
-          f"F1 score: {f1_scores} & Average ROC AUC {f1_score_ecod}\n"
-          f"Time elapsed: {runtime_ecod} (s)")
+            f"ROC AUC: {roc_auc_scores} & Average ROC AUC {roc_auc_ecod}\n"
+            f"F1 score: {f1_scores} & Average ROC AUC {f1_score_ecod}\n"
+            f"Time elapsed: {runtime_ecod} (s)")
     return roc_auc_ecod, f1_score_ecod, runtime_ecod
 
 '''
@@ -314,18 +304,13 @@ def model_dbscan(X, y, eps, min_samples):
 
         # Define model and its parameters
         clf = DBSCAN(eps=eps, min_samples=min_samples, metric='euclidean')
-
         # Fit the model
         clf.fit(X_train)
-
         # Get the prediction labels
-        y_pred = clf.labels_ # Outlier labels (1 = outliers & -1 = inliners)
-
-        # Convert DBSCAN labels (-1, 1) to (1, 0)
-        y_pred = (y_pred == -1).astype(int)
-
+        y_pred = clf.fit_predict(X_test) # Outlier labels (1 = outliers & -1 = inliners)
+        y_pred = (y_pred == -1).astype(int) # Convert labels (-1, 1) to (1, 0)
         # Calculate the performance scores and append to the list
-        roc_auc_scores.append(roc_auc_score(y_pred, y_test))
+        roc_auc_scores.append(roc_auc_score(y_pred, y_test)) # using y_pred since DBSCAN doesn't have 'decision_function'
         f1_scores.append(f1_score(y_pred, y_test))
 
     # Calculate the mean metrics for all folds

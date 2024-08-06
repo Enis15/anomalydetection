@@ -19,7 +19,7 @@ from utils.paramet_tune import IsolationForest_tuner, KNN_tuner, XGBoost_tuner, 
 _logger = logger(__name__)
 
 '''
-Dataset description
+Dataset 3: Bank Payment dataset with over 600.000 records and 10 features.
 '''
 
 # Load the dataset

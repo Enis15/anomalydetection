@@ -1,20 +1,18 @@
 from sklearn.datasets import make_classification
-from utils.paramet_tune import LOF_tuner
+from utils.unsupervised_learning import model_iforest, model_ecod
+from sklearn.model_selection import KFold
+from sklearn.metrics import make_scorer, f1_score, roc_auc_score
 
 
-X, y = make_classification(n_samples=10000, n_features=15, n_classes=2, random_state=42)
+X, y = make_classification(n_samples=1000000, n_features=15, n_classes=2, random_state=42)
 
-# catboost_tunne = Catboost_tuner(X, y)
-# best_catboost = catboost_tunne.tune_model()
-#
-# cb_iterations = int(best_catboost['iterations'])
-# cb_learning_rate = best_catboost['learning_rate']
-# cb_depth = int(best_catboost['depth'])
+# Setting the fold splits for unsupervised learning models
+scorer = {'f1_score': make_scorer(f1_score), 'roc_auc': make_scorer(roc_auc_score)} # Metrics for cross validation performance
+kf = KFold(n_splits=5, shuffle=True, random_state=42) # Fold splits
 
-lof_tune = LOF_tuner(X, y)
-best_lof = lof_tune.tune_model()
+forest_estimator = 1000
+#roc_auc_if, f1_score_if, runtime_if = model_iforest(X, y, forest_estimator)
 
-# scorer = {'f1_score':make_scorer(f1_score), 'roc_auc':make_scorer(roc_auc_score)}
-# kf = KFold(n_splits=5, shuffle=True, random_state=42)
+#print(roc_auc_if, f1_score_if, runtime_if)
 
-print(best_lof)
+roc_auc_ecod, f1_score_ecod, runtime_ecod = model_ecod(X, y)

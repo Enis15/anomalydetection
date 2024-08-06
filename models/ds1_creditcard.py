@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from sklearn.metrics import make_scorer, f1_score, roc_auc_score
+from sklearn.preprocessing import StandardScaler, normalize
 from sklearn.model_selection import KFold
 from multiprocessing import freeze_support
 from adjustText import adjust_text
@@ -20,7 +21,7 @@ from utils.paramet_tune import IsolationForest_tuner, KNN_tuner, XGBoost_tuner, 
 _logger = logger(__name__)
 
 '''
-Dataset description
+Dataset 1: Credit card transaction, with over 2.000.0000 records and 31 features.
 '''
 # Load the dataset
 df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
@@ -29,8 +30,13 @@ df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
 X = df.drop('Class', axis=1)
 y = df['Class'].values
 
+scaler = StandardScaler()
+X = scaler.fit_transform(X) # Standardize the data
+
+X = normalize(X) # Normalize the data
+
 # Setting the fold splits for unsupervised learning models
-scorer = {'f1_score':make_scorer(f1_score), 'roc_auc':make_scorer(roc_auc_score)} # Metrics for cross validation performance
+scorer = {'f1_score': make_scorer(f1_score), 'roc_auc': make_scorer(roc_auc_score)} # Metrics for cross validation performance
 kf = KFold(n_splits=5, shuffle=True, random_state=42) # Fold splits
 
 
@@ -64,12 +70,13 @@ if __name__ == '__main__':
         # MODEL K-NEAREST NEIGHBORS (KNN)
         _logger.info('Starting KNN Evaluation')
         # Tune the KNN model to get the best hyperparameters
-        best_knn_model = paramet_tune(X_train, y_train, model_name='knn')
-        print(best_knn_model) # Get the results of parameter tuning
-        _logger.info(f'Best K-Nearest Neighbor Model: {best_knn_model}')
-        k_value = best_knn_model['learner'].n_neighbors  # Save the value of k
+        #knn_tuner = KNN_tuner(X, y)
+        #best_knn = knn_tuner.tune_model()
+        #_logger.info(f'Best K-Nearest Neighbor Model: {best_knn}')
+        #k_value = int(best_knn['n_neighbors'])  # Save the value of k
+        k_value = 50
         # Evaluate the KNN model using the best parameters
-        roc_auc_knn, f1_score_knn, runtime_knn = model_knn(X_train, X_test, y_train, y_test, k_value)
+        roc_auc_knn, f1_score_knn, runtime_knn = model_knn(X, y, k_value, scorer, kf)
         append_metrics('KNN', k_value, roc_auc_knn, f1_score_knn, runtime_knn)
         _logger.info(f'KNN Evaluation: ROC AUC SCORE={roc_auc_knn}, F1 SCORE={f1_score_knn}, Runtime={runtime_knn}')
     except Exception as e:
@@ -79,13 +86,13 @@ if __name__ == '__main__':
         # MODEL RANDOM FOREST (RF)
         _logger.info('Starting Random Forest Classifier Evaluation')
         # Tune the Random Forest model to get the best hyperparameters
-        rf_tuner = RandomForest_tuner(X_train, X_test, y_train, y_test)
+        rf_tuner = RandomForest_tuner(X, y)
         best_rf_model = rf_tuner.tune_model()
         _logger.info(f'Best Random Forest Model: {best_rf_model}')
         rf_estimator = int(best_rf_model['n_estimators'])
         rf_depth = int(best_rf_model['max_depth'])
         # Evaluate the Random Forest Classifier using the best parameters
-        roc_auc_rf, f1_score_rf, runtime_rf = model_rf(X_train, X_test, y_train, y_test, rf_estimator, rf_depth)
+        roc_auc_rf, f1_score_rf, runtime_rf = model_rf(X, y, rf_estimator, rf_depth, scorer, kf)
         append_metrics('Random Forest Classifier', rf_estimator, roc_auc_rf, f1_score_rf, runtime_rf)
         _logger.info(f'Random Forest Classifier Evaluation: ROC AUC SCORE={roc_auc_rf}, F1 SCORE={f1_score_rf}, Runtime={runtime_rf}')
     except Exception as e:
@@ -95,15 +102,15 @@ if __name__ == '__main__':
         # MODEL XGBOOST
         _logger.info('Starting XGBoost Classifier Evaluation')
         # Tune the XGBOOST model to get the best hyperparameters
-        best_xgboost_model = paramet_tune(X_train, y_train, model_name='xgboost')
-        print(best_xgboost_model)  # Get the results of parameter tuning
+        xgboost_tuner = XGBoost_tuner(X, y)
+        best_xgboost_model = xgboost_tuner.tune_model()
         _logger.info(f'Best XGBoost Model: {best_xgboost_model}')
-        xgboost_value = best_xgboost_model['learner'].n_estimators # Save the value of n_estimators
-        xgboost_depth = best_xgboost_model['learner'].max_depth # Save the value of max_depth
-        xgboost_learningrate = best_xgboost_model['learner'].learning_rate
+        xgboost_value = int(best_xgboost_model['n_estimators']) # Save the value of n_estimators
+        xgboost_depth = int(best_xgboost_model['max_depth']) # Save the value of max_depth
+        xgboost_learningrate = best_xgboost_model['n_estimators']
 
         # Evaluate the XGBoost model using the best parameters
-        roc_auc_xgboost, f1_score_xgboost, runtime_xgboost = model_xgboost(X_train, X_test, y_train, y_test, xgboost_value, xgboost_depth, xgboost_learningrate)
+        roc_auc_xgboost, f1_score_xgboost, runtime_xgboost = model_xgboost(X, y, xgboost_value, xgboost_depth, xgboost_learningrate, scorer, kf)
         append_metrics('XGBoost', xgboost_value, roc_auc_xgboost, f1_score_xgboost, runtime_xgboost)
         _logger.info(f'XGBoost Evaluation: ROC AUC Score={roc_auc_xgboost}, F1 Score={f1_score_xgboost}, Runtime={runtime_xgboost}')
     except Exception as e:
@@ -113,7 +120,7 @@ if __name__ == '__main__':
         # MODEL SUPPORT VECTOR MACHINE (SVM)
         _logger.info('Starting SVM Classifier Evaluation')
         # Evaluate the SVM model
-        roc_auc_svm, f1_score_svm, runtime_svm = model_svm(X_train, X_test, y_train, y_test)
+        roc_auc_svm, f1_score_svm, runtime_svm = model_svm(X, y, scorer, kf)
         append_metrics('SVM', None, roc_auc_svm, f1_score_svm, runtime_svm)
         _logger.info(f'SVM Evaluation: ROC AUC Score={roc_auc_svm}, F1 Score={f1_score_svm}, Runtime={runtime_svm}')
     except Exception as e:
@@ -123,7 +130,7 @@ if __name__ == '__main__':
         # MODEL NAIVE BAYES (NB)
         _logger.info('Starting Naive Bayes Classifier Evaluation')
         # Evaluate the Naive Bayes model
-        roc_auc_nb, f1_score_nb, runtime_nb = model_nb(X_train, X_test, y_train, y_test)
+        roc_auc_nb, f1_score_nb, runtime_nb = model_nb(X, y, scorer, kf)
         append_metrics('Naive Bayes', None, roc_auc_nb, f1_score_nb, runtime_nb)
         _logger.info(f'Naive Bayes Evaluation: ROC AUC Score={roc_auc_nb}, F1 Score={f1_score_nb}, Runtime={runtime_nb}')
     except Exception as e:
@@ -133,7 +140,7 @@ if __name__ == '__main__':
         # MODEL CATBOOST (CB)
         _logger.info('Starting CatBoost Classifier Evaluation')
         # Tune the CatBoost model to get the best hyperparameters
-        catboost_tuner = Catboost_tuner(X_train, X_test, y_train, y_test)
+        catboost_tuner = Catboost_tuner(X, y)
         best_catboost = catboost_tuner.tune_model()
         _logger.info(f'Best CatBoost Classifier Model: {catboost_tuner}')
 
@@ -141,7 +148,7 @@ if __name__ == '__main__':
         cb_learning_rate = best_catboost['learning_rate']
         cb_depth = int(best_catboost['depth'])
         # Evaluate the CatBoost model
-        roc_auc_cb, f1_score_cb, runtime_cb = model_cb(X_train, X_test, y_train, y_test, cb_iterations, cb_learning_rate, cb_depth)
+        roc_auc_cb, f1_score_cb, runtime_cb = model_cb(X, y, cb_iterations, cb_learning_rate, cb_depth, scorer, kf)
         append_metrics('CATBoost', cb_iterations, roc_auc_cb, f1_score_cb, runtime_cb)
         _logger.info(f'CatBoost Evaluation: ROC AUC Score= {roc_auc_cb}, F1 Score= {f1_score_cb}, Runtime= {runtime_cb}')
     except Exception as e:
@@ -184,13 +191,12 @@ if __name__ == '__main__':
         # MODEL ISOLATION FOREST (IF)
         _logger.info('Starting Isolation Forest Evaluation')
         # Tune the Isolation Forest model to get the best hyperparameters
-        best_if_model = paramet_tune(X_train, y_train, model_name='isolation_forest')
-        print(best_if_model)  # Get the results of parameter tuning
-        _logger.info(f'Best Isolation Forest Model: {best_if_model}')
-        if_value = best_if_model['learner'].n_estimators  # Save the value of n_estimators
+        forest_tunner = IsolationForest_tuner(X, y)
+        forest_estimator = forest_tunner.tune_model()
+        _logger.info(f'Best Isolation Forest Model: {forest_estimator}')
         # Evaluate the IF model
-        roc_auc_if, f1_score_if, runtime_if = model_iforest(X, y, if_value)
-        append_metrics('Isolation Forest', if_value, roc_auc_if, f1_score_if, runtime_if)
+        roc_auc_if, f1_score_if, runtime_if = model_iforest(X, y, forest_estimator)
+        append_metrics('Isolation Forest', forest_estimator, roc_auc_if, f1_score_if, runtime_if)
         _logger.info(f'Isolation Forest Evaluation: ROC AUC Score={roc_auc_if}, F1 Score={f1_score_if}, Runtime={runtime_if}')
     except Exception as e:
         _logger.error(f'Error evaluating Isolation Forest model:{e}')
@@ -203,7 +209,7 @@ if __name__ == '__main__':
         dbscan_tuner = DBSCAN_tuner(X, y)
         dbscan_cluster = dbscan_tuner.tune_model()
         _logger.info(f'Best K-Means Model: {dbscan_cluster}')
-
+        # Save the best parameters
         best_eps = dbscan_cluster['eps']
         best_min_samples = int(dbscan_cluster['min_samples'])
         # Evaluate the DBSCAN model
@@ -251,8 +257,8 @@ if __name__ == '__main__':
     adjust_text(texts=texts, arrowprops=dict(arrowstyle='-', color='grey'))
     plt.grid(True)
     plt.xlabel('Runtime', fontsize=14, fontweight='bold')
-    plt.ylabel('ROC AUC', fontsize=14, fontweight='bold')
-    plt.title('ROC AUC vs Runtime comparison', fontsize=16, fontweight='bold')
+    plt.ylabel('ROC AUC Score', fontsize=14, fontweight='bold')
+    plt.title('ROC AUC Score vs Runtime comparison', fontsize=16, fontweight='bold')
     plt.savefig('./ROC_AUC_vs_Runtime(DS1).png', bbox_inches='tight')
     plt.show()
 
@@ -267,6 +273,6 @@ if __name__ == '__main__':
     plt.xlabel('Runtime', fontsize=14, fontweight='bold')
     plt.ylabel('F1 Score', fontsize=14, fontweight='bold')
     plt.title('F1 Score vs Runtime comparison', fontsize=16, fontweight='bold')
-    plt.savefig('./F1_Score_vs_Runtime.png(DS1)', bbox_inches='tight')
+    plt.savefig('./F1_Score_vs_Runtime(DS1).png', bbox_inches='tight')
     plt.show()
 

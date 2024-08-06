@@ -19,7 +19,7 @@ from utils.paramet_tune import IsolationForest_tuner, KNN_tuner, XGBoost_tuner, 
 _logger = logger(__name__)
 
 '''
-Dataset description
+Dataset 4: Metaverse Financial Transaction Dataset, with over 78.000 records and 14 features.
 '''
 
 # Load the dataset

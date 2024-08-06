@@ -20,7 +20,7 @@ from utils.paramet_tune import IsolationForest_tuner, KNN_tuner, XGBoost_tuner, 
 _logger = logger(__name__)
 
 '''
-Dataset description
+Dataset 2: Fraudulent transaction Dataset with over 6.000.000 records and 11 features.
 '''
 # Load the dataset
 df = pd.read_csv('../data/datasets/Labeled_DS/Fraud.csv')
