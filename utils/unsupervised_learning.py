@@ -9,7 +9,7 @@ from sklearn.neighbors import LocalOutlierFactor
 from pyod.models.pca import PCA
 from pyod.models.ecod import ECOD
 from pyod.models.copod import COPOD
-from sklearn.cluster import KMeans, DBSCAN
+from sklearn.cluster import DBSCAN
 
 '''
 =======================================================
@@ -50,8 +50,8 @@ def model_lof(X, y, n_neighbors):
         # Get the decision function scores
         y_score = -clf.negative_outlier_factor_
         #Calculate the performance scores and append to the list
-        roc_auc_scores.append(roc_auc_score(y_test, y_score))
-        f1_scores.append(f1_score(y_test, y_pred))
+        roc_auc_scores.append(roc_auc_score(y_test, y_score, average='weighted'))
+        f1_scores.append(f1_score(y_test, y_pred, average='weighted'))
 
     # Calculate the mean metrics for all folds
     roc_auc_lof = round(np.mean(roc_auc_scores), 3)
@@ -59,8 +59,8 @@ def model_lof(X, y, n_neighbors):
     runtime_lof = round(time.time() - start_time, 3)
 
     print(f"Evaluation metrics for LOF model, with n_neighbors = {n_neighbors}, are: \n"
-            f"ROC AUC: {roc_auc_scores} & Average ROC AUC {roc_auc_lof}\n"
-            f"F1 score: {f1_scores} & Average ROC AUC {f1_score_lof}\n" 
+            f"ROC AUC: {roc_auc_scores} & Average ROC AUC Score {roc_auc_lof}\n"
+            f"F1 score: {f1_scores} & Average F1 Score {f1_score_lof}\n" 
             f"Time elapsed: {runtime_lof} (s)")
     return roc_auc_lof, f1_score_lof, runtime_lof
 
@@ -104,8 +104,8 @@ def model_iforest(X, y, n_estimators):
         # Calculate the decision scores
         y_score = clf.decision_function(X_test) # Raw label scores
         # Calculate the performance score and append them to the lists
-        roc_auc_scores.append(roc_auc_score(y_test, y_score))
-        f1_scores.append(f1_score(y_test, y_pred))
+        roc_auc_scores.append(roc_auc_score(y_test, y_score, average='weighted'))
+        f1_scores.append(f1_score(y_test, y_pred, average='weighted'))
 
     # Calculate the mean metrics for all folds
     roc_auc_iforest = round(np.mean(roc_auc_scores), 3)
@@ -114,8 +114,8 @@ def model_iforest(X, y, n_estimators):
 
 
     print(f"Evaluation metrics for Isolation Forest model, with n_estimators = {n_estimators}, are: \n"
-            f"ROC AUC: {roc_auc_scores} & Average ROC AUC {roc_auc_iforest}\n"
-            f"F1 score: {f1_scores} & Average ROC AUC {f1_score_iforest}\n" 
+            f"ROC AUC: {roc_auc_scores} & Average ROC AUC Score {roc_auc_iforest}\n"
+            f"F1 score: {f1_scores} & Average F1 Score {f1_score_iforest}\n" 
             f"Time elapsed: {runtime_iforest} (s)")
     return roc_auc_iforest, f1_score_iforest, runtime_iforest
 
@@ -156,8 +156,8 @@ def model_pca(X, y):
         # Calculate the decision scores
         y_score = clf.decision_function(X_test)  # Raw label scores
         # Calculate the performance score and append them to the lists
-        roc_auc_scores.append(roc_auc_score(y_test, y_score))
-        f1_scores.append(f1_score(y_test, y_pred))
+        roc_auc_scores.append(roc_auc_score(y_test, y_score, average='weighted'))
+        f1_scores.append(f1_score(y_test, y_pred, average='weighted'))
 
     # Calculate the mean metrics for all folds
     roc_auc_pca = round(np.mean(roc_auc_scores), 3)
@@ -165,8 +165,8 @@ def model_pca(X, y):
     runtime_pca = round(time.time() - start_time, 3)
 
     print(f"Evaluation metrics for PCA model are: \n"
-            f"ROC AUC: {roc_auc_scores} & Average ROC AUC {roc_auc_pca}\n"
-            f"F1 score: {f1_scores} & Average ROC AUC {f1_score_pca}\n"
+            f"ROC AUC: {roc_auc_scores} & Average ROC AUC Score {roc_auc_pca}\n"
+            f"F1 score: {f1_scores} & Average F1 Score {f1_score_pca}\n"
             f"Time elapsed: {runtime_pca} (s)")
     return roc_auc_pca, f1_score_pca, runtime_pca
 
@@ -207,8 +207,8 @@ def model_copod(X, y):
         # Calculate the decision function scores
         y_score = clf.decision_function(X_test)  # Raw label scores
         # Calculate the performance score and append them to the lists
-        roc_auc_scores.append(roc_auc_score(y_test, y_score))
-        f1_scores.append(f1_score(y_test, y_pred))
+        roc_auc_scores.append(roc_auc_score(y_test, y_score, average='weighted'))
+        f1_scores.append(f1_score(y_test, y_pred, average='weighted'))
 
     # Calculate the mean metrics for all folds
     roc_auc_copod = round(np.mean(roc_auc_scores), 3)
@@ -216,8 +216,8 @@ def model_copod(X, y):
     runtime_copod = round(time.time() - start_time, 3)
 
     print(f"Evaluation metrics for COPOD model are: \n"
-            f"ROC AUC: {roc_auc_scores} & Average ROC AUC {roc_auc_copod}\n"
-            f"F1 score: {f1_scores} & Average ROC AUC {f1_score_copod}\n"
+            f"ROC AUC: {roc_auc_scores} & Average ROC AUC Score {roc_auc_copod}\n"
+            f"F1 score: {f1_scores} & Average F1 Score {f1_score_copod}\n"
             f"Time elapsed: {runtime_copod} (s)")
     return roc_auc_copod, f1_score_copod, runtime_copod
 
@@ -258,8 +258,8 @@ def model_ecod(X, y):
         # Calculate the decision function scores
         y_score = clf.decision_function(X_test)  # Raw label scores
         # Calculate the performance score and append them to the lists
-        roc_auc_scores.append(roc_auc_score(y_test, y_score))
-        f1_scores.append(f1_score(y_test, y_pred))
+        roc_auc_scores.append(roc_auc_score(y_test, y_score, average='weighted'))
+        f1_scores.append(f1_score(y_test, y_pred, average='weighted'))
 
     # Calculate the mean metrics for all folds
     roc_auc_ecod = round(np.mean(roc_auc_scores), 3)
@@ -267,8 +267,8 @@ def model_ecod(X, y):
     runtime_ecod = round(time.time() - start_time, 3)
 
     print(f"Evaluation metrics for ECOD model are: \n"
-            f"ROC AUC: {roc_auc_scores} & Average ROC AUC {roc_auc_ecod}\n"
-            f"F1 score: {f1_scores} & Average ROC AUC {f1_score_ecod}\n"
+            f"ROC AUC: {roc_auc_scores} & Average ROC AUC Score {roc_auc_ecod}\n"
+            f"F1 score: {f1_scores} & Average F1 Score {f1_score_ecod}\n"
             f"Time elapsed: {runtime_ecod} (s)")
     return roc_auc_ecod, f1_score_ecod, runtime_ecod
 
@@ -310,8 +310,9 @@ def model_dbscan(X, y, eps, min_samples):
         y_pred = clf.fit_predict(X_test) # Outlier labels (1 = outliers & -1 = inliners)
         y_pred = (y_pred == -1).astype(int) # Convert labels (-1, 1) to (1, 0)
         # Calculate the performance scores and append to the list
-        roc_auc_scores.append(roc_auc_score(y_pred, y_test)) # using y_pred since DBSCAN doesn't have 'decision_function'
-        f1_scores.append(f1_score(y_pred, y_test))
+        roc_auc_scores.append(roc_auc_score(y_test, y_pred, average='weighted')) # using y_pred since DBSCAN doesn't have 'decision_function'
+
+        f1_scores.append(f1_score(y_test, y_pred, average='weighted'))
 
     # Calculate the mean metrics for all folds
     roc_auc_dbscan = round(np.mean(roc_auc_scores), 3)
@@ -319,8 +320,8 @@ def model_dbscan(X, y, eps, min_samples):
     runtime_dbscan = round(time.time() - start_time, 3)
 
     print(f"Evaluation metrics for DBSCAN model are: \n"
-            f"ROC AUC: {roc_auc_scores} & Average ROC AUC {roc_auc_dbscan}\n"
-            f"F1 score: {f1_scores} & Average ROC AUC {f1_score_dbscan}\n"
+            f"ROC AUC: {roc_auc_scores} & Average ROC AUC Score{roc_auc_dbscan}\n"
+            f"F1 score: {f1_scores} & Average F1 Score {f1_score_dbscan}\n"
             f"Time elapsed: {runtime_dbscan} (s)")
     return roc_auc_dbscan, f1_score_dbscan, runtime_dbscan
 

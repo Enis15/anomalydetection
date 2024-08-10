@@ -21,7 +21,7 @@ from utils.paramet_tune import IsolationForest_tuner, KNN_tuner, XGBoost_tuner, 
 _logger = logger(__name__)
 
 '''
-Dataset 1: Credit card transaction, with over 2.000.0000 records and 31 features.
+Dataset 1: Credit card transaction, with over 200.0000 records and 31 features.
 '''
 # Load the dataset
 df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
