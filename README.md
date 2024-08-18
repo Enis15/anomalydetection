@@ -1,4 +1,4 @@
-# ANOMALY DETECTION IN FINANCIAL SERVICES: A COMPARISON STUDY OF DIFFERENT METHODS USED FOR ANOMALY DETECTION
+# Anomaly detection in financial services: A comparison study of different methods used for anomaly detection
 
 ## Project Overview
 This projects implements anomaly detection techniques on four different financial datasets using both supervised
