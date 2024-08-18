@@ -68,7 +68,7 @@ the dataset name to return summary statistics, missing values, plots, etc.
 The datasets are stores in the `data/datasets/Labeled_DS/` folder as CSV files.
 - `ds1_creditcard`: Refers to the dataset named `creditcard.csv`
 - `ds2_fraud`: Refers to the dataset named `Fraud.csv`
-- `ds3_finpays`: Refers to the dataset named 'bs140513_032310.csv`
+- `ds3_finpays`: Refers to the dataset named 'finpays.csv`
 - `ds4_metaverse`: Refers tot he dataset named `metaverse_transactions_dataset.csv`
 
 ### Results

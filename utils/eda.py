@@ -78,7 +78,7 @@ if __name__ == '__main__':
     datasets = {
         'dataset1': '../data/datasets/Labeled_DS/creditcard.csv',
         'dataset2': '../data/datasets/Labeled_DS/Fraud.csv',
-        'dataset3': '../data/datasets/Labeled_DS/fin_paysys/bs140513_032310.csv',
+        'dataset3': '../data/datasets/Labeled_DS/fin_paysys/finpays.csv',
         'dataset4': '../data/datasets/Labeled_DS/metaverse_transactions_dataset.csv'
     }
 

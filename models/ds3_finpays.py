@@ -23,7 +23,7 @@ Dataset 3: Bank Payment dataset with over 600.000 records and 10 features.
 '''
 
 # Load the dataset
-df = pd.read_csv('../data/datasets/Labeled_DS/fin_paysys/bs140513_032310.csv')
+df = pd.read_csv('../data/datasets/Labeled_DS/fin_paysys/finpays.csv')
 print(df.shape)
 
 # Replacing categorical values with dummy values
