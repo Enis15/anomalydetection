@@ -34,7 +34,8 @@ Example:
     python utils/logger.py
     python utils/parameter_tune.py
     python utils/supervised_learning.py
-    python utils/unsupervised_learning.py ```
+    python utils/unsupervised_learning.py
+    ```
 2. Run the Model Scripts: Once the scripts in the utils are executed, you can run the scripts in the `models/` folder.
 Each scripts performs anomaly detection on one of the datasets.
 3. Check the Results: Then the performance results, both graphically and as tables, are saved in the results folder with
