@@ -12,7 +12,7 @@ The project runs on Python 3.10. You cna download it from the official Python we
 
 ### Installing Dependencies
 You can install the required dependencies using `pip`:
-''' pip install -r requirements.txt '''
+``` pip install -r requirements.txt ```
 
 ### Dependencies
 The project depends on the following libraries, as listed in the `requirements.txt` file:
