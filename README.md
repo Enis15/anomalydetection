@@ -83,7 +83,7 @@ models applied to dataset 1
 models applied to dataset 1
 
 ## Contributing
-Special thank to Manuel Pangl (email: m.pangl.gmx.at) for providing the `logger.py` script.
+Special thanks to Manuel Pangl (email: m.pangl.gmx.at) for providing the `logger.py` script.
 
 ## Contact
 - Enis Pinari
