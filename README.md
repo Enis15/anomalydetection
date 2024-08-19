@@ -45,8 +45,9 @@ a dedicated name for each dataset.
 1. Run `eda.py` for exploratory data analysis (optional)
 2. Configure `logger.py` the logger scripts
 3. Run `parameter_tune.py` for hyperparameter tuning
-4. Perform anomaly detection on dataset 1 with `ds1_creditcard.py`
-5. Check `ROC_AUC_vs_Runtime(DS1).png` for the visual representation of the findings
+4. Run `supervised_learning.py` and/or `unsupervised_learning.py` for defining the models
+5. Perform anomaly detection on dataset 1 with `ds1_creditcard.py`
+6. Check `ROC_AUC_vs_Runtime(DS1).png` for the visual representation of the findings
 
 ## Scripts Overview
 
