@@ -61,10 +61,10 @@ if __name__ == '__main__':
     SUPERVISED LEARNING ALGORITHMS
     ===============================
     
-    This section of the code evaluates the performance of supervised learning algorithms, incl. KNN(K-Nearest Neighbor), Random Forest Classifier,
-    XGBoost(Extreme Gradient Boosting), SVM(Support Vector Machine), Naive Bayes and CATBoost(Categorical Boosting). 
-    Some of the algorithms have been fine-tuned using the hyperopt/hpsklearn library, while the others use default parameters
-    provided by sklearn library.
+    This section of the code evaluates the performance of supervised learning algorithms, incl. KNN(K-Nearest Neighbor), 
+    Random Forest Classifier, XGBoost(Extreme Gradient Boosting), SVM(Support Vector Machine), Naive Bayes and 
+    CATBoost(Categorical Boosting). Some of the algorithms have been fine-tuned using the hyperopt library, 
+    while the others use default parameters provided by sklearn library.
     '''
     try:
         # MODEL K-NEAREST NEIGHBORS (KNN)
@@ -158,10 +158,10 @@ if __name__ == '__main__':
     ================================
     UNSUPERVISED LEARNING ALGORITHMS
     ================================
-    This section evaluates the performance of various unsupervised learning algorithms, incl. LOF(Local Outlier Factor), Isolation Forest,
-    PCA(Principal Component Analysis), K-Means, COPOD(Copula-Based Outlier Detection), and ECOD(Empirical Cumulative Distribution Based Outlier Detection). 
-    Some of the algorithms have been fine-tuned using the hyperopt/hpsklearn library,
-    while the others use default parameters provided by sklearn library.
+    This section evaluates the performance of various unsupervised learning algorithms, incl. LOF(Local Outlier Factor),
+    Isolation Forest, PCA(Principal Component Analysis), K-Means, COPOD(Copula-Based Outlier Detection), and 
+    ECOD(Empirical Cumulative Distribution Based Outlier Detection). Some of the algorithms have been fine-tuned 
+    using the hyperopt library, while the others use default parameters provided by sklearn library.
     '''
     try:
         # MODEL LOCAL OUTLIER FACTOR (LOF)

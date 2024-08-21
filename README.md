@@ -8,7 +8,7 @@ tuning, and model execution.
 ## Installation
 
 ### Prerequisites
-The project runs on Python 3.10. You cna download it from the official Python webpage. (https://www.python.org/downloads/)
+The project runs on Python 3.10. You can download it from the official Python webpage. (https://www.python.org/downloads/)
 
 ### Installing Dependencies
 You can install the required dependencies using `pip`:
