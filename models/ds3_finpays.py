@@ -26,12 +26,11 @@ Dataset 3: Bank Payment dataset with over 600.000 records and 10 features.
 df = pd.read_csv('../data/datasets/Labeled_DS/fin_paysys/finpays.csv')
 print(df.shape)
 
-# Replacing categorical values with dummy values
+# Encoding categorical values with numerical variables
 cat_features = df.select_dtypes(include=['object']).columns
 for col in cat_features:
     df[col] = df[col].astype('category')
 
-# Categorical features to numerical features
 df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
 
 # Determining the X and y values

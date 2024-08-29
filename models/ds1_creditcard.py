@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from sklearn.metrics import make_scorer, f1_score, roc_auc_score
-from sklearn.preprocessing import StandardScaler, normalize
+from sklearn.preprocessing import StandardScaler, normalize, LabelEncoder
 from sklearn.model_selection import KFold
 from multiprocessing import freeze_support
 from adjustText import adjust_text
@@ -21,14 +21,24 @@ from utils.paramet_tune import IsolationForest_tuner, KNN_tuner, XGBoost_tuner, 
 _logger = logger(__name__)
 
 '''
-Dataset 1: Credit card transaction, with over 200.0000 records and 31 features.
+Dataset 1: Credit card transaction, with over 1.200.0000 records and 24 features.
 '''
 # Load the dataset
 df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
 
+# Drop irrelavant features
+df = df.drop(['Unnamed: 0', 'trans_date_trans_time', 'trans_num', 'unix_time', 'dob', 'first', 'last', 'merch_zipcode'], axis = 1)
+
+# Encoding categorical features with numerical variables
+cat_features = df.select_dtypes(include=['object']).columns
+for col in cat_features:
+    df[col] = df[col].astype('category')
+
+df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+
 # Determining the X and y values
-X = df.drop('Class', axis=1)
-y = df['Class'].values
+X = df.drop('is_fraud', axis=1)
+y = df['is_fraud'].values
 
 scaler = StandardScaler()
 X = scaler.fit_transform(X) # Standardize the data
@@ -38,7 +48,6 @@ X = normalize(X) # Normalize the data
 # Setting the fold splits for unsupervised learning models
 scorer = {'f1_score': make_scorer(f1_score), 'roc_auc': make_scorer(roc_auc_score)} # Metrics for cross validation performance
 kf = KFold(n_splits=5, shuffle=True, random_state=42) # Fold splits
-
 
 if __name__ == '__main__':
     # Ensure compatability
@@ -70,11 +79,10 @@ if __name__ == '__main__':
         # MODEL K-NEAREST NEIGHBORS (KNN)
         _logger.info('Starting KNN Evaluation')
         # Tune the KNN model to get the best hyperparameters
-        #knn_tuner = KNN_tuner(X, y)
-        #best_knn = knn_tuner.tune_model()
-        #_logger.info(f'Best K-Nearest Neighbor Model: {best_knn}')
-        #k_value = int(best_knn['n_neighbors'])  # Save the value of k
-        k_value = 50
+        knn_tuner = KNN_tuner(X, y)
+        best_knn = knn_tuner.tune_model()
+        _logger.info(f'Best K-Nearest Neighbor Model: {best_knn}')
+        k_value = int(best_knn['n_neighbors'])  # Save the value of k
         # Evaluate the KNN model using the best parameters
         roc_auc_knn, f1_score_knn, runtime_knn = model_knn(X, y, k_value, scorer, kf)
         append_metrics('KNN', k_value, roc_auc_knn, f1_score_knn, runtime_knn)

@@ -30,11 +30,12 @@ print(df.dtypes)
 # Dropping irrelevant columns for the anomaly detection
 df = df.drop(['timestamp', 'sending_address', 'receiving_address'], axis=1)
 
-# Encoding categorical features
-columns_label = ['transaction_type', 'location_region', 'purchase_pattern', 'age_group']
-for i in columns_label:
-    label = LabelEncoder()
-    df[i] = label.fit_transform(df[i])
+# Encoding categorical features with numerical variables
+cat_features = df.select_dtypes(include=['object']).columns
+for col in cat_features:
+    df[col] = df[col].astype('category')
+
+df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
 
 # Relabeling column target column 'anomaly', where low risk:0, moderate & high risk =1
 pd.set_option('future.no_silent_downcasting', True) # Ensure downcasting behavior is consistent with future versions of pandas

@@ -63,7 +63,7 @@ def distrib_plot(df, dataset_name, col_name=None):
             plt.ylabel('Density')
             plt.title(f'Distribution of {col}')
             plt.grid(True)
-            plt.savefig(f'..results/{dataset_name}_{col}.png')
+            plt.savefig(f'{dataset_name}_{col_name}.png')
             plt.show()
 
     # If a specific feature name is provided
@@ -74,7 +74,7 @@ def distrib_plot(df, dataset_name, col_name=None):
         plt.ylabel('Density')
         plt.title(f'Distribution of {col_name}')
         plt.grid(True)
-        plt.savefig(f'..results/{dataset_name}_{col_name}.png')
+        plt.savefig(f'{dataset_name}_{col_name}.png')
         plt.show()
     else:
         print(f'Feature {col_name} not found in the dataset')
@@ -125,18 +125,27 @@ def correlation_plot(df, dataset_name):
     Returns:
         Displays the correlation plot and saves it as a png file.
     """
+    # Preprocessing for dataset1
+    if dataset_name == 'dataset1':
+        # Drop irrelavant features
+        df = df.drop(['Unnamed: 0', 'trans_date_trans_time', 'trans_num', 'unix_time', 'dob', 'first', 'last', 'merch_zipcode'], axis=1)
+        # Encoding categorical features with numerical variables
+        cat_features = df.select_dtypes(include=['object']).columns
+        for col in cat_features:
+            df[col] = df[col].astype('category')
+        df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+
     # Preprocessing for dataset2
     if dataset_name == 'dataset2':
         # Drop specific features that aren't needed for correlation analysis
-        df = df.drop({'nameOrig', 'nameDest'}, axis=1)
+        df = df.drop(['nameOrig', 'nameDest'], axis=1)
         # Map feature 'type' to numerical values
         df['type'] = df['type'].map({'CASH_OUT': 5, 'PAYMENT': 4, 'CASH_IN': 3, 'TRANSFER': 2, 'DEBIT': 1})
 
     # Preprocessing for dataset3
     if dataset_name == 'dataset3':
         # Drop specific features that aren't needed for correlation analysis
-        df = df.drop({'zipcodeOri', 'zipMerchant'}, axis=1)
-
+        df = df.drop(['zipcodeOri', 'zipMerchant'], axis=1)
         # Identify categorical values
         cat_features = df.select_dtypes(include=['object']).columns
         # Convert categorical features to numerical values
@@ -175,6 +184,6 @@ if __name__ == '__main__':
     df = load_data(file_path)
     summary_statistics(df)
     missing_values(df)
-    distrib_plots_time(df, dataset_name) # Displays all plots on the same figure
-    #distrib_plot(df, dataset_name)
+    #distrib_plots_time(df, dataset_name) # Displays all plots on the same figure
+    #distrib_plot(df, dataset_name, 'Class')
     #correlation_plot(df, dataset_name)

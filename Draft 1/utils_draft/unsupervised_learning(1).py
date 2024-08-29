@@ -252,7 +252,8 @@ def model_dbscan(X, y, eps, min_samples):
     X_label = np.where(X_labels == -1, 1, 0)
 
     # Evaluation Metrics
-    roc_auc_dbscan = round(roc_auc_score(y, X_label), 3)
+    roc_auc_dbscan = round(roc_auc_score(y, X_label), 3)  # using y_pred since DBSCAN doesn't have 'decision_function'
+
     f1_score_dbscan = round(f1_score(y, X_label, average='weighted'), 3)
     runtime_dbscan = round(time.time() - start_time, 3)
 
