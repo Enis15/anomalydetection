@@ -56,6 +56,8 @@ if __name__ == '__main__':
     # DataFrame to store the evaluation metrics
     metrics = []
 
+    metrics_unsupervised = []
+
     # Function to append results to metrics list
     def append_metrics(modelname, estimator, roc_auc, f1_score, runtime):
         metrics.append({
@@ -65,6 +67,19 @@ if __name__ == '__main__':
             'F1_Score': f1_score,
             'Runtime': runtime
         })
+
+    def unsupervised_metrics(modelname, estimator, roc_auc, f1_score, precision, recall ,accuracy, runtime):
+        metrics_unsupervised.append({
+            'Model': modelname,
+            'Estimator': estimator,
+            'ROC_AUC_Score': roc_auc,
+            'F1_Score': f1_score,
+            'Precision': precision,
+            'Recall': recall,
+            'Accuracy': accuracy,
+            'Runtime': runtime
+        })
+
     '''
     ===============================
     SUPERVISED LEARNING ALGORITHMS
@@ -179,9 +194,11 @@ if __name__ == '__main__':
         k_lof = lof_tune.tune_model()
         _logger.info(f'Best n_neighbors for LOF Model: {k_lof}')
         # Evaluate the LOF model
-        roc_auc_lof, f1_score_lof, runtime_lof = model_lof(X, y, k_lof)
+        roc_auc_lof, f1_score_lof, precision_lof, recall_lof, accuracy_lof, runtime_lof = model_lof(X, y, k_lof)
         append_metrics('LOF', k_lof, roc_auc_lof, f1_score_lof, runtime_lof)
-        _logger.info(f'LOF Evaluation: ROC AUC Score={roc_auc_lof}, F1 Score={f1_score_lof}, Runtime={runtime_lof}')
+        unsupervised_metrics('LOF', k_lof, roc_auc_lof, f1_score_lof, precision_lof, recall_lof, accuracy_lof, runtime_lof)
+        _logger.info(f'LOF Evaluation: ROC AUC Score={roc_auc_lof}, F1 Score={f1_score_lof}, Precision Score={precision_lof}, \n'
+                f'Recall Score={recall_lof}, Accuracy Score={accuracy_lof}, Runtime={runtime_lof}')
     except Exception as e:
         _logger.error(f'Error evaluating LOF model:{e}')
 
@@ -189,9 +206,11 @@ if __name__ == '__main__':
         # MODEL PRINCIPAL COMPONENT ANALYSIS (PCA)
         _logger.info('Starting PCA Evaluation')
         # Evaluate the PCA model
-        roc_auc_pca, f1_score_pca, runtime_pca = model_pca(X, y)
+        roc_auc_pca, f1_score_pca, precision_pca, recall_pca, accuracy_pca, runtime_pca = model_pca(X, y)
         append_metrics('PCA', None, roc_auc_pca, f1_score_pca, runtime_pca)
-        _logger.info(f'PCA Evaluation: ROC AUC Score={roc_auc_pca}, F1 Score={f1_score_pca}, Runtime={runtime_pca}')
+        unsupervised_metrics('PCA', None, roc_auc_pca, f1_score_pca, precision_pca, recall_pca, accuracy_pca, runtime_pca)
+        _logger.info(f'PCA Evaluation: ROC AUC Score={roc_auc_pca}, F1 Score={f1_score_pca}, Precision Score={precision_pca},\n'
+                f'Recall Score={recall_pca}, Accuracy Score={accuracy_pca}, Runtime={runtime_pca}')
     except Exception as e:
         _logger.error(f'Error evaluating PCA model:{e}')
 
@@ -203,9 +222,11 @@ if __name__ == '__main__':
         forest_estimator = forest_tunner.tune_model()
         _logger.info(f'Best Isolation Forest Model: {forest_estimator}')
         # Evaluate the IF model
-        roc_auc_if, f1_score_if, runtime_if = model_iforest(X, y, forest_estimator)
+        roc_auc_if, f1_score_if, precision_if, recall_if, accuracy_if, runtime_if = model_iforest(X, y, forest_estimator)
         append_metrics('Isolation Forest', forest_estimator, roc_auc_if, f1_score_if, runtime_if)
-        _logger.info(f'Isolation Forest Evaluation: ROC AUC Score={roc_auc_if}, F1 Score={f1_score_if}, Runtime={runtime_if}')
+        unsupervised_metrics('Isolation Forest', forest_estimator, roc_auc_if, f1_score_if, precision_if, recall_if, accuracy_if, runtime_if)
+        _logger.info(f'Isolation Forest Evaluation: ROC AUC Score={roc_auc_if}, F1 Score={f1_score_if}, Precision Score={precision_if}, \n'
+                f'Recall Score={recall_if}, Accuracy Score={accuracy_if}, Runtime={runtime_if}')
     except Exception as e:
         _logger.error(f'Error evaluating Isolation Forest model:{e}')
 
@@ -221,9 +242,11 @@ if __name__ == '__main__':
         best_eps = dbscan_cluster['eps']
         best_min_samples = int(dbscan_cluster['min_samples'])
         # Evaluate the DBSCAN model
-        roc_auc_dbscan, f1_score_dbscan, runtime_dbscan = model_dbscan(X, y, eps=best_eps, min_samples=best_min_samples)
-        append_metrics('DBSCAN', best_eps, roc_auc_dbscan, f1_score_dbscan, runtime_dbscan )
-        _logger.info(f'DBSCAN Evaluation: ROC AUC Score={roc_auc_dbscan}, F1 Score={f1_score_dbscan}, Runtime={runtime_dbscan}')
+        roc_auc_dbscan, f1_score_dbscan, precision_dbscan, recall_dbscan, accuracy_dbscan, runtime_dbscan = model_dbscan(X, y, eps=best_eps, min_samples=best_min_samples)
+        append_metrics('DBSCAN', best_eps, roc_auc_dbscan, f1_score_dbscan, runtime_dbscan)
+        unsupervised_metrics('DBSCAN', best_eps, roc_auc_dbscan, f1_score_dbscan, precision_dbscan, recall_dbscan, accuracy_dbscan, runtime_dbscan)
+        _logger.info(f'DBSCAN Evaluation: ROC AUC Score={roc_auc_dbscan}, F1 Score={f1_score_dbscan}, Precision Score={precision_dbscan}, \n'
+                f'Recall Score={recall_dbscan}, Accuracy Score={accuracy_dbscan}, Runtime={runtime_dbscan}')
     except Exception as e:
         _logger.error(f'Error evaluating DBSCAN model:{e}')
 
@@ -231,9 +254,11 @@ if __name__ == '__main__':
         # MODEL COPULA BASED OUTLIER DETECTION (COPOD)
         _logger.info('Starting COPOD Evaluation')
         # Evaluate the COPOD model
-        roc_auc_copod, f1_score_copod, runtime_copod = model_copod(X, y)
+        roc_auc_copod, f1_score_copod, precision_copod, recall_copod, accuracy_copod, runtime_copod = model_copod(X, y)
         append_metrics('COPOD', None, roc_auc_copod, f1_score_copod, runtime_copod)
-        _logger.info(f'COPOD Evaluation: ROC AUC Score={roc_auc_copod}, F1 Score={f1_score_copod}, Runtime={runtime_copod}')
+        unsupervised_metrics('COPOD', None, roc_auc_copod, f1_score_copod, precision_copod, recall_copod, accuracy_copod, runtime_copod)
+        _logger.info(f'COPOD Evaluation: ROC AUC Score={roc_auc_copod}, F1 Score={f1_score_copod}, Precision Score={precision_copod} \n'
+                f'Recall Score={recall_copod}, Accuracy Score={accuracy_copod}, Runtime={runtime_copod}')
     except Exception as e:
         _logger.error(f'Error evaluating COPOD model:{e}')
 
@@ -241,9 +266,11 @@ if __name__ == '__main__':
         # MODEL EMPIRICAL CUMULATIVE DISTRIBUTION BASED OUTLIER DETECTION (ECOD)
         _logger.info('Starting ECOD Evaluation')
         # Evaluate the ECOD model
-        roc_auc_ecod, f1_score_ecod, runtime_ecod = model_ecod(X, y)
+        roc_auc_ecod, f1_score_ecod, precision_ecod, recall_ecod, accuracy_ecod,runtime_ecod = model_ecod(X, y)
         append_metrics('ECOD', None, roc_auc_ecod, f1_score_ecod, runtime_ecod)
-        _logger.info(f'ECOD Evaluation: ROC AUC Score={roc_auc_ecod}, F1 Score={f1_score_ecod}, Runtime={runtime_ecod}')
+        unsupervised_metrics('ECOD', None, roc_auc_ecod, f1_score_ecod, precision_ecod, recall_ecod, accuracy_ecod,runtime_ecod )
+        _logger.info(f'ECOD Evaluation: ROC AUC Score={roc_auc_ecod}, F1 Score={f1_score_ecod}, Precision Score={precision_ecod}\n'
+                f'Recall Score={recall_ecod}, Accuracy Score={accuracy_ecod}, Runtime={runtime_ecod}')
     except Exception as e:
         _logger.error(f'Error evaluating ECOD model:{e}')
 
@@ -251,10 +278,14 @@ if __name__ == '__main__':
 
     # Create a dataframe to store the evaluation metrics
     metrics_df = pd.DataFrame(metrics)
+    unsupervised_metrics_df = pd.DataFrame(unsupervised_metrics)
 
     # Save the metrics to a CSV file
     metrics_df.to_csv('./Metrics(DS1).csv', index=False)
     _logger.info('The evaluation results are saved to CSV file.')
+
+    unsupervised_metrics_df.to_csv('./Unsupervised_Metrics(DS1).csv', index=False)
+    _logger.info('The evaluation results for unsupervised learning are saved to CSV file.')
 
     # Visualizing the results ROC-AUC Score - Runtime
     plt.figure(figsize=(10, 6))
