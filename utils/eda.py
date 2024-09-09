@@ -74,7 +74,7 @@ def distrib_plot(df, dataset_name, col_name=None):
         plt.ylabel('Density')
         plt.title(f'Distribution of {col_name}')
         plt.grid(True)
-        plt.savefig(f'{dataset_name}_{col_name}.png')
+        plt.savefig(f'../results/{dataset_name}_{col_name}.png')
         plt.show()
     else:
         print(f'Feature {col_name} not found in the dataset')
@@ -174,7 +174,7 @@ def correlation_plot(df, dataset_name):
     plt.figure(figsize=(10, 8))
     sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns, linewidths=.1, annot=True, fmt='.2f', cmap='viridis', vmin=-1, vmax=1)
     plt.title(f'Correlation Matrix for {dataset_name}')
-    plt.savefig(f'{dataset_name}_corr.png')
+    plt.savefig(f'../results/{dataset_name}_corr.png')
     plt.show()
 
 if __name__ == '__main__':
@@ -190,13 +190,11 @@ if __name__ == '__main__':
     file_path = datasets[dataset_name]
 
     df = load_data(file_path)
-    summary_statistics(df)
-    missing_values(df)
+    #summary_statistics(df)
+    #missing_values(df)
     #distrib_plots_time(df, dataset_name) # Displays all plots on the same figure
-    df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
-    df['anomaly'] = df['anomaly'].astype(int)
     distrib_plot(df, dataset_name, 'anomaly')
-    correlation_plot(df, dataset_name)
+    #correlation_plot(df, dataset_name)
 
     print(df['anomaly'].value_counts()[1])
     print(df['anomaly'].value_counts()[0])

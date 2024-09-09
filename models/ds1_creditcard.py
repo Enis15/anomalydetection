@@ -281,10 +281,10 @@ if __name__ == '__main__':
     unsupervised_metrics_df = pd.DataFrame(unsupervised_metrics)
 
     # Save the metrics to a CSV file
-    metrics_df.to_csv('./Metrics(DS1).csv', index=False)
+    metrics_df.to_csv('../results/Metrics(DS1).csv', index=False)
     _logger.info('The evaluation results are saved to CSV file.')
 
-    unsupervised_metrics_df.to_csv('./Unsupervised_Metrics(DS1).csv', index=False)
+    unsupervised_metrics_df.to_csv('../results/Unsupervised_Metrics(DS1).csv', index=False)
     _logger.info('The evaluation results for unsupervised learning are saved to CSV file.')
 
     # Visualizing the results ROC-AUC Score - Runtime
@@ -298,7 +298,7 @@ if __name__ == '__main__':
     plt.xlabel('Runtime', fontsize=14, fontweight='bold')
     plt.ylabel('ROC AUC Score', fontsize=14, fontweight='bold')
     plt.title('ROC AUC Score vs Runtime comparison', fontsize=16, fontweight='bold')
-    plt.savefig('./ROC_AUC_vs_Runtime(DS1).png', bbox_inches='tight')
+    plt.savefig('../results/ROC_AUC_vs_Runtime(DS1).png', bbox_inches='tight')
     plt.show()
 
     # Visualizing the results F1 Score - Runtime
@@ -312,6 +312,6 @@ if __name__ == '__main__':
     plt.xlabel('Runtime', fontsize=14, fontweight='bold')
     plt.ylabel('F1 Score', fontsize=14, fontweight='bold')
     plt.title('F1 Score vs Runtime comparison', fontsize=16, fontweight='bold')
-    plt.savefig('./F1_Score_vs_Runtime(DS1).png', bbox_inches='tight')
+    plt.savefig('../results/F1_Score_vs_Runtime(DS1).png', bbox_inches='tight')
     plt.show()
 
