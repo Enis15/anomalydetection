@@ -1,5 +1,5 @@
 import time
-from sklearn.metrics import roc_auc_score, f1_score, adjusted_rand_score, normalized_mutual_info_score
+from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score, balanced_accuracy_score
 
 # Import the models
 from sklearn.ensemble import IsolationForest
@@ -22,7 +22,7 @@ def model_lof(X, y, n_neighbors):
         y: True Labels.
         n_neighbors: number of neighbors.
     Returns:
-        tuple: roc_auc score, f1 score, NMI index, adjusted rand score and runtime of LOF algorithm.
+        tuple: roc_auc score, f1 score, precision score, recall score, accuracy score and runtime for LOF algorithm.
     """
     # Record the start time
     start_time = time.time()
@@ -40,17 +40,19 @@ def model_lof(X, y, n_neighbors):
     #Calculate the performance scores
     roc_auc_lof = round(roc_auc_score(y, y_score, average='weighted'), 3)
     f1_score_lof = round(f1_score(y, y_pred, average='weighted'), 3)
-    nmi_score_lof = round(normalized_mutual_info_score(y, y_pred), 3)
-    rand_score_lof = round(adjusted_rand_score(y, y_pred), 3)
+    precision_lof = round(precision_score(y, y_pred, average='weighted'), 3)
+    recall_lof = round(recall_score(y, y_pred, average='weighted'), 3)
+    accuracy_lof = round(balanced_accuracy_score(y, y_pred), 3)
     runtime_lof =round((time.time() - start_time), 3)
 
     print(f"Evaluation metrics for LOF model, with n_neighbors = {n_neighbors}, are: \n"
             f"ROC AUC: {roc_auc_lof}\n"
             f"F1 score: {f1_score_lof}\n"
-            f"NMI score: {nmi_score_lof}\n"
-            f"Adjusted Rand Score: {rand_score_lof}\n"
+            f"Precision score: {precision_lof}\n"
+            f"Recall score: {recall_lof}\n"
+            f"Accuracy score: {accuracy_lof}\n"
             f"Time elapsed: {runtime_lof} (s)")
-    return roc_auc_lof, f1_score_lof, nmi_score_lof, rand_score_lof, runtime_lof
+    return roc_auc_lof, f1_score_lof, precision_lof, recall_lof, accuracy_lof, runtime_lof
 
 '''
 =======================================================
@@ -66,7 +68,7 @@ def model_iforest(X, y, n_estimators):
         y: True Labels.
         n_estimators: Number of trees in the forest.
     Returns:
-        tuple: roc_auc score, f1 score and runtime of Isolation Forest algorithm.
+        tuple: roc_auc score, f1 score, precision score, recall score, accuracy score and runtime for Isolation Forest algorithm.
     """
     # Record the start time
     start_time = time.time()
@@ -84,17 +86,19 @@ def model_iforest(X, y, n_estimators):
     #Calculate the performance scores
     roc_auc_if = round(roc_auc_score(y, y_score, average='weighted'), 3)
     f1_score_if = round(f1_score(y, y_pred, average='weighted'), 3)
-    nmi_score_if = round(normalized_mutual_info_score(y, y_pred), 3)
-    rand_score_if = round(adjusted_rand_score(y, y_pred), 3)
+    precision_if = round(precision_score(y, y_pred, average='weighted'), 3)
+    recall_if = round(recall_score(y, y_pred, average='weighted'), 3)
+    accuracy_if = round(balanced_accuracy_score(y, y_pred), 3)
     runtime_if =round((time.time() - start_time), 3)
 
     print(f"Evaluation metrics for Isolation Forest model, with n_estimators = {n_estimators}, are: \n"
             f"ROC AUC: {roc_auc_if}\n"
             f"F1 score: {f1_score_if}\n"
-            f"NMI score: {nmi_score_if}\n"
-            f"Adjusted Rand Score: {rand_score_if}\n"
+            f"Precision score: {precision_if}\n"
+            f"Recall score: {recall_if}\n"
+            f"Accuracy score: {accuracy_if}\n"
             f"Time elapsed: {runtime_if} (s)")
-    return roc_auc_if, f1_score_if, nmi_score_if, rand_score_if, runtime_if
+    return roc_auc_if, f1_score_if, precision_if, recall_if, accuracy_if, runtime_if
 
 '''
 ===============================================================
@@ -108,7 +112,7 @@ def model_pca(X, y):
         X: Input Features.
         y: True Labels.
     Returns:
-        tuple: roc_auc score, f1 score and runtime of PCA algorithm.
+        tuple: roc_auc score, f1 score, precision score, recall score, accuracy score and runtime for PCA algorithm.
     """
     # Record the start time
     start_time = time.time()
@@ -125,17 +129,19 @@ def model_pca(X, y):
     #Calculate the performance scores
     roc_auc_pca = round(roc_auc_score(y, y_score, average='weighted'), 3)
     f1_score_pca = round(f1_score(y, y_pred, average='weighted'), 3)
-    nmi_score_pca = round(normalized_mutual_info_score(y, y_pred), 3)
-    rand_score_pca = round(adjusted_rand_score(y, y_pred), 3)
+    precision_pca = round(precision_score(y, y_pred, average='weighted'), 3)
+    recall_pca = round(recall_score(y, y_pred, average='weighted'), 3)
+    accuracy_pca = round(balanced_accuracy_score(y, y_pred), 3)
     runtime_pca =round((time.time() - start_time), 3)
 
     print(f"Evaluation metrics for Principal Component model are: \n"
             f"ROC AUC: {roc_auc_pca}\n"
             f"F1 score: {f1_score_pca}\n"
-            f"NMI score: {nmi_score_pca}\n"
-            f"Adjusted Rand Score: {rand_score_pca}\n"
+            f"Precision score: {precision_pca}\n"
+            f"Recall score: {recall_pca}\n"
+            f"Accuracy score: {accuracy_pca}\n"
             f"Time elapsed: {runtime_pca} (s)")
-    return roc_auc_pca, f1_score_pca, nmi_score_pca, rand_score_pca, runtime_pca
+    return roc_auc_pca, f1_score_pca, precision_pca, recall_pca, accuracy_pca,runtime_pca
 
 '''
 ===================================================================
@@ -149,7 +155,7 @@ def model_copod(X, y):
         X: Input Features.
         y: True Labels.
     Returns:
-        tuple: roc_auc score, f1 score and runtime of COPOD algorithm.
+        tuple:roc_auc score, f1 score, precision score, recall score, accuracy score and runtime for COPOD algorithm.
     """
     # Record the start time
     start_time = time.time()
@@ -166,17 +172,19 @@ def model_copod(X, y):
     #Calculate the performance scores
     roc_auc_copod = round(roc_auc_score(y, y_score, average='weighted'), 3)
     f1_score_copod = round(f1_score(y, y_pred, average='weighted'), 3)
-    nmi_score_copod = round(normalized_mutual_info_score(y, y_pred, average_method='geometric'), 3)
-    rand_score_copod = round(adjusted_rand_score(y, y_pred), 3)
+    precision_copod = round(precision_score(y, y_pred, average='weighted'), 3)
+    recall_copod = round(recall_score(y, y_pred, average='weighted'), 3)
+    accuracy_copod = round(balanced_accuracy_score(y, y_pred), 3)
     runtime_copod =round((time.time() - start_time), 3)
 
     print(f"Evaluation metrics for COPOD model are: \n"
             f"ROC AUC: {roc_auc_copod}\n"
             f"F1 score: {f1_score_copod}\n"
-            f"NMI score: {nmi_score_copod}\n"
-            f"Adjusted Rand Score: {rand_score_copod}\n"
+            f"Precision score: {precision_copod}\n"
+            f"Recall score: {recall_copod}\n"
+            f"Accuracy score: {accuracy_copod}\n"
             f"Time elapsed: {runtime_copod} (s)")
-    return roc_auc_copod, f1_score_copod, nmi_score_copod, rand_score_copod, runtime_copod
+    return roc_auc_copod, f1_score_copod, precision_copod, recall_copod, accuracy_copod, runtime_copod
 
 
 '''
@@ -191,7 +199,7 @@ def model_ecod(X, y):
         X: Input Features.
         y: True Labels.
     Returns:
-        tuple: roc_auc score, f1 score and runtime of ECOD algorithm.
+        tuple: roc_auc score, f1 score, precision score, recall score, accuracy score and runtime for ECOD algorithm.
     """
     # Record the start time
     start_time = time.time()
@@ -208,17 +216,19 @@ def model_ecod(X, y):
     #Calculate the performance scores
     roc_auc_ecod = round(roc_auc_score(y, y_score, average='weighted'), 3)
     f1_score_ecod = round(f1_score(y, y_pred, average='weighted'), 3)
-    nmi_score_ecod = round(normalized_mutual_info_score(y, y_pred), 3)
-    rand_score_ecod = round(adjusted_rand_score(y, y_pred), 3)
+    precision_ecod = round(precision_score(y, y_pred, average='weighted'), 3)
+    recall_ecod = round(recall_score(y, y_pred, average='weighted'), 3)
+    accuracy_ecod = round(balanced_accuracy_score(y, y_pred), 3)
     runtime_ecod =round((time.time() - start_time), 3)
 
     print(f"Evaluation metrics for ECOD model are: \n"
             f"ROC AUC: {roc_auc_ecod}\n"
             f"F1 score: {f1_score_ecod}\n"
-            f"NMI score: {nmi_score_ecod}\n"
-            f"Adjusted Rand Score: {rand_score_ecod}\n"
+            f"Precision score: {precision_ecod}\n"
+            f"Recall score: {recall_ecod}\n"
+            f"Accuracy score: {accuracy_ecod}\n"
             f"Time elapsed: {runtime_ecod} (s)")
-    return roc_auc_ecod, f1_score_ecod, nmi_score_ecod, rand_score_ecod, runtime_ecod
+    return roc_auc_ecod, f1_score_ecod, precision_ecod, recall_ecod, accuracy_ecod, runtime_ecod
 
 '''
 =======================================================
@@ -234,7 +244,7 @@ def model_dbscan(X, y, eps, min_samples):
         eps: Distance threshold.
         min_samples: Minimum number of samples required to form a cluster.
     Returns:
-        tuple: roc_auc score, f1 score and runtime of DBSCAN algorithm.
+        tuple: roc_auc score, f1 score, precision score, recall score, accuracy score and runtime for DBSCAN algorithm.
     """
     # Record start time
     start_time = time.time()
@@ -250,14 +260,16 @@ def model_dbscan(X, y, eps, min_samples):
     #Calculate the performance scores
     roc_auc_dbscan = round(roc_auc_score(y, y_pred, average='weighted'), 3)
     f1_score_dbscan = round(f1_score(y, y_pred, average='weighted'), 3)
-    nmi_score_dbscan = round(normalized_mutual_info_score(y, y_pred), 3)
-    rand_score_dbscan = round(adjusted_rand_score(y, y_pred), 3)
+    precision_dbscan = round(precision_score(y, y_pred, average='weighted'), 3)
+    recall_dbscan = round(recall_score(y, y_pred, average='weighted'), 3)
+    accuracy_dbscan = round(balanced_accuracy_score(y, y_pred), 3)
     runtime_dbscan =round((time.time() - start_time), 3)
 
     print(f"Evaluation metrics for DBSCAN model are: \n"
             f"ROC AUC: {roc_auc_dbscan}\n"
             f"F1 score: {f1_score_dbscan}\n"
-            f"NMI score: {nmi_score_dbscan}\n"
-            f"Adjusted Rand Score: {rand_score_dbscan}\n"
+            f"Precision score: {precision_dbscan}\n"
+            f"Recall score: {recall_dbscan}\n"
+            f"Accuracy score: {accuracy_dbscan}\n"
             f"Time elapsed: {runtime_dbscan} (s)")
-    return roc_auc_dbscan, f1_score_dbscan, nmi_score_dbscan, rand_score_dbscan, runtime_dbscan
+    return roc_auc_dbscan, f1_score_dbscan, precision_dbscan, recall_dbscan, accuracy_dbscan, runtime_dbscan

@@ -138,9 +138,14 @@ def correlation_plot(df, dataset_name):
     # Preprocessing for dataset2
     if dataset_name == 'dataset2':
         # Drop specific features that aren't needed for correlation analysis
-        df = df.drop(['nameOrig', 'nameDest'], axis=1)
+        #df = df.drop(['nameOrig', 'nameDest'], axis=1)
         # Map feature 'type' to numerical values
         df['type'] = df['type'].map({'CASH_OUT': 5, 'PAYMENT': 4, 'CASH_IN': 3, 'TRANSFER': 2, 'DEBIT': 1})
+        cat_features = df.select_dtypes(include=['object']).columns
+        for col in cat_features:
+            df[col]=df[col].astype('category')
+        df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+
 
     # Preprocessing for dataset3
     if dataset_name == 'dataset3':
@@ -155,6 +160,8 @@ def correlation_plot(df, dataset_name):
 
     # Preprocessing for dataset4
     if dataset_name == 'dataset4':
+        df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
+        df['anomaly'] = df['anomaly'].astype(int)
         # Identify categorical values
         cat_features = df.select_dtypes(include=['object']).columns
         # Convert categorical features to numerical values
@@ -164,8 +171,9 @@ def correlation_plot(df, dataset_name):
 
     # Calculate and generate the correlation matrix
     corr = df.corr()
-    sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns, linewidths=.1, cmap='coolwarm')
-    plt.title(f'Correlation Matrix')
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns, linewidths=.1, annot=True, fmt='.2f', cmap='viridis', vmin=-1, vmax=1)
+    plt.title(f'Correlation Matrix for {dataset_name}')
     plt.savefig(f'{dataset_name}_corr.png')
     plt.show()
 
@@ -178,12 +186,17 @@ if __name__ == '__main__':
         'dataset4': '../data/datasets/Labeled_DS/metaverse_transactions_dataset.csv'
     }
 
-    dataset_name = 'dataset1' # Adjust to your desired dataset from the dict
+    dataset_name = 'dataset4' # Adjust to your desired dataset from the dict
     file_path = datasets[dataset_name]
 
     df = load_data(file_path)
     summary_statistics(df)
     missing_values(df)
     #distrib_plots_time(df, dataset_name) # Displays all plots on the same figure
-    #distrib_plot(df, dataset_name, 'Class')
-    #correlation_plot(df, dataset_name)
+    df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
+    df['anomaly'] = df['anomaly'].astype(int)
+    distrib_plot(df, dataset_name, 'anomaly')
+    correlation_plot(df, dataset_name)
+
+    print(df['anomaly'].value_counts()[1])
+    print(df['anomaly'].value_counts()[0])

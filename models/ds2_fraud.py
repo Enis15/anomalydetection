@@ -26,7 +26,7 @@ Dataset 2: Fraudulent transaction Dataset with over 6.000.000 records and 11 fea
 df = pd.read_csv('../data/datasets/Labeled_DS/Fraud.csv')
 
 # Feature engineering: Dropping the columns 'nameOrig' & 'nameDest'; Encoding values to the column 'CASH_OUT'
-df = df.drop(['nameOrig','nameDest'], axis=1)
+df = df.drop(['nameOrig', 'nameDest'], axis=1)
 df['type'] = df['type'].map({'CASH_OUT': 5, 'PAYMENT': 4, 'CASH_IN': 3, 'TRANSFER': 2, 'DEBIT': 1})
 
 # Determining the X and y values
