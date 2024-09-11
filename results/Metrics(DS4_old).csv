@@ -1,0 +1,13 @@
+Model,Estimator,ROC_AUC_Score,F1_Score,Runtime
+KNN,11.0,1.0,1.0,0.676
+Random Forest Classifier,530.0,1.0,1.0,1.967
+XGBoost,5600.0,1.0,1.0,2.613
+SVM,,1.0,1.0,1.106
+Naive Bayes,,0.989,0.982,0.019
+CATBoost,490.0,1.0,1.0,3.145
+LOF,29.0,0.5,0.722,0.654
+PCA,,0.642,0.813,0.082
+Isolation Forest,11.0,0.507,0.718,0.275
+K-Means,2.0,0.564,0.594,0.108
+COPOD,,0.626,0.801,0.914
+ECOD,,0.621,0.798,0.571

@@ -1,0 +1,5 @@
+2024-09-10 22:34:05,883 - __main__ - INFO - Starting KNN Evaluation
+2024-09-10 23:00:32,857 - __main__ - INFO - Starting KNN Evaluation
+2024-09-11 01:47:01,929 - __main__ - INFO - Best K-Nearest Neighbor Model: {'n_neighbors': 100.0}
+2024-09-11 01:51:48,417 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.574, F1 SCORE=0.241, Runtime=286.475
+2024-09-11 01:51:48,419 - __main__ - INFO - Starting Random Forest Classifier Evaluation

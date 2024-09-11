@@ -1,0 +1,120 @@
+2024-07-21 01:01:47,001 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:01:48,201 - __main__ - INFO - K Means Evaluation: ROC AUC Score=1.199, F1 Score=0.0, Runtime=1.199
+2024-07-21 01:01:48,201 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:01:48,276 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:01:55,106 - __main__ - INFO - K Means Evaluation: ROC AUC Score=6.83, F1 Score=0.0, Runtime=6.83
+2024-07-21 01:01:55,107 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:01:55,292 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:02:19,551 - __main__ - INFO - K Means Evaluation: ROC AUC Score=24.259, F1 Score=0.0, Runtime=24.259
+2024-07-21 01:02:19,552 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:02:19,860 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:03:08,953 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:03:10,155 - __main__ - INFO - K Means Evaluation: ROC AUC Score=1.202, F1 Score=0.0, Runtime=1.202
+2024-07-21 01:03:10,155 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:03:10,230 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:03:17,079 - __main__ - INFO - K Means Evaluation: ROC AUC Score=6.848, F1 Score=0.0, Runtime=6.848
+2024-07-21 01:03:17,079 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:03:17,286 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:03:43,876 - __main__ - INFO - K Means Evaluation: ROC AUC Score=26.589, F1 Score=0.0, Runtime=26.589
+2024-07-21 01:03:43,877 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:03:44,298 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:04:31,116 - __main__ - INFO - K Means Evaluation: ROC AUC Score=46.817, F1 Score=0.0, Runtime=46.817
+2024-07-21 01:04:31,116 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:04:31,543 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:05:49,986 - __main__ - INFO - K Means Evaluation: ROC AUC Score=78.442, F1 Score=0.0, Runtime=78.442
+2024-07-21 01:05:49,989 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:05:50,531 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:06:28,201 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:06:30,097 - __main__ - INFO - K Means Evaluation: ROC AUC Score=1.896, F1 Score=0.0, Runtime=1.896
+2024-07-21 01:06:30,098 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:06:30,172 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:06:38,459 - __main__ - INFO - K Means Evaluation: ROC AUC Score=8.287, F1 Score=0.0, Runtime=8.287
+2024-07-21 01:06:38,460 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:06:38,639 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:07:04,755 - __main__ - INFO - K Means Evaluation: ROC AUC Score=26.115, F1 Score=0.0, Runtime=26.115
+2024-07-21 01:07:04,756 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:07:05,057 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:07:58,782 - __main__ - INFO - K Means Evaluation: ROC AUC Score=53.724, F1 Score=0.0, Runtime=53.724
+2024-07-21 01:07:58,785 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:07:59,213 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:09:29,760 - __main__ - INFO - K Means Evaluation: ROC AUC Score=90.547, F1 Score=0.0, Runtime=90.547
+2024-07-21 01:09:29,762 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:09:30,304 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:10:06,822 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:10:08,282 - __main__ - INFO - K Means Evaluation: ROC AUC Score=1.46, F1 Score=0.333, Runtime=1.46
+2024-07-21 01:10:08,283 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:10:08,365 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:10:17,096 - __main__ - INFO - K Means Evaluation: ROC AUC Score=8.73, F1 Score=0.334, Runtime=8.73
+2024-07-21 01:10:17,097 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:10:17,296 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:10:43,439 - __main__ - INFO - K Means Evaluation: ROC AUC Score=26.143, F1 Score=0.333, Runtime=26.143
+2024-07-21 01:10:43,441 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:10:43,768 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:12:19,849 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:12:21,627 - __main__ - INFO - K Means Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=1.777
+2024-07-21 01:12:21,627 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:12:21,703 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:12:30,634 - __main__ - INFO - K Means Evaluation: ROC AUC Score=0.5, F1 Score=0.334, Runtime=8.931
+2024-07-21 01:12:30,635 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:12:30,816 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:12:57,436 - __main__ - INFO - K Means Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=26.619
+2024-07-21 01:12:57,437 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:12:57,743 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:13:52,343 - __main__ - INFO - K Means Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=54.6
+2024-07-21 01:13:52,344 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:13:52,742 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:15:23,070 - __main__ - INFO - K Means Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=90.327
+2024-07-21 01:15:23,072 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:15:23,613 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:17:26,116 - __main__ - INFO - K Means Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=122.501
+2024-07-21 01:17:26,118 - __main__ - ERROR - Error evaluating DBSCAN model:'K-Means'
+2024-07-21 01:45:42,626 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:45:42,627 - __main__ - ERROR - Error evaluating DBSCAN model:The 'min_samples' parameter of DBSCAN must be an int in the range [1, inf). Got 50.0 instead.
+2024-07-21 01:45:42,701 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:45:42,701 - __main__ - ERROR - Error evaluating DBSCAN model:The 'min_samples' parameter of DBSCAN must be an int in the range [1, inf). Got 150.0 instead.
+2024-07-21 01:45:42,883 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:45:42,883 - __main__ - ERROR - Error evaluating DBSCAN model:The 'min_samples' parameter of DBSCAN must be an int in the range [1, inf). Got 350.0 instead.
+2024-07-21 01:45:43,164 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:45:43,164 - __main__ - ERROR - Error evaluating DBSCAN model:The 'min_samples' parameter of DBSCAN must be an int in the range [1, inf). Got 550.0 instead.
+2024-07-21 01:45:43,553 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:45:43,554 - __main__ - ERROR - Error evaluating DBSCAN model:The 'min_samples' parameter of DBSCAN must be an int in the range [1, inf). Got 750.0 instead.
+2024-07-21 01:45:44,057 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:45:44,057 - __main__ - ERROR - Error evaluating DBSCAN model:The 'min_samples' parameter of DBSCAN must be an int in the range [1, inf). Got 1000.0 instead.
+2024-07-21 01:46:00,785 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:46:03,039 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=2.253
+2024-07-21 01:46:03,114 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:46:19,450 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.334, Runtime=16.335
+2024-07-21 01:46:19,642 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:47:17,756 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=58.114
+2024-07-21 01:47:18,054 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:49:23,238 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=125.184
+2024-07-21 01:49:23,672 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:50:33,661 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:50:34,826 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=1.162
+2024-07-21 01:50:34,900 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:50:41,544 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.334, Runtime=6.644
+2024-07-21 01:50:41,720 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:51:02,431 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=20.711
+2024-07-21 01:51:02,723 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:51:41,375 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=38.651
+2024-07-21 01:51:41,801 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:52:45,549 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=63.748
+2024-07-21 01:52:46,166 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:53:21,938 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:53:23,161 - __main__ - ERROR - Error evaluating DBSCAN model:too many values to unpack (expected 3)
+2024-07-21 01:53:23,233 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:53:29,739 - __main__ - ERROR - Error evaluating DBSCAN model:too many values to unpack (expected 3)
+2024-07-21 01:53:29,915 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:53:50,359 - __main__ - ERROR - Error evaluating DBSCAN model:too many values to unpack (expected 3)
+2024-07-21 01:53:50,655 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:54:29,923 - __main__ - ERROR - Error evaluating DBSCAN model:too many values to unpack (expected 3)
+2024-07-21 01:54:30,353 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:59:01,869 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 01:59:15,242 - __main__ - ERROR - Error evaluating DBSCAN model:too many values to unpack (expected 3)
+2024-07-21 01:59:15,344 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 02:00:56,554 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 02:01:25,886 - __main__ - INFO - Best K-Means Model: {'eps': 0.26236134302479663, 'min_samples': 88.0}
+2024-07-21 02:01:26,488 - __main__ - ERROR - Error evaluating DBSCAN model:too many values to unpack (expected 3)
+2024-07-21 02:01:53,846 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-07-21 02:02:22,955 - __main__ - INFO - Best K-Means Model: {'eps': 0.7895326316655827, 'min_samples': 69.0}
+2024-07-21 02:02:23,594 - __main__ - ERROR - Error evaluating DBSCAN model:too many values to unpack (expected 3)

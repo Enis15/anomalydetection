@@ -1,0 +1,8 @@
+
+cpython:S125"Remove this commented out code.(ÃÓôÅ8ªœÛ¯ï1J$256b9c42-5dcc-4457-85cd-1b841bfecabd
+›python:S117="WRename this local variable "X_test" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ï¼İà8ªœÛ¯ï1J$adf027b5-7506-424d-9b5f-a0723506f47d
+œpython:S117="XRename this local variable "X_train" to match the regular expression ^[_a-z][a-z0-9_]*$.(Ï¼İà8ªœÛ¯ï1J$78476781-c834-4c89-9de0-3b1630c4873c
+›python:S117E"WRename this local variable "X_test" to match the regular expression ^[_a-z][a-z0-9_]*$.(íšÃ8ªœÛ¯ï1J$17a75f3f-1bdf-4c36-89ea-57ef0c2a68f2
+œpython:S117E"XRename this local variable "X_train" to match the regular expression ^[_a-z][a-z0-9_]*$.(íšÃ8ªœÛ¯ï1J$95f57e3f-a25e-4adc-8f80-1a86b2f3b9b8
+zpython:S1481E"5Replace the unused local variable "y_train" with "_".(íšÃ8«œÛ¯ï1J$ba30b29f-ff20-4777-aaff-50e986087786
+tpython:S1656U"/Remove or correct this useless self-assignment.(²ñ£ì8«œÛ¯ï1J$31a14349-6e99-4c33-843e-20941d2d1fba

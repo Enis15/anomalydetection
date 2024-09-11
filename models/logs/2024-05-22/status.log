@@ -1,0 +1,51 @@
+2024-05-22 00:29:40,172 - __main__ - INFO - Starting Model Evaluation
+2024-05-22 00:29:40,172 - __main__ - INFO - Starting KNN Evaluation
+2024-05-22 00:29:51,266 - __main__ - INFO - Best K-Nearest Neighbor Model: None
+2024-05-22 00:29:51,270 - __main__ - ERROR - Error evaluating KNN model:'NoneType' object is not subscriptable
+2024-05-22 00:29:51,270 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-05-22 00:37:39,665 - __main__ - INFO - Starting KNN Evaluation
+2024-05-22 00:37:54,219 - __main__ - INFO - Best K-Nearest Neighbor Model: None
+2024-05-22 00:37:54,220 - __main__ - ERROR - Error evaluating KNN model:'NoneType' object is not subscriptable
+2024-05-22 00:37:54,220 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-05-22 00:38:33,181 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-05-22 00:38:34,189 - __main__ - INFO - Best XGBoost Model: None
+2024-05-22 00:38:34,190 - __main__ - ERROR - Error evaluating XGBoost Classifier model:'NoneType' object is not subscriptable
+2024-05-22 00:38:34,190 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-05-22 00:39:52,374 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-05-22 03:07:49,012 - __main__ - INFO - Best XGBoost Model: {'learner': XGBClassifier(base_score=0.5, booster=None, callbacks=None,
+              colsample_bylevel=0.9639903189951294, colsample_bynode=None,
+              colsample_bytree=0.6499339166965155, device=None,
+              early_stopping_rounds=None, enable_categorical=False,
+              eval_metric=None, feature_types=None, gamma=0.0036410329867037,
+              grow_policy=None, importance_type=None,
+              interaction_constraints=None, learning_rate=0.09176144421914938,
+              max_bin=None, max_cat_threshold=None, max_cat_to_onehot=None,
+              max_delta_step=0, max_depth=8, max_leaves=None,
+              min_child_weight=3, missing=nan, monotone_constraints=None,
+              multi_strategy=None, n_estimators=1400, n_jobs=1,
+              num_parallel_tree=None, random_state=None, ...), 'preprocs': (StandardScaler(with_mean=False, with_std=False),), 'ex_preprocs': ()}
+2024-05-22 03:10:02,315 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.936, F1 Score=1.0, Runtime=133.301
+2024-05-22 03:10:02,319 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-05-22 04:02:40,810 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.725, F1 Score=0.999, Runtime=3158.488
+2024-05-22 04:02:40,812 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-05-22 04:02:42,090 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.551, F1 Score=0.997, Runtime=1.278
+2024-05-22 04:02:42,091 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-05-22 05:22:43,934 - __main__ - INFO - Best CatBoost Classifier Model: <utils.paramet_tune.Catboost_tuner object at 0x1435ba5c0>
+2024-05-22 05:25:03,625 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score= 0.935, F1 Score= 1.0, Runtime= 139.687
+2024-05-22 05:25:03,626 - __main__ - INFO - Starting LOF Evaluation
+2024-05-22 06:28:08,048 - __main__ - INFO - Best n_neighbors for LOF Model: 10
+2024-05-22 06:29:17,697 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.501, F1 Score=0.985, Runtime=69.622
+2024-05-22 06:29:17,699 - __main__ - INFO - Starting PCA Evaluation
+2024-05-22 06:29:22,164 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.648, F1 Score=0.946, Runtime=4.462
+2024-05-22 06:29:22,164 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-05-22 06:50:55,744 - __main__ - INFO - Best Isolation Forest Model: {'learner': IsolationForest(bootstrap=True, n_estimators=14, n_jobs=1, random_state=4,
+                verbose=False), 'preprocs': (Normalizer(norm='l1'),), 'ex_preprocs': ()}
+2024-05-22 06:51:05,572 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.708, F1 Score=0.946, Runtime=9.825
+2024-05-22 06:51:05,573 - __main__ - INFO - Starting K-Means Evaluation
+2024-05-22 06:55:24,014 - __main__ - INFO - Best K-Means Model: <utils.paramet_tune.Kmeans_tuner object at 0x1488e0c70>
+2024-05-22 06:55:33,549 - __main__ - INFO - K-Means Evaluation: ROC AUC Score=0.493, F1 Score=0.968, Runtime=9.53
+2024-05-22 06:55:33,550 - __main__ - INFO - Starting COPOD Evaluation
+2024-05-22 06:56:54,514 - __main__ - INFO - COPOD Evaluation: ROC AUC Score=0.609, F1 Score=0.946, Runtime=80.92
+2024-05-22 06:56:54,520 - __main__ - INFO - Starting ECOD Evaluation
+2024-05-22 06:58:16,557 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.627, F1 Score=0.946, Runtime=81.994
+2024-05-22 06:58:16,650 - __main__ - INFO - The evaluation results are saved to CSV file.
