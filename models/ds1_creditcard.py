@@ -46,7 +46,7 @@ X_scaled = scaler.fit_transform(X) # Standardize the data
 
 # Setting the fold splits for unsupervised learning models
 scorer = {
-    'f1_score': make_scorer(f1_score, average='weighted'),
+    'f1_score': make_scorer(f1_score),
     'roc_auc': make_scorer(roc_auc_score, average='weighted') } # Metrics for cross validation performance
 
 kf = KFold(n_splits=5, shuffle=True, random_state=42) # Fold splits
