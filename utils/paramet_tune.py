@@ -40,7 +40,6 @@ class IsolationForest_tuner:
         """
         self.X = X
         self.y = y
-        self.kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
     def objective(self, params):
         """
@@ -326,6 +325,7 @@ class RandomForest_tuner:
         max_depth = int(params['max_depth'])
         # Define the model
         clf = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth, random_state=42, n_jobs=-1)
+
         # Calculate the performance metrics with cross validation for each fold
         roc_auc_rf = make_scorer(roc_auc_score, average='weighted')
         results = cross_val_score(clf, X=self.X, y=self.y, cv=self.kf, scoring=roc_auc_rf)

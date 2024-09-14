@@ -25,14 +25,10 @@ df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.cod
 # Determining the X and y values
 X = df.drop('is_fraud', axis=1)
 y = df['is_fraud'].values
-#X, y = make_classification(n_samples=10000, n_features=15, n_classes=2, random_state=42)
-#smote = SMOTE(random_state=42)
-#X_re, y_re = smote.fit_resample(X, y)
 
 scaler = StandardScaler()
-X = scaler.fit_transform(X) # Standardize the data
+X_scaled = scaler.fit_transform(X) # Standardize the data
 
-X = normalize(X) # Normalize the data
 
 # # Define model and its parameters
 # clf = DBSCAN(eps=20, min_samples=150, metric='euclidean')

@@ -1,9 +1,8 @@
 import os
 import pandas as pd
-from keras.src.layers import average
 from sklearn.metrics import make_scorer, f1_score, roc_auc_score
-from sklearn.preprocessing import StandardScaler, normalize, LabelEncoder
-from sklearn.model_selection import KFold, StratifiedKFold
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import KFold
 from multiprocessing import freeze_support
 from adjustText import adjust_text
 import matplotlib.pyplot as plt
@@ -46,7 +45,7 @@ X_scaled = scaler.fit_transform(X) # Standardize the data
 
 # Setting the fold splits for unsupervised learning models
 scorer = {
-    'f1_score': make_scorer(f1_score),
+    'f1_score': make_scorer(f1_score, average='weighted'),
     'roc_auc': make_scorer(roc_auc_score, average='weighted') } # Metrics for cross validation performance
 
 kf = KFold(n_splits=5, shuffle=True, random_state=42) # Fold splits
@@ -280,7 +279,7 @@ if __name__ == '__main__':
 
     # Create a dataframe to store the evaluation metrics
     metrics_df = pd.DataFrame(metrics)
-    unsupervised_metrics_df = pd.DataFrame(unsupervised_metrics)
+    unsupervised_metrics_df = pd.DataFrame(metrics_unsupervised)
 
     # Save the unsupervised metrics to a CSV file
     metrics_df.to_csv('../results/Metrics(DS1).csv', index=False)
