@@ -26,7 +26,6 @@ Dataset 3: Bank Payment dataset with over 600.000 records and 10 features.
 
 # Load the dataset
 df = pd.read_csv('../data/datasets/Labeled_DS/fin_paysys/finpays.csv')
-print(df.shape)
 
 # Encoding categorical values with numerical variables
 cat_features = df.select_dtypes(include=['object']).columns

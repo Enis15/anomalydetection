@@ -1,0 +1,28 @@
+2024-09-14 20:44:33,519 - __main__ - INFO - Starting KNN Evaluation
+2024-09-14 21:09:12,754 - __main__ - INFO - Best K-Nearest Neighbor Model: {'n_neighbors': 3.0}
+2024-09-14 21:09:30,641 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.851, F1 SCORE=0.995, Runtime=17.882
+2024-09-14 21:09:30,641 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-14 23:44:20,669 - __main__ - INFO - Best Random Forest Model: {'max_depth': 38.0, 'n_estimators': 590.0}
+2024-09-14 23:47:38,454 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=0.875, F1 SCORE=0.996, Runtime=197.782
+2024-09-14 23:47:38,456 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-15 00:14:42,249 - __main__ - INFO - Best XGBoost Model: {'learning_rate': 0.26993660487871224, 'max_depth': 3.0, 'n_estimators': 900.0}
+2024-09-15 00:14:55,351 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.9, F1 Score=0.989, Runtime=13.098
+2024-09-15 00:14:55,352 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-15 00:25:28,178 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.834, F1 Score=0.995, Runtime=632.823
+2024-09-15 00:25:28,180 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-09-15 00:25:28,753 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.884, F1 Score=0.987, Runtime=0.573
+2024-09-15 00:25:28,753 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-09-15 01:44:13,500 - __main__ - INFO - Best CatBoost Classifier Model: <utils.paramet_tune.Catboost_tuner object at 0x128a6afe0>
+2024-09-15 01:46:27,213 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score= 0.892, F1 Score= 0.996, Runtime= 133.709
+2024-09-15 01:46:27,214 - __main__ - INFO - Starting LOF Evaluation
+2024-09-15 02:35:13,997 - __main__ - INFO - Best n_neighbors for LOF Model: 100
+2024-09-15 02:36:35,851 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.763, F1 Score=0.976, Precision Score=0.977, 
+Recall Score=0.975, Accuracy Score=0.526, Runtime=81.79
+2024-09-15 02:36:35,854 - __main__ - INFO - Starting PCA Evaluation
+2024-09-15 02:36:36,877 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.932, F1 Score=0.94, Precision Score=0.985,
+Recall Score=0.905, Accuracy Score=0.814, Runtime=1.023
+2024-09-15 02:36:36,877 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-09-15 02:50:48,103 - __main__ - INFO - Best Isolation Forest Model: 260
+2024-09-15 02:50:58,371 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.034, F1 Score=0.898, Precision Score=0.989, 
+Recall Score=0.833, Accuracy Score=0.91, Runtime=10.266
+2024-09-15 02:50:58,372 - __main__ - INFO - Starting DBSCAN Evaluation

@@ -20,7 +20,7 @@ Isolation Forest parameter optimization
 
 class IsolationForest_tuner:
     """
-    Hyperparameter tuning for Local Outlier Factor (LOF) classifier.
+    Hyperparameter tuning for Isolation Forest classifier.
     Parameters:
         X (array-like): Features.
         y (array-like): Labels.
@@ -29,7 +29,7 @@ class IsolationForest_tuner:
         -tune_model(): Performs hyperparameter tuning using Bayesian optimization.
     Examples usage:
     if_tuner=IsolationForest_tuner(X, y)
-    best_n_neighbors = if_tuner.tune_model() --> Used to train the final Isolation Forest model with optimal parameters.
+    best_n_estimators = if_tuner.tune_model() --> Used to train the final Isolation Forest model with optimal parameters.
     """
     def __init__(self, X, y):
         """
@@ -59,7 +59,7 @@ class IsolationForest_tuner:
         y_pred = clf.predict(self.X)  # Outlier labels (1 = outliers & -1 = inliners)
         y_pred = (y_pred == -1).astype(int)  # Convert the labels (-1, 1) to (0, 1)
         # Calculate the decision scores
-        y_score = clf.decision_function(self.X)  # Raw label scores
+        y_score = -clf.decision_function(self.X)  # Raw label scores
 
         # Calculate the performance scores
         roc_auc = round(roc_auc_score(self.y, y_score, average='weighted'), 3)

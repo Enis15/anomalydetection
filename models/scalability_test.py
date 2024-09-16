@@ -240,9 +240,9 @@ for dataset in datasets:
 # In this section, the results of the evaluation are saved and used to create the necessary visualizations.
 
 # Save the metrics to a CSV file
-pd.DataFrame(roc_auc).to_csv('../results/Scalability_test(ROC_AUC).csv', index=False)
-pd.DataFrame(f1_scores).to_csv('../results/Scalability_test(F1_scores).csv', index=False)
-pd.DataFrame(runtimes).to_csv('../results/Scalability_test(Runtime).csv', index=False)
+pd.DataFrame(roc_auc).to_csv('../results/old_plots/Scalability_test(ROC_AUC).csv', index=False)
+pd.DataFrame(f1_scores).to_csv('../results/old_plots/Scalability_test(F1_scores).csv', index=False)
+pd.DataFrame(runtimes).to_csv('../results/old_plots/Scalability_test(Runtime).csv', index=False)
 
 # Visualizing the results
 #Visualize the ROC_AUC scores

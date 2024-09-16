@@ -1,0 +1,43 @@
+2024-09-16 21:15:41,742 - __main__ - INFO - Starting KNN Evaluation
+2024-09-16 21:17:55,826 - __main__ - ERROR - Error evaluating KNN model:
+2024-09-16 21:17:55,827 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-16 21:19:10,293 - __main__ - INFO - Starting KNN Evaluation
+2024-09-16 21:24:56,247 - __main__ - INFO - Starting KNN Evaluation
+2024-09-16 21:27:03,830 - __main__ - INFO - Best K-Nearest Neighbor Model: {'n_neighbors': 3.0}
+2024-09-16 21:27:05,514 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=1.0, F1 SCORE=1.0, Runtime=1.68
+2024-09-16 21:27:05,515 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-16 21:34:27,953 - __main__ - INFO - Best Random Forest Model: {'max_depth': 22.0, 'n_estimators': 410.0}
+2024-09-16 21:34:35,595 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=1.0, F1 SCORE=1.0, Runtime=7.639
+2024-09-16 21:34:35,595 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-16 21:36:15,285 - __main__ - INFO - Best XGBoost Model: {'learning_rate': 0.11816283473711185, 'max_depth': 7.0, 'n_estimators': 460.0}
+2024-09-16 21:36:16,731 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=1.0, F1 Score=1.0, Runtime=1.444
+2024-09-16 21:36:16,734 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-16 21:36:22,106 - __main__ - INFO - SVM Evaluation: ROC AUC Score=1.0, F1 Score=1.0, Runtime=5.372
+2024-09-16 21:36:22,107 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-09-16 21:36:22,203 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.989, F1 Score=0.982, Runtime=0.096
+2024-09-16 21:36:22,203 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-09-16 21:52:46,692 - __main__ - INFO - Best CatBoost Classifier Model: <utils.paramet_tune.Catboost_tuner object at 0x163357ca0>
+2024-09-16 21:53:02,474 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score= 1.0, F1 Score= 1.0, Runtime= 15.781
+2024-09-16 21:53:02,474 - __main__ - INFO - Starting LOF Evaluation
+2024-09-16 21:56:48,578 - __main__ - INFO - Best n_neighbors for LOF Model: 100
+2024-09-16 21:56:54,544 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.549, F1 Score=0.722, Precision Score=0.712, 
+Recall Score=0.808, Accuracy Score=0.5, Runtime=5.963
+2024-09-16 21:56:54,545 - __main__ - INFO - Starting PCA Evaluation
+2024-09-16 21:56:54,660 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.76, F1 Score=0.813, Precision Score=0.814,
+Recall Score=0.834, Accuracy Score=0.642, Runtime=0.115
+2024-09-16 21:56:54,660 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-09-16 22:00:28,955 - __main__ - INFO - Best Isolation Forest Model: 520
+2024-09-16 22:00:33,004 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.717, F1 Score=0.402, Precision Score=0.82, 
+Recall Score=0.393, Accuracy Score=0.607, Runtime=4.047
+2024-09-16 22:00:33,004 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-16 22:06:45,003 - __main__ - INFO - Best K-Means Model: {'eps': 0.6805623250067976, 'min_samples': 85.0}
+2024-09-16 22:06:53,237 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.674, F1 Score=0.629, Precision Score=0.802, 
+Recall Score=0.588, Accuracy Score=0.674, Runtime=8.231
+2024-09-16 22:06:53,238 - __main__ - INFO - Starting COPOD Evaluation
+2024-09-16 22:06:54,386 - __main__ - INFO - COPOD Evaluation: ROC AUC Score=0.846, F1 Score=0.801, Precision Score=0.8 
+Recall Score=0.824, Accuracy Score=0.626, Runtime=1.147
+2024-09-16 22:06:54,386 - __main__ - INFO - Starting ECOD Evaluation
+2024-09-16 22:06:54,970 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.783, F1 Score=0.798, Precision Score=0.795
+Recall Score=0.821, Accuracy Score=0.621, Runtime=0.583
+2024-09-16 22:06:54,975 - __main__ - INFO - The evaluation results are saved to CSV file.
+2024-09-16 22:06:54,975 - __main__ - INFO - The evaluation results for unsupervised learning are saved to CSV file.

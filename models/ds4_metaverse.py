@@ -30,17 +30,17 @@ df = pd.read_csv('../data/datasets/Labeled_DS/metaverse_transactions_dataset.csv
 # Dropping irrelevant columns for the anomaly detection
 df = df.drop(['timestamp', 'sending_address', 'receiving_address'], axis=1)
 
+# Relabeling column target column 'anomaly', where low risk:0, moderate & high risk =1
+pd.set_option('future.no_silent_downcasting', True) # Ensure downcasting behavior is consistent with future versions of pandas
+df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
+df['anomaly'] = df['anomaly'].astype(int)
+
 # Encoding categorical features with numerical variables
 cat_features = df.select_dtypes(include=['object']).columns
 for col in cat_features:
     df[col] = df[col].astype('category')
 
 df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
-
-# Relabeling column target column 'anomaly', where low risk:0, moderate & high risk =1
-pd.set_option('future.no_silent_downcasting', True) # Ensure downcasting behavior is consistent with future versions of pandas
-df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
-df['anomaly'] = df['anomaly'].astype(int)
 
 # Determining the X and y values
 X = df.drop('anomaly', axis=1)
@@ -125,8 +125,7 @@ if __name__ == '__main__':
         # Evaluate the Random Forest Classifier using the best parameters
         roc_auc_rf, f1_score_rf, runtime_rf = model_rf(X, y, rf_estimator, rf_depth, scorer, kf)
         append_metrics('Random Forest Classifier', rf_estimator, roc_auc_rf, f1_score_rf, runtime_rf)
-        _logger.info(
-            f'Random Forest Classifier Evaluation: ROC AUC SCORE={roc_auc_rf}, F1 SCORE={f1_score_rf}, Runtime={runtime_rf}')
+        _logger.info(f'Random Forest Classifier Evaluation: ROC AUC SCORE={roc_auc_rf}, F1 SCORE={f1_score_rf}, Runtime={runtime_rf}')
     except Exception as e:
         _logger.error(f'Error evaluating Random Forest Classifier model:{e}')
 
@@ -144,8 +143,7 @@ if __name__ == '__main__':
         # Evaluate the XGBoost model using the best parameters
         roc_auc_xgboost, f1_score_xgboost, runtime_xgboost = model_xgboost(X, y, xgboost_value, xgboost_depth, xgboost_learn_rate, scorer, kf)
         append_metrics('XGBoost', xgboost_value, roc_auc_xgboost, f1_score_xgboost, runtime_xgboost)
-        _logger.info(
-            f'XGBoost Evaluation: ROC AUC Score={roc_auc_xgboost}, F1 Score={f1_score_xgboost}, Runtime={runtime_xgboost}')
+        _logger.info(f'XGBoost Evaluation: ROC AUC Score={roc_auc_xgboost}, F1 Score={f1_score_xgboost}, Runtime={runtime_xgboost}')
     except Exception as e:
         _logger.error(f'Error evaluating XGBoost Classifier model:{e}')
 
@@ -165,8 +163,7 @@ if __name__ == '__main__':
         # Evaluate the Naive Bayes model
         roc_auc_nb, f1_score_nb, runtime_nb = model_nb(X, y, scorer, kf)
         append_metrics('Naive Bayes', None, roc_auc_nb, f1_score_nb, runtime_nb)
-        _logger.info(
-            f'Naive Bayes Evaluation: ROC AUC Score={roc_auc_nb}, F1 Score={f1_score_nb}, Runtime={runtime_nb}')
+        _logger.info(f'Naive Bayes Evaluation: ROC AUC Score={roc_auc_nb}, F1 Score={f1_score_nb}, Runtime={runtime_nb}')
     except Exception as e:
         _logger.error(f'Error evaluating Naive Bayes model:{e}')
 
@@ -177,7 +174,6 @@ if __name__ == '__main__':
         catboost_tuner = Catboost_tuner(X, y)
         best_catboost = catboost_tuner.tune_model()
         _logger.info(f'Best CatBoost Classifier Model: {catboost_tuner}')
-
         cb_iterations = int(best_catboost['iterations'])
         cb_learning_rate = best_catboost['learning_rate']
         cb_depth = int(best_catboost['depth'])
@@ -209,8 +205,7 @@ if __name__ == '__main__':
         roc_auc_lof, f1_score_lof, precision_lof, recall_lof, accuracy_lof, runtime_lof = model_lof(X_scaled, y, lof_estimator)
         append_metrics('LOF', lof_estimator, roc_auc_lof, f1_score_lof, runtime_lof)
         unsupervised_metrics('LOF', lof_estimator, roc_auc_lof, f1_score_lof, precision_lof, recall_lof, accuracy_lof, runtime_lof)
-        _logger.info(
-            f'LOF Evaluation: ROC AUC Score={roc_auc_lof}, F1 Score={f1_score_lof}, Precision Score={precision_lof}, \n'
+        _logger.info(f'LOF Evaluation: ROC AUC Score={roc_auc_lof}, F1 Score={f1_score_lof}, Precision Score={precision_lof}, \n'
             f'Recall Score={recall_lof}, Accuracy Score={accuracy_lof}, Runtime={runtime_lof}')
     except Exception as e:
         _logger.error(f'Error evaluating LOF model:{e}')
@@ -222,8 +217,7 @@ if __name__ == '__main__':
         roc_auc_pca, f1_score_pca, precision_pca, recall_pca, accuracy_pca, runtime_pca = model_pca(X_scaled, y)
         append_metrics('PCA', None, roc_auc_pca, f1_score_pca, runtime_pca)
         unsupervised_metrics('PCA', None, roc_auc_pca, f1_score_pca, precision_pca, recall_pca, accuracy_pca, runtime_pca)
-        _logger.info(
-            f'PCA Evaluation: ROC AUC Score={roc_auc_pca}, F1 Score={f1_score_pca}, Precision Score={precision_pca},\n'
+        _logger.info(f'PCA Evaluation: ROC AUC Score={roc_auc_pca}, F1 Score={f1_score_pca}, Precision Score={precision_pca},\n'
             f'Recall Score={recall_pca}, Accuracy Score={accuracy_pca}, Runtime={runtime_pca}')
     except Exception as e:
         _logger.error(f'Error evaluating PCA model:{e}')

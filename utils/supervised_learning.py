@@ -60,8 +60,6 @@ def model_knn(X, y, k, scorer, kf):
 Define function for XGBoost Algorithm
 =======================================================
 '''
-
-
 def model_xgboost(X, y, n_estimators, max_depth, learning_rate, scorer, kf):
     """
     XGBoost Algorithm for anomaly detection.
@@ -94,7 +92,7 @@ def model_xgboost(X, y, n_estimators, max_depth, learning_rate, scorer, kf):
     f1_score_xgboost = round(results['test_f1_score'].mean(), 3)
     runtime_xgboost = round(time.time() - start_time, 3)
     print(f"Evaluation metrics for XGBoost model, are: \n"
-          f"ROC AUC: {results['test_roc_auc']} & Average ROC AUC Score{roc_auc_xgboost}\n"
+          f"ROC AUC: {results['test_roc_auc']} & Average ROC AUC Score {roc_auc_xgboost}\n"
           f"ROC AUC: {results['test_f1_score']} & Average F1 Score {f1_score_xgboost}\n"
           f"Time elapsed: {runtime_xgboost} (s)")
     return roc_auc_xgboost, f1_score_xgboost, runtime_xgboost
@@ -105,8 +103,6 @@ def model_xgboost(X, y, n_estimators, max_depth, learning_rate, scorer, kf):
 Define function for SVM (Support Vector Machine) Algorithm
 =========================================================
 '''
-
-
 def model_svm(X, y, scorer, kf):
     """
     SVM Algorithm for anomaly detection.
@@ -129,7 +125,7 @@ def model_svm(X, y, scorer, kf):
     f1_score_svm = round(results['test_f1_score'].mean(), 3)
     runtime_svm = round(time.time() - start_time, 3)
     print(f"Evaluation metrics for SVM model are: \n"
-          f"ROC AUC: {results['test_roc_auc']} & Average ROC AUC Score{roc_auc_svm}\n"
+          f"ROC AUC: {results['test_roc_auc']} & Average ROC AUC Score {roc_auc_svm}\n"
           f"F1 score: {results['test_f1_score']} & Average F1 Score {f1_score_svm}\n"
           f"Time elapsed: {runtime_svm} (s)")
     return roc_auc_svm, f1_score_svm, runtime_svm
@@ -140,8 +136,6 @@ def model_svm(X, y, scorer, kf):
 Define function for Naive Bayes Algorithm
 =======================================================
 '''
-
-
 def model_nb(X, y, scorer, kf):
     """
     Naive Bayes Algorithm for anomaly detection.
@@ -175,8 +169,6 @@ def model_nb(X, y, scorer, kf):
 Define function for Random Forest Classifier Algorithm
 =======================================================
 '''
-
-
 def model_rf(X, y, n_estimators, max_depth, scorer, kf):
     """
     Random Forest Algorithm for anomaly detection.
@@ -212,8 +204,6 @@ def model_rf(X, y, n_estimators, max_depth, scorer, kf):
 Define function for CatBoost Algorithm
 =======================================================
 '''
-
-
 def model_cb(X, y, iterations, learning_rate, depth, scorer, kf):
     """
         CatBoost Algorithm for anomaly detection.
@@ -233,9 +223,9 @@ def model_cb(X, y, iterations, learning_rate, depth, scorer, kf):
     start_time = time.time()
     # Define the model and the parameters
     clf = CatBoostClassifier(iterations=iterations,
-                             learning_rate=learning_rate,
-                             depth=depth,
-                             verbose=False)
+                            learning_rate=learning_rate,
+                            depth=depth,
+                            verbose=False)
     # Evaluation metrics for each fold
     results = cross_validate(estimator=clf, X=X, y=y, cv=kf, scoring=scorer)
     # Calculate the mean metrics
@@ -243,7 +233,7 @@ def model_cb(X, y, iterations, learning_rate, depth, scorer, kf):
     f1_score_cb = round(results['test_f1_score'].mean(), 3)
     runtime_cb = round(time.time() - start_time, 3)
     print(f"Evaluation metrics for CatBoost are: \n"
-          f"ROC AUC: {results['test_roc_auc']} & Average ROC AUC Score{roc_auc_cb}\n"
-          f"F1 score: {results['test_f1_score']} & Average F1 Score {f1_score_cb}\n"
-          f"Time elapsed: {runtime_cb} (s)")
+            f"ROC AUC: {results['test_roc_auc']} & Average ROC AUC Score {roc_auc_cb}\n"
+            f"F1 score: {results['test_f1_score']} & Average F1 Score {f1_score_cb}\n"
+            f"Time elapsed: {runtime_cb} (s)")
     return roc_auc_cb, f1_score_cb, runtime_cb

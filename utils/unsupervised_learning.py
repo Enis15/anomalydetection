@@ -81,7 +81,7 @@ def model_iforest(X, y, n_estimators):
     y_pred = clf.predict(X) # Outlier labels (1 = outliers & -1 = inliners)
     y_pred = (y_pred == -1).astype(int) # Convert the labels (-1, 1) to (0, 1)
     # Calculate the decision scores
-    y_score = clf.decision_function(X) # Raw label scores
+    y_score = -clf.decision_function(X) # Raw label scores
 
     #Calculate the performance scores
     roc_auc_if = round(roc_auc_score(y, y_score, average='weighted'), 3)
@@ -89,7 +89,7 @@ def model_iforest(X, y, n_estimators):
     precision_if = round(precision_score(y, y_pred, average='weighted'), 3)
     recall_if = round(recall_score(y, y_pred, average='weighted'), 3)
     accuracy_if = round(balanced_accuracy_score(y, y_pred), 3)
-    runtime_if =round((time.time() - start_time), 3)
+    runtime_if = round((time.time() - start_time), 3)
 
     print(f"Evaluation metrics for Isolation Forest model, with n_estimators = {n_estimators}, are: \n"
             f"ROC AUC: {roc_auc_if}\n"
