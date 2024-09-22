@@ -1,0 +1,17 @@
+2024-09-17 00:11:16,475 - __main__ - INFO - Starting KNN Evaluation
+2024-09-17 03:23:48,415 - __main__ - INFO - Best K-Nearest Neighbor Model: {'n_neighbors': 3.0}
+2024-09-17 03:26:22,566 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.839, F1 SCORE=0.999, Runtime=154.141
+2024-09-17 03:26:22,567 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-19 06:56:45,655 - __main__ - INFO - Best Random Forest Model: {'max_depth': 37.0, 'n_estimators': 260.0}
+2024-09-19 07:34:54,982 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=0.893, F1 SCORE=1.0, Runtime=2289.313
+2024-09-19 07:34:54,984 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-19 10:29:18,959 - __main__ - INFO - Best XGBoost Model: {'learning_rate': 0.6096533019754168, 'max_depth': 3.0, 'n_estimators': 530.0}
+2024-09-19 10:30:43,940 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.702, F1 Score=0.999, Runtime=84.971
+2024-09-19 10:30:43,941 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-19 13:48:02,345 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.731, F1 Score=0.999, Runtime=11838.396
+2024-09-19 13:48:02,354 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-09-19 13:48:10,849 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.582, F1 Score=0.996, Runtime=8.495
+2024-09-19 13:48:10,851 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-09-20 05:59:06,375 - __main__ - INFO - Best CatBoost Classifier Model: <utils.paramet_tune.Catboost_tuner object at 0x149adad40>
+2024-09-20 06:14:39,992 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score= 0.943, F1 Score= 1.0, Runtime= 933.603
+2024-09-20 06:14:39,993 - __main__ - INFO - Starting LOF Evaluation

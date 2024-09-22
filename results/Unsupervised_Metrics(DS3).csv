@@ -2,6 +2,6 @@ Model,Estimator,ROC_AUC_Score,F1_Score,Precision,Recall,Accuracy,Runtime
 LOF,100,0.763,0.976,0.997,0.975,0.526,81.79
 Principal Component,,0.932,0.94,0.985,0.905,0.814,1.023
 Isolation Forest,940,0.971,0.898,0.989,0.832,0.91,36.828
-DBSCAN,,,,,,,
+DBSCAN,0.4163,0.958,0.957,0.99,0.935,0.958,27.565
 COPOD,,0.968,0.943,0.988,0.91,0.908,4.577
 ECOD,,0.96,0.943,0.988,0.909,0.894,4.225

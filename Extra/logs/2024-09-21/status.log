@@ -1,0 +1,5 @@
+2024-09-21 02:53:55,776 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-21 02:53:55,848 - __main__ - ERROR - Error evaluating DBSCAN model:'module' object is not callable
+2024-09-21 02:59:03,361 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-21 02:59:03,394 - __main__ - ERROR - Error evaluating DBSCAN model: module 'dask_ml.cluster' has no attribute 'DBSCAN'
+2024-09-21 03:19:21,224 - __main__ - INFO - Starting DBSCAN Evaluation

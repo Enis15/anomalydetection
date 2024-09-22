@@ -190,7 +190,7 @@ if __name__ == '__main__':
     UNSUPERVISED LEARNING ALGORITHMS
     ================================
     This section evaluates the performance of various unsupervised learning algorithms, incl. LOF(Local Outlier Factor),
-    Isolation Forest, PCA(Principal Component Analysis), K-Means, COPOD(Copula-Based Outlier Detection), and 
+    Isolation Forest, PCA(Principal Component Analysis), DBSCAN, COPOD(Copula-Based Outlier Detection), and 
     ECOD(Empirical Cumulative Distribution Based Outlier Detection). Some of the algorithms have been fine-tuned 
     using the hyperopt library, while the others use default parameters provided by sklearn library.
     '''
@@ -246,7 +246,7 @@ if __name__ == '__main__':
         # Code for hyper tune DBSCAN
         dbscan_tuner = DBSCAN_tuner(X_scaled, y)
         dbscan_cluster = dbscan_tuner.tune_model()
-        _logger.info(f'Best K-Means Model: {dbscan_cluster}')
+        _logger.info(f'Best DBSCAN Model: {dbscan_cluster}')
         # Save the best parameters
         best_eps = dbscan_cluster['eps']
         best_min_samples = int(dbscan_cluster['min_samples'])

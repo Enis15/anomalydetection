@@ -1,0 +1,3 @@
+Model,Estimator,ROC_AUC_Score,F1_Score,Runtime
+COPOD,,0.758,0.946,133.726
+ECOD,,0.756,0.946,99.564
