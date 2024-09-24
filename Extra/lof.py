@@ -1,120 +1,107 @@
+import os
+import time
+import pandas as pd
+
+from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score, balanced_accuracy_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.utils import gen_batches
+
+from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
+from sklearn.cluster import DBSCAN  # Use Scikit-learn's DBSCAN
+from sklearn.decomposition import PCA
 from sklearn.neighbors import LocalOutlierFactor
-from sklearn.metrics import roc_auc_score, f1_score
-from sklearn.datasets import make_classification
-from sklearn.model_selection import KFold
-import numpy as np
 
-X, y = make_classification(n_samples=1000, n_features=10, n_classes=2, random_state=42)
+# Import the logger function
+from utils.logger import logger
 
-# Define the lists to store the metrics for each fold
-f1_scores = []
+# Initialize the logger
+_logger = logger(__name__)
+
+# Load the dataset
+df = pd.read_csv('../data/datasets/Labeled_DS/Fraud.csv')
+print(df.shape)
+
+# Feature engineering: Dropping the columns 'nameOrig' & 'nameDest'; Encoding values to the column 'CASH_OUT'
+df = df.drop(['nameOrig', 'nameDest'], axis=1)
+df['type'] = df['type'].map({'CASH_OUT': 5, 'PAYMENT': 4, 'CASH_IN': 3, 'TRANSFER': 2, 'DEBIT': 1})
+
+# Determining the X and y values
+X = df.drop('isFraud', axis=1)
+y = df['isFraud'].values
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X) # Standardize the data
+
+best_eps = 0.70215
+best_min_samples = 31
+
+_logger.info('Starting DBSCAN Evaluation')
+
+start_time = time.time()
+
+batches = list(gen_batches(X_scaled.shape[0], 300000))
+
+# Initialize scores
 roc_auc_scores = []
-
-# Fold details
-kf = KFold(n_splits=5, random_state=42, shuffle=True)
-
-for train_index, test_index in kf.split(X):
-    X_train, X_test = X[train_index], X[test_index]
-    y_train, y_test = y[train_index], y[test_index]
-
-    # Define the model
-    clf = LocalOutlierFactor(n_neighbors=10)
-
-    # Fit the model
-    clf.fit(X_train)
-
-    # Predict the labels
-    y_pred = clf.fit_predict(X_test)
-
-    # Convert LOF labels (-1, 1) to (1, 0)
-    y_pred = (y_pred == -1).astype(int)
-
-    # Calculate the performance scores and appended to the list
-    roc_auc = roc_auc_score(y_test, y_pred)
-    roc_auc_scores.append(roc_auc)
-
-    f1 = f1_score(y_test, y_pred)
-    f1_scores.append(f1)
-
-# Calculate the mean metrics score for all folds.
-mean_roc_auc = np.mean(roc_auc_scores)
-mean_f1 = np.mean(f1_scores)
-
-print(f'ROC AUC scores for each fold: {roc_auc_scores} \n '
-      f'F1 scores for each fold: {f1_scores}')
-
-print(f'Mean ROC AUC: {mean_roc_auc} & Mean F1 Score: {mean_f1}')
-
-# Define the lists to store the metrics for each fold
 f1_scores = []
-roc_auc_scores = []
+precision_scores = []
+recall_scores = []
+accuracy_scores = []
+total_runtime = 0
 
-# Fold details
-kf = KFold(n_splits=5, random_state=42, shuffle=True)
+# Iterate over batches
+for i in batches:
 
-for train_index, test_index in kf.split(X):
-    X_train, X_test = X[train_index], X[test_index]
-    y_train, y_test = y[train_index], y[test_index]
+      X_batch = X_scaled[i]
+      y_batch = y[i]
 
-    # Define the model and the parameters
-    clf = IForest(n_estimators=n_estimators, random_state=42)
+      # Fit DBSCAN on each batch
+      clf = DBSCAN(eps=best_eps, min_samples=best_min_samples, metric='euclidean', n_jobs=-1)
+      y_pred_batch = clf.fit_predict(X_batch)
 
-    # Fit the model
-    clf.fit(X_train)
+      # Convert labels
+      y_pred_batch = (y_pred_batch == -1).astype(int)
 
-    # Predict the labels
-    y_pred = clf.predict(X_test)  # Labels (0, 1)
-    y_score = clf.decision_function(X_test)  # Raw label scores
+      # Calculate metrics for current batch
+      roc_auc_batch = round(roc_auc_score(y_batch, y_pred_batch, average='weighted'), 3)
+      f1_score_batch = round(f1_score(y_batch, y_pred_batch, average='weighted'), 3)
+      precision_batch = round(precision_score(y_batch, y_pred_batch, average='weighted'), 3)
+      recall_batch = round(recall_score(y_batch, y_pred_batch, average='weighted'), 3)
+      accuracy_batch = round(balanced_accuracy_score(y_batch, y_pred_batch), 3)
+      runtime_batch = round((time.time() - start_time), 3)
 
-    # Calculate the performance score and append them to the lists
-    roc_auc_scores.append(roc_auc_score(y_pred, y_test))
-    f1_scores.append(f1_score(y_pred, y_test))
+      # Store the results
+      roc_auc_scores.append(roc_auc_batch)
+      f1_scores.append(f1_score_batch)
+      precision_scores.append(precision_batch)
+      recall_scores.append(recall_batch)
+      accuracy_scores.append(accuracy_batch)
+      total_runtime += runtime_batch
 
-# Calculate the mean metrics for all folds
-roc_auc_iforest = round(np.mean(roc_auc_scores), 3)
-f1_score_iforest = round(np.mean(f1_scores), 3)
-runtime_iforest = round(time.time() - start_time, 3)
+      # Print the results for the batch
+      print(f'Batch Results: \n'
+            f'ROC AUC: {roc_auc_batch}\n'
+            f'F1 Score: {f1_score_batch}\n'
+            f'Precision: {precision_batch}\n'
+            f'Recall: {recall_batch}\n'
+            f'Accuracy: {accuracy_batch}\n'
+            f'Runtime: {runtime_batch}')
 
-print(f"Evaluation metrics for LOF model, with n_estimators = {n_estimators}, are: \n"
-      f"ROC AUC: {roc_auc_scores} & Average ROC AUC {roc_auc_iforest}\n"
-      f"F1 score: {f1_scores} & Average ROC AUC {f1_score_iforest}\n"
-      f"Time elapsed: {runtime_iforest} (s)")
-return roc_auc_iforest, f1_score_iforest, runtime_iforest
+# Average results across all batches
+roc_auc_dbscan = round(sum(roc_auc_batch) / len(roc_auc_batch), 3)
+f1_score_dbscan = round(sum(f1_score_batch) / len(f1_score_batch), 3)
+precision_dbscan = round(sum(precision_batch) / len(precision_batch), 3)
+recall_dbscan = round(sum(recall_batch) / len(recall_batch), 3)
+accuracy_dbscan = round(balanced_accuracy_score(y_batch, y_pred_batch), 3)
+runtime_dbscan = round(total_runtime / len(batches), 3)
 
-# Define the lists to store the metrics for each fold
-f1_scores = []
-roc_auc_scores = []
+print(f"Evaluation metrics for DBSCAN model: \n"
+      f"ROC AUC: {roc_auc_dbscan}\n"
+      f"F1 Score: {f1_score_dbscan}\n"
+      f"Precision: {precision_dbscan}\n"
+      f"Recall: {recall_dbscan}\n"
+      f"Accuracy: {accuracy_dbscan}\n"
+      f"Time elapsed: {runtime_dbscan} (s)")
 
-# Fold details
-kf = KFold(n_splits=5, random_state=42, shuffle=True)
-
-for train_index, test_index in kf.split(X):
-    X_train, X_test = X[train_index], X[test_index]
-    y_train, y_test = y[train_index], y[test_index]
-
-    # Define the model and the parameters
-    clf = LocalOutlierFactor(n_neighbors=n_neighbors, metric='minkowski', n_jobs=-1)
-
-    # Fit the model
-    clf.fit(X_train)
-
-    # Predict the labels
-    y_pred = clf.fit_predict(X_test)  # Outlier labels (1 = outliers & -1 = inliners)
-
-    # Convert LOF labels (-1, 1) to (1, 0)
-    y_pred = (y_pred == -1).astype(int)
-
-    # Calculate the performance scores and append to the list
-    roc_auc_scores.append(roc_auc_score(y_pred, y_test))
-    f1_scores.append(f1_score(y_pred, y_test))
-
-# Calculate the mean metrics for all folds
-roc_auc_lof = round(np.mean(roc_auc_scores), 3)
-f1_score_lof = round(np.mean(f1_scores), 3)
-runtime_lof = round(time.time() - start_time, 3)
-
-print(f"Evaluation metrics for LOF model, with n_neighbors = {n_neighbors}, are: \n"
-      f"ROC AUC: {roc_auc_scores} & Average ROC AUC {roc_auc_lof}\n"
-      f"F1 score: {f1_scores} & Average ROC AUC {f1_score_lof}\n"
-      f"Time elapsed: {runtime_lof} (s)")
-return roc_auc_lof, f1_score_lof, runtime_lof
+_logger.info(
+      f'DBSCAN Evaluation: ROC AUC={roc_auc_dbscan}, F1 Score={f1_score_dbscan}, Precision={precision_dbscan}, Recall={recall_dbscan}, Accuracy={accuracy_dbscan}, Runtime={runtime_dbscan}')

@@ -1,0 +1,20 @@
+2024-09-24 18:28:23,302 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 18:29:18,938 - __main__ - INFO - DBSCAN Evaluation: ROC AUC=0.5, F1 Score=0.0, Precision=0.0, Recall=0.001, Accuracy=0.5, Runtime=55.636
+2024-09-24 18:30:11,057 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 18:30:41,557 - __main__ - INFO - DBSCAN Evaluation: ROC AUC=0.5, F1 Score=0.0, Precision=0.0, Recall=0.001, Accuracy=0.5, Runtime=30.499
+2024-09-24 18:32:58,639 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 18:33:39,501 - __main__ - INFO - DBSCAN Evaluation: ROC AUC=0.5, F1 Score=0.0, Precision=0.0, Recall=0.001, Accuracy=0.5, Runtime=40.861
+2024-09-24 18:35:58,795 - __main__ - INFO - Starting DBSCAN Tunning
+2024-09-24 18:40:19,885 - __main__ - INFO - Starting DBSCAN Tunning
+2024-09-24 19:22:20,495 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 19:23:18,688 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 19:42:21,728 - __main__ - INFO - Starting DBSCAN Tunning
+2024-09-24 19:43:41,079 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 19:44:15,045 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 19:45:31,309 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 19:46:05,472 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 19:49:41,287 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 20:59:06,109 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 22:15:06,034 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 22:15:31,160 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 23:55:28,786 - __main__ - INFO - DBSCAN Evaluation: ROC AUC=0.619, F1 Score=0.995, Precision=0.998, Recall=0.992, Accuracy=0.619, Runtime=3087.481
