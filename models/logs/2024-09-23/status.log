@@ -1,0 +1,171 @@
+2024-09-23 20:37:00,736 - __main__ - INFO - Starting KNN Evaluation
+2024-09-23 20:37:10,589 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.938, F1 SCORE=0.938, Runtime=9.853
+2024-09-23 20:37:10,590 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-23 20:37:10,590 - __main__ - ERROR - Error evaluating Random Forest Classifier model:model_rf() missing 1 required positional argument: 'kf'
+2024-09-23 20:37:10,590 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-23 20:37:10,590 - __main__ - ERROR - Error evaluating XGBoost Classifier model:model_xgboost() missing 1 required positional argument: 'kf'
+2024-09-23 20:37:10,590 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-23 20:38:24,237 - __main__ - INFO - Starting KNN Evaluation
+2024-09-23 20:38:33,504 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.938, F1 SCORE=0.938, Runtime=9.265
+2024-09-23 20:38:33,504 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-23 20:38:33,504 - __main__ - ERROR - Error evaluating Random Forest Classifier model:model_rf() missing 1 required positional argument: 'kf'
+2024-09-23 20:38:33,504 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-23 20:38:33,504 - __main__ - ERROR - Error evaluating XGBoost Classifier model:model_xgboost() missing 1 required positional argument: 'kf'
+2024-09-23 20:38:33,504 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-23 20:40:45,030 - __main__ - INFO - Starting KNN Evaluation
+2024-09-23 20:40:54,405 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.938, F1 SCORE=0.938, Runtime=9.373
+2024-09-23 20:40:54,405 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-23 20:40:54,405 - __main__ - ERROR - Error evaluating Random Forest Classifier model:model_rf() missing 1 required positional argument: 'kf'
+2024-09-23 20:40:54,405 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-23 20:40:54,405 - __main__ - ERROR - Error evaluating XGBoost Classifier model:model_xgboost() missing 1 required positional argument: 'kf'
+2024-09-23 20:40:54,405 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-23 20:41:48,360 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.968, F1 Score=0.968, Runtime=53.954
+2024-09-23 20:41:48,361 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-09-23 20:41:48,435 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.91, F1 Score=0.91, Runtime=0.074
+2024-09-23 20:41:48,436 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-09-23 20:41:49,864 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score=0.975, F1 Score=0.975, Runtime=1.429
+2024-09-23 20:41:49,864 - __main__ - INFO - Starting LOF Evaluation
+2024-09-23 20:47:56,298 - __main__ - INFO - Starting KNN Evaluation
+2024-09-23 20:48:07,370 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.938, F1 SCORE=0.938, Runtime=11.07
+2024-09-23 20:48:07,370 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-23 20:48:21,673 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=0.977, F1 SCORE=0.977, Runtime=14.302
+2024-09-23 20:48:21,673 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-23 20:48:22,870 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.976, F1 Score=0.976, Runtime=1.197
+2024-09-23 20:48:22,871 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-23 20:49:17,927 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.968, F1 Score=0.968, Runtime=55.056
+2024-09-23 20:49:17,929 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-09-23 20:49:18,003 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.91, F1 Score=0.91, Runtime=0.073
+2024-09-23 20:49:18,003 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-09-23 20:49:19,477 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score=0.975, F1 Score=0.975, Runtime=1.474
+2024-09-23 20:49:19,477 - __main__ - INFO - Starting LOF Evaluation
+2024-09-23 20:49:46,516 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.51, F1 Score=0.335, Runtime=27.039
+2024-09-23 20:49:46,517 - __main__ - INFO - Starting PCA Evaluation
+2024-09-23 20:49:46,613 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.551, F1 Score=0.456, Runtime=0.096
+2024-09-23 20:49:46,613 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-09-23 20:49:47,105 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.589, F1 Score=0.411, Runtime=0.491
+2024-09-23 20:49:47,105 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-23 20:49:49,963 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=2.857
+2024-09-23 20:49:49,963 - __main__ - INFO - Starting COPOD Evaluation
+2024-09-23 20:49:51,329 - __main__ - INFO - COPOD Evaluation: ROC AUC Score=0.626, F1 Score=0.471, Runtime=1.365
+2024-09-23 20:49:51,330 - __main__ - INFO - Starting ECOD Evaluation
+2024-09-23 20:49:52,214 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.518, F1 Score=0.44, Runtime=0.884
+2024-09-23 20:49:52,308 - __main__ - INFO - Starting KNN Evaluation
+2024-09-23 20:51:02,013 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.895, F1 SCORE=0.895, Runtime=69.704
+2024-09-23 20:51:02,014 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-23 20:52:03,773 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=0.935, F1 SCORE=0.935, Runtime=61.759
+2024-09-23 20:52:03,775 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-23 20:52:06,618 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.934, F1 Score=0.934, Runtime=2.843
+2024-09-23 20:52:06,618 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-23 21:08:47,227 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.922, F1 Score=0.922, Runtime=1000.606
+2024-09-23 21:08:47,229 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-09-23 21:08:47,431 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.904, F1 Score=0.904, Runtime=0.202
+2024-09-23 21:08:47,431 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-09-23 21:08:51,226 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score=0.931, F1 Score=0.931, Runtime=3.795
+2024-09-23 21:08:51,226 - __main__ - INFO - Starting LOF Evaluation
+2024-09-23 21:12:35,739 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.502, F1 Score=0.334, Runtime=224.512
+2024-09-23 21:12:35,741 - __main__ - INFO - Starting PCA Evaluation
+2024-09-23 21:12:36,022 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.495, F1 Score=0.395, Runtime=0.281
+2024-09-23 21:12:36,022 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-09-23 21:12:37,266 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.469, F1 Score=0.36, Runtime=1.243
+2024-09-23 21:12:37,267 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-23 21:12:53,120 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.334, Runtime=15.852
+2024-09-23 21:12:53,121 - __main__ - INFO - Starting COPOD Evaluation
+2024-09-23 21:12:56,187 - __main__ - INFO - COPOD Evaluation: ROC AUC Score=0.377, F1 Score=0.354, Runtime=3.064
+2024-09-23 21:12:56,188 - __main__ - INFO - Starting ECOD Evaluation
+2024-09-23 21:12:59,220 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.506, F1 Score=0.402, Runtime=3.03
+2024-09-23 21:12:59,414 - __main__ - INFO - Starting KNN Evaluation
+2024-09-23 21:18:14,112 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.827, F1 SCORE=0.827, Runtime=314.697
+2024-09-23 21:18:14,114 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-23 21:22:18,174 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=0.872, F1 SCORE=0.872, Runtime=244.059
+2024-09-23 21:22:18,176 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-23 21:22:25,039 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.872, F1 Score=0.872, Runtime=6.862
+2024-09-23 21:22:25,040 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-23 23:36:53,986 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.853, F1 Score=0.853, Runtime=8068.942
+2024-09-23 23:36:53,991 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-09-23 23:36:54,572 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.853, F1 Score=0.853, Runtime=0.58
+2024-09-23 23:36:54,572 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-09-23 23:37:01,997 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score=0.868, F1 Score=0.868, Runtime=7.424
+2024-09-23 23:37:01,997 - __main__ - INFO - Starting LOF Evaluation
+2024-09-23 23:53:50,693 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.494, F1 Score=0.334, Runtime=1008.695
+2024-09-23 23:53:50,694 - __main__ - INFO - Starting PCA Evaluation
+2024-09-23 23:53:51,336 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.47, F1 Score=0.388, Runtime=0.642
+2024-09-23 23:53:51,336 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-09-23 23:53:54,018 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.462, F1 Score=0.363, Runtime=2.682
+2024-09-23 23:53:54,018 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-23 23:54:51,658 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=57.64
+2024-09-23 23:54:51,659 - __main__ - INFO - Starting COPOD Evaluation
+2024-09-23 23:54:59,418 - __main__ - INFO - COPOD Evaluation: ROC AUC Score=0.354, F1 Score=0.343, Runtime=7.755
+2024-09-23 23:54:59,419 - __main__ - INFO - Starting ECOD Evaluation
+2024-09-23 23:55:07,010 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.473, F1 Score=0.394, Runtime=7.588
+2024-09-23 23:55:07,310 - __main__ - INFO - Starting KNN Evaluation
+2024-09-24 00:04:46,404 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.899, F1 SCORE=0.899, Runtime=579.094
+2024-09-24 00:04:46,405 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-24 00:11:10,407 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=0.923, F1 SCORE=0.923, Runtime=384.001
+2024-09-24 00:11:10,409 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-24 00:11:19,215 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.923, F1 Score=0.923, Runtime=8.805
+2024-09-24 00:11:19,216 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-24 03:29:13,035 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.92, F1 Score=0.92, Runtime=11873.814
+2024-09-24 03:29:13,040 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-09-24 03:29:13,984 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.913, F1 Score=0.913, Runtime=0.943
+2024-09-24 03:29:13,984 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-09-24 03:29:29,532 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score=0.922, F1 Score=0.922, Runtime=15.547
+2024-09-24 03:29:29,533 - __main__ - INFO - Starting LOF Evaluation
+2024-09-24 04:01:22,760 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.487, F1 Score=0.334, Runtime=1913.225
+2024-09-24 04:01:22,762 - __main__ - INFO - Starting PCA Evaluation
+2024-09-24 04:01:23,826 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.478, F1 Score=0.393, Runtime=1.064
+2024-09-24 04:01:23,827 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-09-24 04:01:28,275 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.461, F1 Score=0.373, Runtime=4.448
+2024-09-24 04:01:28,276 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 04:03:15,189 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=106.913
+2024-09-24 04:03:15,190 - __main__ - INFO - Starting COPOD Evaluation
+2024-09-24 04:03:27,966 - __main__ - INFO - COPOD Evaluation: ROC AUC Score=0.36, F1 Score=0.345, Runtime=12.77
+2024-09-24 04:03:27,967 - __main__ - INFO - Starting ECOD Evaluation
+2024-09-24 04:03:40,876 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.485, F1 Score=0.402, Runtime=12.903
+2024-09-24 04:03:41,400 - __main__ - INFO - Starting KNN Evaluation
+2024-09-24 04:16:51,200 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.918, F1 SCORE=0.918, Runtime=789.798
+2024-09-24 04:16:51,201 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-24 04:28:15,447 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=0.973, F1 SCORE=0.973, Runtime=684.244
+2024-09-24 04:28:15,449 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-24 04:28:26,884 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.973, F1 Score=0.973, Runtime=11.433
+2024-09-24 04:28:26,884 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-24 09:21:47,624 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.955, F1 Score=0.955, Runtime=17600.733
+2024-09-24 09:21:47,631 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-09-24 09:21:48,944 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.871, F1 Score=0.871, Runtime=1.312
+2024-09-24 09:21:48,945 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-09-24 09:22:06,997 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score=0.972, F1 Score=0.972, Runtime=18.051
+2024-09-24 09:22:06,997 - __main__ - INFO - Starting LOF Evaluation
+2024-09-24 10:03:58,086 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.499, F1 Score=0.334, Runtime=2511.084
+2024-09-24 10:03:58,087 - __main__ - INFO - Starting PCA Evaluation
+2024-09-24 10:03:59,446 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.484, F1 Score=0.386, Runtime=1.359
+2024-09-24 10:03:59,446 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-09-24 10:04:05,144 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.447, F1 Score=0.362, Runtime=5.697
+2024-09-24 10:04:05,145 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 10:06:39,597 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=154.451
+2024-09-24 10:06:39,599 - __main__ - INFO - Starting COPOD Evaluation
+2024-09-24 10:06:57,753 - __main__ - INFO - COPOD Evaluation: ROC AUC Score=0.373, F1 Score=0.353, Runtime=18.146
+2024-09-24 10:06:57,753 - __main__ - INFO - Starting ECOD Evaluation
+2024-09-24 10:07:15,467 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.508, F1 Score=0.413, Runtime=17.707
+2024-09-24 10:07:15,972 - __main__ - INFO - Starting KNN Evaluation
+2024-09-24 10:26:35,300 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.955, F1 SCORE=0.955, Runtime=1159.325
+2024-09-24 10:26:35,302 - __main__ - INFO - Starting Random Forest Classifier Evaluation
+2024-09-24 10:41:20,064 - __main__ - INFO - Random Forest Classifier Evaluation: ROC AUC SCORE=0.98, F1 SCORE=0.98, Runtime=884.76
+2024-09-24 10:41:20,065 - __main__ - INFO - Starting XGBoost Classifier Evaluation
+2024-09-24 10:41:33,418 - __main__ - INFO - XGBoost Evaluation: ROC AUC Score=0.98, F1 Score=0.98, Runtime=13.352
+2024-09-24 10:41:33,419 - __main__ - INFO - Starting SVM Classifier Evaluation
+2024-09-24 14:24:49,056 - __main__ - INFO - SVM Evaluation: ROC AUC Score=0.974, F1 Score=0.974, Runtime=13395.631
+2024-09-24 14:24:49,062 - __main__ - INFO - Starting Naive Bayes Classifier Evaluation
+2024-09-24 14:24:50,733 - __main__ - INFO - Naive Bayes Evaluation: ROC AUC Score=0.91, F1 Score=0.91, Runtime=1.67
+2024-09-24 14:24:50,734 - __main__ - INFO - Starting CatBoost Classifier Evaluation
+2024-09-24 14:25:13,522 - __main__ - INFO - CatBoost Evaluation: ROC AUC Score=0.98, F1 Score=0.98, Runtime=22.786
+2024-09-24 14:25:13,523 - __main__ - INFO - Starting LOF Evaluation
+2024-09-24 15:26:15,754 - __main__ - INFO - LOF Evaluation: ROC AUC Score=0.507, F1 Score=0.334, Runtime=3662.226
+2024-09-24 15:26:15,756 - __main__ - INFO - Starting PCA Evaluation
+2024-09-24 15:26:17,584 - __main__ - INFO - PCA Evaluation: ROC AUC Score=0.529, F1 Score=0.423, Runtime=1.828
+2024-09-24 15:26:17,584 - __main__ - INFO - Starting Isolation Forest Evaluation
+2024-09-24 15:26:25,152 - __main__ - INFO - Isolation Forest Evaluation: ROC AUC Score=0.485, F1 Score=0.372, Runtime=7.567
+2024-09-24 15:26:25,153 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-09-24 15:30:19,163 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.5, F1 Score=0.333, Runtime=234.01
+2024-09-24 15:30:19,165 - __main__ - INFO - Starting COPOD Evaluation
+2024-09-24 15:30:44,333 - __main__ - INFO - COPOD Evaluation: ROC AUC Score=0.624, F1 Score=0.445, Runtime=25.16
+2024-09-24 15:30:44,334 - __main__ - INFO - Starting ECOD Evaluation
+2024-09-24 15:31:08,779 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.516, F1 Score=0.419, Runtime=24.436
