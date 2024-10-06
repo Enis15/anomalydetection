@@ -1,0 +1,4 @@
+2024-10-06 19:25:47,409 - __main__ - INFO - Starting DBSCAN Evaluation
+2024-10-06 19:32:53,901 - __main__ - INFO - Best DBSCAN Model: {'eps': 0.7482724093145361, 'min_samples': 113.0}
+2024-10-06 19:33:03,178 - __main__ - INFO - DBSCAN Evaluation: ROC AUC Score=0.677, F1 Score=0.653, Precision Score=0.799, 
+Recall Score=0.613, Accuracy Score=0.677, Runtime=9.275

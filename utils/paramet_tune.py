@@ -438,7 +438,6 @@ class DBSCAN_tuner:
         """
         self.X = X
         self.y = y
-        self.kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
     def objective(self, params):
         """
@@ -453,11 +452,9 @@ class DBSCAN_tuner:
         # Define model and its parameters
         clf = DBSCAN(eps=eps, min_samples=min_samples, metric='euclidean')
         # Fit the model
-        clf.fit(self.X)
-        # Get the prediction labels
         y_pred = clf.fit_predict(self.X)  # Outlier labels (1 = outliers & -1 = inliners)
-        y_pred = (y_pred == -1).astype(int)  # Convert labels (-1, 1) to (1, 0)
-
+        # Convert the prediction labels (-1, 1) to (1, 0)
+        y_pred = (y_pred == -1).astype(int)
         # Calculate the performance scores
         roc_auc = round(roc_auc_score(self.y, y_pred, average='weighted'), 3)
 
@@ -471,8 +468,8 @@ class DBSCAN_tuner:
         """
         # Define the space to search for the optimized parameters
         space = {
-            'eps': hp.uniform('eps', 0.2, 0.9),
-            'min_samples': hp.quniform('min_samples', 10, 100, 1)
+            'eps': hp.uniform('eps', 0.2, 1),
+            'min_samples': hp.quniform('min_samples', 2, 200, 1)
         }
 
         trials = Trials()
