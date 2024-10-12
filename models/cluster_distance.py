@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from dask.array import indices
 
 from sklearn.decomposition import PCA
 from sklearn.cluster import DBSCAN
@@ -67,7 +66,9 @@ def lof(X_scaled, n_neighbors):
     labels = clf.fit_predict(X_scaled)
     return labels
 
+# Apply the model
 labels = dbscan(X_scaled, eps, min_samples)
+# labels = lof(X_scaled, n_neighbors)
 
 # Identify cluster points and anomalies
 cluster_point = X_scaled[labels != -1]
@@ -83,15 +84,13 @@ for anomaly in anomalies:
     distances.append(min_dits)
     nearest_points.append(nearest_point)
 
-# distance_csv = pd.DataFrame(distances).to_csv('../Extra/distances.csv')
-# nearestneigh_csv = pd.DataFrame(nearest_points).to_csv('../Extra/nearestpoint.csv')
-
-dist_nearest_csv = pd.DataFrame({
-    'anomaly_index': np.where(labels == -1)[0],
-    'distance': distances,
-    'nearest_point_x':[point[0] for point in nearest_points],
-    'nearest_point_y': [point[1] for point in nearest_points],
-}).to_csv('../Extra/dist_nearest.csv', index=False)
+# Save the results in a csv file
+# dist_nearest_csv = pd.DataFrame({
+#     'anomaly_index': np.where(labels == -1)[0],
+#     'distance': distances,
+#     'nearest_point_x':[point[0] for point in nearest_points],
+#     'nearest_point_y': [point[1] for point in nearest_points],
+# }).to_csv('../Extra/dist_nearest.csv', index=False)
 
 # Visualize the results
 pca = PCA(n_components=2)
@@ -99,12 +98,17 @@ X_pca = pca.fit_transform(X_scaled)
 cluster_points_pca = X_pca[labels != -1]
 anomalies_pca = X_pca[labels == -1]
 
+# Select a random anomaly point
+random_anomaly = np.random.choice(len(anomalies_pca))
+
+# Visualize the anomaly point and the clusters
 plt.figure(figsize=(10, 8))
 plt.scatter(cluster_points_pca[:, 0], cluster_points_pca[:, 1], c='blue', label='Cluster Points')
-plt.scatter(anomalies_pca[:, 0], anomalies_pca[:, 1], c='red', label='Anomalies', marker='x', s=100)
-for i, anomaly in enumerate(anomalies_pca):
-    nearest_point_pca = pca.transform([nearest_points[i]])[0] # Transform nearest points to 2 dimensional
-    plt.plot([anomaly[0], nearest_point_pca[0]], [anomaly[1], nearest_point_pca[1]], c='black', linestyle='--')
+plt.scatter(anomalies_pca[random_anomaly, 0], anomalies_pca[random_anomaly, 1], c='red', label='Anomaly', marker='.', s=100)
+
+nearest_point_pca = pca.transform([nearest_points[random_anomaly]])[0]
+plt.plot([anomalies_pca[random_anomaly, 0], nearest_point_pca[0]], [anomalies_pca[random_anomaly, 1], nearest_point_pca[1]], c='black', linestyle='--')
+
 plt.title('DBSCAN clustering with Anomalies and Nearest Cluster Points')
 plt.xlabel('PCA Component 1')
 plt.ylabel('PCA Component 2')
@@ -113,3 +117,9 @@ plt.axvline(x=0, color='black', linestyle='--', linewidth=0.5)
 plt.legend()
 plt.grid(True)
 plt.show()
+
+
+
+# for i, anomaly in enumerate(anomalies_pca):
+#     nearest_point_pca = pca.transform([nearest_points[i]])[0] # Transform nearest points to 2 dimensional
+#     plt.plot([anomaly[0], nearest_point_pca[0]], [anomaly[1], nearest_point_pca[1]], c='black', linestyle='--')

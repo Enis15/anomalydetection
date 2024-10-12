@@ -1,5 +1,5 @@
-from sklearn.metrics import roc_auc_score, f1_score, make_scorer
-from sklearn.model_selection import cross_validate, KFold
+from sklearn.metrics import roc_auc_score, f1_score
+from sklearn.model_selection import KFold
 import numpy as np
 import time
 from sklearn import svm
@@ -10,13 +10,7 @@ from catboost import CatBoostClassifier
 from xgboost import XGBClassifier
 
 
-scorer = {'f1_score':make_scorer(f1_score), 'roc_auc':make_scorer(roc_auc_score)}
-
-kf = KFold(n_splits=5, shuffle=True, random_state=42)
-
-
-
-def model_knn(X, y, k, scores, k_folds):
+def model_knn(X_train, X_test, y_train, y_test, k_value):
     """
       KNN Algorithm for anomaly detection.
 
@@ -32,23 +26,23 @@ def model_knn(X, y, k, scores, k_folds):
     start_time = time.time()
 
     # Define the model and the parameters
-    model = KNeighborsClassifier(n_neighbors=k, metric='minkowski', n_jobs=-1)
+    clf = KNeighborsClassifier(n_neighbors=k_value, metric='minkowski', n_jobs=-1)
 
-    # Evaluation metrics
+    clf.fit(X_train, y_train)
 
-    results = cross_validate(estimator=model, X=X, y=y, cv=k_folds, scoring=scores)
+    y_pred = clf.predict(X_test)
+    y_score = clf.predict_proba(X_test)[:, 1]
+
+    roc_auc_knn = round(roc_auc_score(y_test, y_score, average='weighted'), 3)
+    f1_scores_knn = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_knn = round(time.time() - start_time, 3)
 
-    #Calculate the average value fore ach metric
-    roc_auc_avg_knn = round(results['test_roc_auc'].mean(), 3)
-    f1_avg_knn = round(results['test_f1_score'].mean(), 3)
-
-    print(f"Evaluation metrics for KNN model, with k = {k}, are: \n"
-          f"ROC AUC: {results['test_roc_auc']} & Average ROC AUC {roc_auc_avg_knn}\n"
-          f"F1 score: {results['test_f1_score']} & Average ROC AUC {f1_avg_knn}\n" 
+    print(f"Evaluation metrics for KNN model, with k = {k_value}, are: \n"
+          f"ROC AUC: {roc_auc_knn}\n"
+          f"F1 score: {f1_scores_knn}\n"
           f"Time elapsed: {runtime_knn}")
 
-    return roc_auc_avg_knn, f1_avg_knn, runtime_knn
+    return roc_auc_knn, f1_scores_knn, runtime_knn
 
 # Define function for XGBOOST Algorithm for Anomaly Detection
 def model_xgboost(X_train, X_test, y_train, y_test, n_estimators, max_depth, learning_rate):
@@ -83,8 +77,10 @@ def model_xgboost(X_train, X_test, y_train, y_test, n_estimators, max_depth, lea
      # Prediction labels and scores for the test data
     y_pred = model.predict(X_test)  # Outlier labels (1 = outliers & 0 = inliner)
 
+    y_score = model.predict_proba(X_test)[:, 1]
+
     # Evaluation metrics
-    roc_auc_xgboost = round(roc_auc_score(y_test, y_pred), 3)
+    roc_auc_xgboost = round(roc_auc_score(y_test, y_score), 3)
     f1_score_xgboost = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_xgboost = round(time.time() - start_time, 3)
 
@@ -106,7 +102,6 @@ def model_svm(X_train, X_test, y_train, y_test):
           y_train: Target training data, where rows are samples and columns are labels.
           y_test: Target test data, where rows are samples and columns are labels.
 
-
       Returns:
           tuple: roc_auc score, f1 score and runtime of SVM algorithm.
     """
@@ -115,14 +110,16 @@ def model_svm(X_train, X_test, y_train, y_test):
     start_time = time.time()
 
     # Define the model and the parameters
-    model = svm.SVC()
-    model.fit(X_train, y_train)
+    model = svm.SVC(probability=True)
 
+    model.fit(X_train, y_train)
     # Prediction labels and scores for the test data
     y_pred = model.predict(X_test)  # Outlier labels (1 = outliers & 0 = inliners)
 
+    y_score = model.predict_proba(X_test)[:, 1]
+
     # Evaluation metrics
-    roc_auc_svm = round(roc_auc_score(y_test, y_pred), 3)
+    roc_auc_svm = round(roc_auc_score(y_test, y_score), 3)
     f1_score_svm = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_svm = round(time.time() - start_time, 3)
 
@@ -159,9 +156,10 @@ def model_nb(X_train, X_test, y_train, y_test):
 
     # Get the prediction labels and scores for the test data
     y_pred = model.predict(X_test)  # Outlier labels (1 = outliers & 0 = inliers)
+    y_score = model.predict_proba(X_test)[:, 1]
 
     # Evaluation metrics
-    roc_auc_nb = round(roc_auc_score(y_test, y_pred), 3)
+    roc_auc_nb = round(roc_auc_score(y_test, y_score), 3)
     f1_score_nb = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_nb = round(time.time() - start_time, 3)
 
@@ -197,9 +195,9 @@ def model_rf(X_train, X_test, y_train, y_test, n_estimators, max_depth):
 
     # Prediction labels and scores for the test data
     y_pred = model.predict(X_test)  # Outlier labels (1 = outliers & 0 = inliners)
-
+    y_score = model.predict_proba(X_test)[:, 1]
     # Evaluation metrics
-    roc_auc_rf = round(roc_auc_score(y_test, y_pred), 3)
+    roc_auc_rf = round(roc_auc_score(y_test, y_score), 3)
     f1_score_rf = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_rf = round(time.time() - start_time, 3)
 
@@ -240,9 +238,9 @@ def model_cb(X_train, X_test, y_train, y_test, iterations, learning_rate, depth)
 
     # Get the prediction labels and scores for the test data
     y_pred = model.predict(X_test)  # Outlier labels (1 = outliers & 0 = inliners)
-
+    y_score = model.predict_proba(X_test)[:, 1]
     # Evaluation metrics
-    roc_auc_cb = round(roc_auc_score(y_test, y_pred), 3)
+    roc_auc_cb = round(roc_auc_score(y_test, y_score), 3)
     f1_score_cb = round(f1_score(y_test, y_pred, average='weighted'), 3)
     runtime_cb = round(time.time() - start_time, 3)
 

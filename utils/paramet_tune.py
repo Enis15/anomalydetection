@@ -1,6 +1,6 @@
 import numpy as np
 from hyperopt import fmin, tpe, hp, STATUS_OK, Trials
-from sklearn.metrics import roc_auc_score, make_scorer
+from sklearn.metrics import roc_auc_score, make_scorer, f1_score
 from sklearn.model_selection import cross_val_score, KFold
 
 # Import the models
