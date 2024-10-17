@@ -3,9 +3,10 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.manifold import TSNE
 
 '''
-Function definitions
+Defining functions for exploratory data analysis
 '''
 
 def load_data(file_path):
@@ -116,6 +117,66 @@ def distrib_plots_time(df, dataset_name):
     plt.savefig(f'{dataset_name}_distrib.png')
     plt.show()
 
+
+def dataset1_preprocessing(df, dataset_name):
+    if dataset_name == 'dataset1':
+        # Drop irrelevant features
+        df = df.drop(['Unnamed: 0', 'trans_date_trans_time', 'trans_num', 'unix_time', 'dob', 'first', 'last', 'merch_zipcode'], axis=1)
+        # Encoding categorical features with numerical variables
+        cat_features = df.select_dtypes(include=['object']).columns
+        for col in cat_features:
+            df[col] = df[col].astype('category')
+        df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+        return df
+    else:
+        print('Wrong dataset chosen!')
+
+def dataset2_preprocessing(df, dataset_name):
+    if dataset_name == 'dataset2':
+        # Drop specific features that aren't needed for correlation analysis
+        df = df.drop(['nameOrig', 'nameDest'], axis=1)
+        # Map feature 'type' to numerical values
+        df['type'] = df['type'].map({'CASH_OUT': 5, 'PAYMENT': 4, 'CASH_IN': 3, 'TRANSFER': 2, 'DEBIT': 1})
+        cat_features = df.select_dtypes(include=['object']).columns
+        for col in cat_features:
+            df[col] = df[col].astype('category')
+        df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+        return df
+    else:
+        print('Wrong dataset chosen!')
+
+def dataset3_preprocessing(df, dataset_name):
+    if dataset_name == 'dataset3':
+        # Drop specific features that aren't needed for correlation analysis
+        #df = df.drop(['zipcodeOri', 'zipMerchant'], axis=1)
+        # Identify categorical values
+        cat_features = df.select_dtypes(include=['object']).columns
+        # Convert categorical features to numerical values
+        for col in cat_features:
+            df[col] = df[col].astype('category') # Convert to category type
+        df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+        return df
+    else:
+        print('Wrong dataset chosen!')
+
+def dataset4_preprocessing(df, dataset_name):
+    if dataset_name == 'dataset4':
+        # Dropping irrelevant columns for the anomaly detection
+        df = df.drop(['timestamp', 'sending_address', 'receiving_address'], axis=1)
+
+        pd.set_option('future.no_silent_downcasting', True)  # Ensure downcasting behavior is consistent with future versions of pandas
+        df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
+        df['anomaly'] = df['anomaly'].astype(int)
+        # Identify categorical values
+        cat_features = df.select_dtypes(include=['object']).columns
+        # Convert categorical features to numerical values
+        for col in cat_features:
+            df[col] = df[col].astype('category') # Convert to category type
+        df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+        return df
+    else:
+        print('Wrong dataset chosen!')
+
 def correlation_plot(df, dataset_name):
     """
     Generate correlation plot
@@ -127,55 +188,72 @@ def correlation_plot(df, dataset_name):
     """
     # Preprocessing for dataset1
     if dataset_name == 'dataset1':
-        # Drop irrelavant features
-        df = df.drop(['Unnamed: 0', 'trans_date_trans_time', 'trans_num', 'unix_time', 'dob', 'first', 'last', 'merch_zipcode'], axis=1)
-        # Encoding categorical features with numerical variables
-        cat_features = df.select_dtypes(include=['object']).columns
-        for col in cat_features:
-            df[col] = df[col].astype('category')
-        df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+        data = dataset1_preprocessing(df, dataset_name)
 
     # Preprocessing for dataset2
     if dataset_name == 'dataset2':
-        # Drop specific features that aren't needed for correlation analysis
-        #df = df.drop(['nameOrig', 'nameDest'], axis=1)
-        # Map feature 'type' to numerical values
-        df['type'] = df['type'].map({'CASH_OUT': 5, 'PAYMENT': 4, 'CASH_IN': 3, 'TRANSFER': 2, 'DEBIT': 1})
-        cat_features = df.select_dtypes(include=['object']).columns
-        for col in cat_features:
-            df[col]=df[col].astype('category')
-        df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
-
+        data = dataset2_preprocessing(df, dataset_name)
 
     # Preprocessing for dataset3
     if dataset_name == 'dataset3':
-        # Drop specific features that aren't needed for correlation analysis
-        df = df.drop(['zipcodeOri', 'zipMerchant'], axis=1)
-        # Identify categorical values
-        cat_features = df.select_dtypes(include=['object']).columns
-        # Convert categorical features to numerical values
-        for col in cat_features:
-            df[col] = df[col].astype('category') # Convert to category type
-        df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+        data = dataset3_preprocessing(df, dataset_name)
 
     # Preprocessing for dataset4
     if dataset_name == 'dataset4':
-        df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
-        df['anomaly'] = df['anomaly'].astype(int)
-        # Identify categorical values
-        cat_features = df.select_dtypes(include=['object']).columns
-        # Convert categorical features to numerical values
-        for col in cat_features:
-            df[col] = df[col].astype('category') # Convert to category type
-        df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
+        data = dataset4_preprocessing(df, dataset_name)
 
     # Calculate and generate the correlation matrix
-    corr = df.corr()
+    corr = data.corr()
     plt.figure(figsize=(10, 8))
     sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns, linewidths=.1, annot=True, fmt='.2f', cmap='viridis', vmin=-1, vmax=1)
     plt.title(f'Correlation Matrix for {dataset_name}')
     plt.savefig(f'../results/{dataset_name}_corr.png')
     plt.show()
+
+def anomaly_vis(df, dataset_name):
+    """
+    Generate visualization for anomaly points
+    Parameters:
+        df (pandas Dataframe): Pandas Dataframe
+        dataset_name: str, name of the dataset. Based on the name specific preprocessing steps are used.
+    Returns:
+        Scatter plot of normal and anomaly points
+    """
+    # Preprocessing steps
+    if dataset_name == 'dataset1':
+        data = dataset1_preprocessing(df, dataset_name)
+        features = data.drop(columns=['is_fraud'])
+        anomaly = 'is_fraud'
+
+    if dataset_name == 'dataset2':
+        data = dataset2_preprocessing(df, dataset_name)
+        features = data.drop(columns=['isFraud'])
+        anomaly = 'isFraud'
+
+    if dataset_name == 'dataset3':
+        data = dataset3_preprocessing(df, dataset_name)
+        features = data.drop(columns=['fraud'])
+        anomaly = 'fraud'
+
+    if dataset_name == 'dataset4':
+        data = dataset4_preprocessing(df, dataset_name)
+        features = data.drop(columns=['anomaly'])
+        anomaly ='anomaly'
+
+    tsne = TSNE(n_components=2, random_state=42)
+    tsne_results = tsne.fit_transform(features)
+
+    data['TSNE1'] = tsne_results[:, 0]
+    data['TSNE2'] = tsne_results[:, 1]
+
+    plt.figure(figsize=(10, 6))
+    sns.scatterplot(x='TSNE1', y='TSNE2', hue=anomaly, data=data, palette={0: 'blue', 1: 'red'})
+    plt.xlabel('TSNE 1')
+    plt.ylabel('TSNE 2')
+    plt.title(f't-SNE Plot for {dataset_name}: Normal & Anomaly points')
+    plt.savefig(f'../results/{dataset_name}_anomaly.png')
+    plt.show()
+
 
 if __name__ == '__main__':
     # Define the dataset names and paths
@@ -186,15 +264,13 @@ if __name__ == '__main__':
         'dataset4': '../data/datasets/Labeled_DS/metaverse_transactions_dataset.csv'
     }
 
-    dataset_name = 'dataset4' # Adjust to your desired dataset from the dict
+    dataset_name = 'dataset3' # Adjust to your desired dataset from the dict
     file_path = datasets[dataset_name]
 
     df = load_data(file_path)
     #summary_statistics(df)
     #missing_values(df)
     #distrib_plots_time(df, dataset_name) # Displays all plots on the same figure
-    distrib_plot(df, dataset_name, 'anomaly')
+    #distrib_plot(df, dataset_name, 'anomaly')
     #correlation_plot(df, dataset_name)
-
-    print(df['anomaly'].value_counts()[1])
-    print(df['anomaly'].value_counts()[0])
+    anomaly_vis(df, dataset_name)

@@ -26,7 +26,7 @@ Dataset 1: Credit card transaction, with over 1.200.0000 records and 24 features
 # Load the dataset
 df = pd.read_csv('../data/datasets/Labeled_DS/creditcard.csv')
 
-# Drop irrelavant features
+# Drop irrelevant features
 df = df.drop(['Unnamed: 0', 'trans_date_trans_time', 'trans_num', 'unix_time', 'dob', 'first', 'last', 'merch_zipcode'], axis = 1)
 
 # Encoding categorical features with numerical variables

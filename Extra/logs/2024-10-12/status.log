@@ -39,3 +39,7 @@ Recall Score=0.897, Accuracy Score=0.567, Runtime=25.685
 2024-10-12 09:49:35,485 - __main__ - INFO - ECOD Evaluation: ROC AUC Score=0.646, F1 Score=0.94, Precision Score=0.989
 Recall Score=0.897, Accuracy Score=0.551, Runtime=24.556
 2024-10-12 09:49:35,495 - __main__ - INFO - The evaluation results are saved to CSV file.
+2024-10-12 22:13:20,884 - __main__ - INFO - Starting KNN Evaluation
+2024-10-13 00:15:51,256 - __main__ - INFO - Best K-Nearest Neighbor Model: {'n_neighbors': 3.0}
+2024-10-13 00:16:41,249 - __main__ - INFO - KNN Evaluation: ROC AUC SCORE=0.688, F1 SCORE=0.995, Runtime=49.985
+2024-10-13 00:16:41,249 - __main__ - INFO - Starting Random Forest Classifier Evaluation
