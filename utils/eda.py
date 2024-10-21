@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.manifold import TSNE
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
 '''
 Defining functions for exploratory data analysis
@@ -223,22 +225,28 @@ def anomaly_vis(df, dataset_name):
     if dataset_name == 'dataset1':
         data = dataset1_preprocessing(df, dataset_name)
         features = data.drop(columns=['is_fraud'])
-        anomaly = 'is_fraud'
+        features = StandardScaler().fit_transform(features) # Standardize the data for better visualization
+        anomaly = 'is_fraud' # Used for plotting to set the hue
 
     if dataset_name == 'dataset2':
+        '''
+        Due to computation complexity, stratified sampling can be used to improve runtime
+        '''
         data = dataset2_preprocessing(df, dataset_name)
+        data_sampled, _ = train_test_split(data, test_size=0.8, stratify=data['isFraud'], random_state=42)
+        # data = data_sampled  # Used
         features = data.drop(columns=['isFraud'])
         anomaly = 'isFraud'
 
     if dataset_name == 'dataset3':
         data = dataset3_preprocessing(df, dataset_name)
         features = data.drop(columns=['fraud'])
-        anomaly = 'fraud'
+        anomaly = 'fraud' # Used for plotting to set the hue
 
     if dataset_name == 'dataset4':
         data = dataset4_preprocessing(df, dataset_name)
         features = data.drop(columns=['anomaly'])
-        anomaly ='anomaly'
+        anomaly ='anomaly' # Used for plotting to set the hue
 
     tsne = TSNE(n_components=2, random_state=42)
     tsne_results = tsne.fit_transform(features)
