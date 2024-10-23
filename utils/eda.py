@@ -66,7 +66,7 @@ def distrib_plot(df, dataset_name, col_name=None):
             plt.ylabel('Density')
             plt.title(f'Distribution of {col}')
             plt.grid(True)
-            plt.savefig(f'{dataset_name}_{col_name}.png')
+            plt.savefig(f'../results/eda_distributions/{dataset_name}_{col_name}.png')
             plt.show()
 
     # If a specific feature name is provided
@@ -77,7 +77,7 @@ def distrib_plot(df, dataset_name, col_name=None):
         plt.ylabel('Density')
         plt.title(f'Distribution of {col_name}')
         plt.grid(True)
-        plt.savefig(f'../results/{dataset_name}_{col_name}.png')
+        plt.savefig(f'../results/eda_distributions/{dataset_name}_{col_name}.png')
         plt.show()
     else:
         print(f'Feature {col_name} not found in the dataset')
@@ -116,7 +116,7 @@ def distrib_plots_time(df, dataset_name):
         axes[j].axis('off')
 
     plt.tight_layout()
-    plt.savefig(f'{dataset_name}_distrib.png')
+    plt.savefig(f'../results/eda_distributions/{dataset_name}_distrib.png')
     plt.show()
 
 
@@ -131,7 +131,7 @@ def dataset1_preprocessing(df, dataset_name):
         df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
         return df
     else:
-        print('Wrong dataset chosen!')
+        print('Invalid dataset!')
 
 def dataset2_preprocessing(df, dataset_name):
     if dataset_name == 'dataset2':
@@ -145,7 +145,7 @@ def dataset2_preprocessing(df, dataset_name):
         df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
         return df
     else:
-        print('Wrong dataset chosen!')
+        print('Invalid dataset')
 
 def dataset3_preprocessing(df, dataset_name):
     if dataset_name == 'dataset3':
@@ -159,7 +159,7 @@ def dataset3_preprocessing(df, dataset_name):
         df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
         return df
     else:
-        print('Wrong dataset chosen!')
+        print('Invalid dataset')
 
 def dataset4_preprocessing(df, dataset_name):
     if dataset_name == 'dataset4':
@@ -177,7 +177,7 @@ def dataset4_preprocessing(df, dataset_name):
         df[cat_features] = df[cat_features].astype('category').apply(lambda x: x.cat.codes)
         return df
     else:
-        print('Wrong dataset chosen!')
+        print('Invalid dataset!')
 
 def correlation_plot(df, dataset_name):
     """
@@ -209,7 +209,7 @@ def correlation_plot(df, dataset_name):
     plt.figure(figsize=(10, 8))
     sns.heatmap(corr, xticklabels=corr.columns, yticklabels=corr.columns, linewidths=.1, annot=True, fmt='.2f', cmap='viridis', vmin=-1, vmax=1)
     plt.title(f'Correlation Matrix for {dataset_name}')
-    plt.savefig(f'../results/{dataset_name}_corr.png')
+    plt.savefig(f'../results/eda_plots/{dataset_name}_corr.png')
     plt.show()
 
 def anomaly_vis(df, dataset_name):
@@ -259,26 +259,26 @@ def anomaly_vis(df, dataset_name):
     plt.xlabel('TSNE 1')
     plt.ylabel('TSNE 2')
     plt.title(f't-SNE Plot for {dataset_name}: Normal & Anomaly points')
-    plt.savefig(f'../results/{dataset_name}_anomaly.png')
+    plt.savefig(f'../results/eda_plots/{dataset_name}_anomaly.png')
     plt.show()
 
+# Define the dataset names and paths
+datasets = {
+    'dataset1': '../data/datasets/Labeled_DS/creditcard.csv',
+    'dataset2': '../data/datasets/Labeled_DS/Fraud.csv',
+    'dataset3': '../data/datasets/Labeled_DS/fin_paysys/finpays.csv',
+    'dataset4': '../data/datasets/Labeled_DS/metaverse_transactions_dataset.csv'
+}
 
 if __name__ == '__main__':
-    # Define the dataset names and paths
-    datasets = {
-        'dataset1': '../data/datasets/Labeled_DS/creditcard.csv',
-        'dataset2': '../data/datasets/Labeled_DS/Fraud.csv',
-        'dataset3': '../data/datasets/Labeled_DS/fin_paysys/finpays.csv',
-        'dataset4': '../data/datasets/Labeled_DS/metaverse_transactions_dataset.csv'
-    }
 
     dataset_name = 'dataset3' # Adjust to your desired dataset from the dict
     file_path = datasets[dataset_name]
 
     df = load_data(file_path)
-    #summary_statistics(df)
-    #missing_values(df)
-    #distrib_plots_time(df, dataset_name) # Displays all plots on the same figure
-    #distrib_plot(df, dataset_name, 'anomaly')
-    #correlation_plot(df, dataset_name)
+    summary_statistics(df)
+    missing_values(df)
+    distrib_plots_time(df, dataset_name) # Displays all plots on the same figure
+    distrib_plot(df, dataset_name, 'anomaly') # Specify the column/feature
+    correlation_plot(df, dataset_name)
     anomaly_vis(df, dataset_name)

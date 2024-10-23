@@ -186,74 +186,74 @@ if __name__ == '__main__':
     ECOD(Empirical Cumulative Distribution Based Outlier Detection). Some of the algorithms have been fine-tuned 
     using the hyperopt library, while the others use default parameters provided by sklearn library.
     '''
-    # try:
-    #     # MODEL LOCAL OUTLIER FACTOR (LOF)
-    #     _logger.info('Starting LOF Evaluation')
-    #     # Tune the LOF model to get the best hyperparameters
-    #     lof_tune = LOF_tuner(X_scaled, y)
-    #     lof_estimator = lof_tune.tune_model()
-    #     _logger.info(f'Best n_neighbors for LOF Model: {lof_estimator}')
-    #     # Evaluate the LOF model
-    #     roc_auc_lof, f1_score_lof, precision_lof, recall_lof, accuracy_lof, runtime_lof = model_lof(X_scaled, y, lof_estimator)
-    #     append_metrics('LOF', lof_estimator, roc_auc_lof, f1_score_lof, runtime_lof)
-    #     unsupervised_metrics('LOF', lof_estimator, roc_auc_lof, f1_score_lof, precision_lof, recall_lof, accuracy_lof, runtime_lof)
-    #     _logger.info(
-    #         f'LOF Evaluation: ROC AUC Score={roc_auc_lof}, F1 Score={f1_score_lof}, Precision Score={precision_lof}, \n'
-    #         f'Recall Score={recall_lof}, Accuracy Score={accuracy_lof}, Runtime={runtime_lof}')
-    # except Exception as e:
-    #     _logger.error(f'Error evaluating LOF model:{e}')
-    #
-    # try:
-    #     # MODEL PRINCIPAL COMPONENT ANALYSIS (PCA)
-    #     _logger.info('Starting PCA Evaluation')
-    #     # Evaluate the PCA model
-    #     roc_auc_pca, f1_score_pca, precision_pca, recall_pca, accuracy_pca, runtime_pca = model_pca(X_scaled, y)
-    #     append_metrics('PCA', None, roc_auc_pca, f1_score_pca, runtime_pca)
-    #     unsupervised_metrics('PCA', None, roc_auc_pca, f1_score_pca, precision_pca, recall_pca, accuracy_pca, runtime_pca)
-    #     _logger.info(
-    #         f'PCA Evaluation: ROC AUC Score={roc_auc_pca}, F1 Score={f1_score_pca}, Precision Score={precision_pca},\n'
-    #         f'Recall Score={recall_pca}, Accuracy Score={accuracy_pca}, Runtime={runtime_pca}')
-    # except Exception as e:
-    #     _logger.error(f'Error evaluating PCA model:{e}')
-    #
-    # try:
-    #     # MODEL ISOLATION FOREST (IF)
-    #     _logger.info('Starting Isolation Forest Evaluation')
-    #     # Tune the Isolation Forest model to get the best hyperparameters
-    #     forest_tunner = IsolationForest_tuner(X, y)
-    #     forest_estimator = forest_tunner.tune_model()
-    #     _logger.info(f'Best Isolation Forest Model: {forest_estimator}')
-    #     # Evaluate the IF model
-    #     roc_auc_if, f1_score_if, precision_if, recall_if, accuracy_if, runtime_if = model_iforest(X, y, forest_estimator)
-    #     append_metrics('Isolation Forest', forest_estimator, roc_auc_if, f1_score_if, runtime_if)
-    #     unsupervised_metrics('Isolation Forest', forest_estimator, roc_auc_if, f1_score_if, precision_if, recall_if, accuracy_if, runtime_if)
-    #     _logger.info(
-    #         f'Isolation Forest Evaluation: ROC AUC Score={roc_auc_if}, F1 Score={f1_score_if}, Precision Score={precision_if}, \n'
-    #         f'Recall Score={recall_if}, Accuracy Score={accuracy_if}, Runtime={runtime_if}')
-    # except Exception as e:
-    #     _logger.error(f'Error evaluating Isolation Forest model:{e}')
-    #
-    # try:
-    #     # MODEL DBSCAN
-    #     _logger.info('Starting DBSCAN Evaluation')
-    #     # Tune the DBSCAN model to get the best hyperparameters
-    #     # Code for hyper tune DBSCAN
-    #     dbscan_tuner = DBSCAN_tuner(X_scaled, y)
-    #     dbscan_cluster = dbscan_tuner.tune_model()
-    #     _logger.info(f'Best DBSCAN Model: {dbscan_cluster}')
-    #     # Save the best parameters
-    #     best_eps = dbscan_cluster['eps']
-    #     best_min_samples = int(dbscan_cluster['min_samples'])
-    #     # Evaluate the DBSCAN model
-    #     roc_auc_dbscan, f1_score_dbscan, precision_dbscan, recall_dbscan, accuracy_dbscan, runtime_dbscan = model_dbscan(
-    #         X_scaled, y, eps=best_eps, min_samples=best_min_samples)
-    #     append_metrics('DBSCAN', best_eps, roc_auc_dbscan, f1_score_dbscan, runtime_dbscan)
-    #     unsupervised_metrics('DBSCAN', best_eps, roc_auc_dbscan, f1_score_dbscan, precision_dbscan, recall_dbscan, accuracy_dbscan, runtime_dbscan)
-    #     _logger.info(
-    #         f'DBSCAN Evaluation: ROC AUC Score={roc_auc_dbscan}, F1 Score={f1_score_dbscan}, Precision Score={precision_dbscan}, \n'
-    #         f'Recall Score={recall_dbscan}, Accuracy Score={accuracy_dbscan}, Runtime={runtime_dbscan}')
-    # except Exception as e:
-    #     _logger.error(f'Error evaluating DBSCAN model:{e}')
+    try:
+        # MODEL LOCAL OUTLIER FACTOR (LOF)
+        _logger.info('Starting LOF Evaluation')
+        # Tune the LOF model to get the best hyperparameters
+        lof_tune = LOF_tuner(X_scaled, y)
+        lof_estimator = lof_tune.tune_model()
+        _logger.info(f'Best n_neighbors for LOF Model: {lof_estimator}')
+        # Evaluate the LOF model
+        roc_auc_lof, f1_score_lof, precision_lof, recall_lof, accuracy_lof, runtime_lof = model_lof(X_scaled, y, lof_estimator)
+        append_metrics('LOF', lof_estimator, roc_auc_lof, f1_score_lof, runtime_lof)
+        unsupervised_metrics('LOF', lof_estimator, roc_auc_lof, f1_score_lof, precision_lof, recall_lof, accuracy_lof, runtime_lof)
+        _logger.info(
+            f'LOF Evaluation: ROC AUC Score={roc_auc_lof}, F1 Score={f1_score_lof}, Precision Score={precision_lof}, \n'
+            f'Recall Score={recall_lof}, Accuracy Score={accuracy_lof}, Runtime={runtime_lof}')
+    except Exception as e:
+        _logger.error(f'Error evaluating LOF model:{e}')
+
+    try:
+        # MODEL PRINCIPAL COMPONENT ANALYSIS (PCA)
+        _logger.info('Starting PCA Evaluation')
+        # Evaluate the PCA model
+        roc_auc_pca, f1_score_pca, precision_pca, recall_pca, accuracy_pca, runtime_pca = model_pca(X_scaled, y)
+        append_metrics('PCA', None, roc_auc_pca, f1_score_pca, runtime_pca)
+        unsupervised_metrics('PCA', None, roc_auc_pca, f1_score_pca, precision_pca, recall_pca, accuracy_pca, runtime_pca)
+        _logger.info(
+            f'PCA Evaluation: ROC AUC Score={roc_auc_pca}, F1 Score={f1_score_pca}, Precision Score={precision_pca},\n'
+            f'Recall Score={recall_pca}, Accuracy Score={accuracy_pca}, Runtime={runtime_pca}')
+    except Exception as e:
+        _logger.error(f'Error evaluating PCA model:{e}')
+
+    try:
+        # MODEL ISOLATION FOREST (IF)
+        _logger.info('Starting Isolation Forest Evaluation')
+        # Tune the Isolation Forest model to get the best hyperparameters
+        forest_tunner = IsolationForest_tuner(X, y)
+        forest_estimator = forest_tunner.tune_model()
+        _logger.info(f'Best Isolation Forest Model: {forest_estimator}')
+        # Evaluate the IF model
+        roc_auc_if, f1_score_if, precision_if, recall_if, accuracy_if, runtime_if = model_iforest(X, y, forest_estimator)
+        append_metrics('Isolation Forest', forest_estimator, roc_auc_if, f1_score_if, runtime_if)
+        unsupervised_metrics('Isolation Forest', forest_estimator, roc_auc_if, f1_score_if, precision_if, recall_if, accuracy_if, runtime_if)
+        _logger.info(
+            f'Isolation Forest Evaluation: ROC AUC Score={roc_auc_if}, F1 Score={f1_score_if}, Precision Score={precision_if}, \n'
+            f'Recall Score={recall_if}, Accuracy Score={accuracy_if}, Runtime={runtime_if}')
+    except Exception as e:
+        _logger.error(f'Error evaluating Isolation Forest model:{e}')
+
+    try:
+        # MODEL DBSCAN
+        _logger.info('Starting DBSCAN Evaluation')
+        # Tune the DBSCAN model to get the best hyperparameters
+        # Code for hyper tune DBSCAN
+        dbscan_tuner = DBSCAN_tuner(X_scaled, y)
+        dbscan_cluster = dbscan_tuner.tune_model()
+        _logger.info(f'Best DBSCAN Model: {dbscan_cluster}')
+        # Save the best parameters
+        best_eps = dbscan_cluster['eps']
+        best_min_samples = int(dbscan_cluster['min_samples'])
+        # Evaluate the DBSCAN model
+        roc_auc_dbscan, f1_score_dbscan, precision_dbscan, recall_dbscan, accuracy_dbscan, runtime_dbscan = model_dbscan(
+            X_scaled, y, eps=best_eps, min_samples=best_min_samples)
+        append_metrics('DBSCAN', best_eps, roc_auc_dbscan, f1_score_dbscan, runtime_dbscan)
+        unsupervised_metrics('DBSCAN', best_eps, roc_auc_dbscan, f1_score_dbscan, precision_dbscan, recall_dbscan, accuracy_dbscan, runtime_dbscan)
+        _logger.info(
+            f'DBSCAN Evaluation: ROC AUC Score={roc_auc_dbscan}, F1 Score={f1_score_dbscan}, Precision Score={precision_dbscan}, \n'
+            f'Recall Score={recall_dbscan}, Accuracy Score={accuracy_dbscan}, Runtime={runtime_dbscan}')
+    except Exception as e:
+        _logger.error(f'Error evaluating DBSCAN model:{e}')
 
     try:
         # MODEL COPULA BASED OUTLIER DETECTION (COPOD)
@@ -290,10 +290,10 @@ if __name__ == '__main__':
     unsupervised_metrics_df = pd.DataFrame(metrics_unsupervised)
 
     # Save the unsupervised metrics to a CSV file
-    metrics_df.to_csv('../results/Metrics(DS2).csv', index=False)
+    metrics_df.to_csv('../results/performance/Metrics(DS2).csv', index=False)
     _logger.info('The evaluation results are saved to CSV file.')
 
-    unsupervised_metrics_df.to_csv('../results/Unsupervised_Metrics(DS2).csv', index=False)
+    unsupervised_metrics_df.to_csv('../results/performance/Unsupervised_Metrics(DS2).csv', index=False)
     _logger.info('The evaluation results for unsupervised learning are saved to CSV file.')
 
     # Visualizing the results ROC-AUC Score - Runtime
@@ -307,7 +307,7 @@ if __name__ == '__main__':
     plt.xlabel('Runtime', fontsize=14, fontweight='bold')
     plt.ylabel('ROC AUC Score', fontsize=14, fontweight='bold')
     plt.title('ROC AUC Score vs Runtime comparison', fontsize=16, fontweight='bold')
-    plt.savefig('../results/ROC_AUC_vs_Runtime(DS2).png', bbox_inches='tight')
+    plt.savefig('../results/performance/ROC_AUC_vs_Runtime(DS2).png', bbox_inches='tight')
     plt.show()
 
     # Visualizing the results F1 Score - Runtime
@@ -321,5 +321,5 @@ if __name__ == '__main__':
     plt.xlabel('Runtime', fontsize=14, fontweight='bold')
     plt.ylabel('F1 Score', fontsize=14, fontweight='bold')
     plt.title('F1 Score vs Runtime comparison', fontsize=16, fontweight='bold')
-    plt.savefig('../results/F1_Score_vs_Runtime(DS2).png', bbox_inches='tight')
+    plt.savefig('../results/performance/F1_Score_vs_Runtime(DS2).png', bbox_inches='tight')
     plt.show()
