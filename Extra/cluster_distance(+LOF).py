@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 from sklearn.cluster import DBSCAN
+from sklearn.neighbors import LocalOutlierFactor
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.preprocessing import StandardScaler
 
@@ -14,17 +15,32 @@ from utils.eda import load_data, datasets, dataset1_preprocessing, dataset2_prep
 clusters = {
     'dataset1': {
         'DBSCAN' : {'eps': 0.45673548737193675, 'min_samples': 11},
+        'LOF' : {'n_neighbors': 41}
     },
     'dataset2': {
         'DBSCAN': {'eps': 0.70215, 'min_samples': 31},
+        'LOF': {'n_neighbors': 100}
     },
     'dataset3': {
         'DBSCAN': {'eps': 0.416300721723287, 'min_samples': 17},
+        'LOF': {'n_neighbors': 100}
     },
     'dataset4': {
         'DBSCAN': {'eps': 0.6805623250067976, 'min_samples': 85},
+        'LOF': {'n_neighbors': 100}
     }
 }
+
+def cluster_model(X_scaled, model_name, eps=None, min_samples=None, n_neighbors=None):
+    if model_name == 'DBSCAN':
+        clf = DBSCAN(eps=eps, min_samples=min_samples)
+        labels = clf.fit_predict(X_scaled)
+    elif model_name == 'LOF':
+        clf = LocalOutlierFactor(n_neighbors=n_neighbors)
+        labels = clf.fit_predict(X_scaled)
+    else:
+        print('Invalid model!')
+    return labels
 
 def X_y(df, dataset_name):
     if dataset_name == 'dataset1':
@@ -59,13 +75,13 @@ if __name__ == '__main__':
     X_scaled = scaler.fit_transform(X) # Standardize the data
 
     # Define model and its parameters
-    model_name = 'DBSCAN'
+    model_name = 'DBSCAN' # Replace with LOF or DBSCAN
     eps = clusters[dataset_name]['DBSCAN']['eps']
     min_samples = clusters[dataset_name]['DBSCAN']['min_samples']
+    n_neighbors = clusters[dataset_name]['LOF']['n_neighbors']
 
     # Apply the model
-    clf = DBSCAN(eps=eps, min_samples=min_samples)
-    labels = clf.fit_predict(X_scaled)
+    labels = cluster_model(X_scaled, model_name, eps, min_samples, n_neighbors)
 
     # Identify cluster points and anomalies
     cluster_point = X_scaled[labels != -1]
@@ -110,14 +126,14 @@ if __name__ == '__main__':
 
     plt.plot([anomalies_pca[random_anomaly, 0], nearest_point_pca[0]], [anomalies_pca[random_anomaly, 1], nearest_point_pca[1]], c='black', linestyle='--')
 
-    plt.title(f'DBSCAN clustering with Anomalies and Nearest Cluster Points ({dataset_name})')
+    plt.title(f'{model_name} clustering with Anomalies and Nearest Cluster Points ({dataset_name})')
     plt.xlabel('UMAP Component 1')
     plt.ylabel('UMAP Component 2')
     plt.axhline(y=0, color='black', linestyle='--', linewidth=0.5)
     plt.axvline(x=0, color='black', linestyle='--', linewidth=0.5)
     plt.legend()
     plt.grid(True)
-    plt.savefig(f'../results/nearest_dist/{dataset_name}_neardist.png')
+    plt.savefig(f'../results/nearest_dist/{dataset_name}_{model_name}_neardist.png')
     plt.show()
 
     # for i, anomaly in enumerate(anomalies_pca):
