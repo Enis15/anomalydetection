@@ -86,96 +86,96 @@ if __name__ == '__main__':
     # CATBoost(Categorical Boosting). Some of the algorithms have been fine-tuned using the hyperopt library, 
     # while the others use default parameters provided by sklearn library.
     # '''
-    # try:
-    #     # MODEL K-NEAREST NEIGHBORS (KNN)
-    #     _logger.info('Starting KNN Evaluation')
-    #     # Tune the KNN model to get the best hyperparameters
-    #     knn_tuner = KNN_tuner(X_scaled, y)
-    #     best_knn = knn_tuner.tune_model()
-    #     _logger.info(f'Best K-Nearest Neighbor Model: {best_knn}')
-    #     k_value = int(best_knn['n_neighbors'])  # Save the value of k
-    #     # Evaluate the KNN model using the best parameters
-    #     roc_auc_knn, f1_score_knn, runtime_knn = model_knn(X_scaled, y, k_value, scorer, kf)
-    #     append_metrics('KNN', k_value, roc_auc_knn, f1_score_knn, runtime_knn)
-    #     _logger.info(f'KNN Evaluation: ROC AUC SCORE={roc_auc_knn}, F1 SCORE={f1_score_knn}, Runtime={runtime_knn}')
-    # except Exception as e:
-    #     _logger.error(f'Error evaluating KNN model:{e}')
-    #
-    # try:
-    #     # MODEL RANDOM FOREST (RF)
-    #     _logger.info('Starting Random Forest Classifier Evaluation')
-    #     # Tune the Random Forest model to get the best hyperparameters
-    #     rf_tuner = RandomForest_tuner(X, y)
-    #     best_rf_model = rf_tuner.tune_model()
-    #     _logger.info(f'Best Random Forest Model: {best_rf_model}')
-    #     rf_estimator = int(best_rf_model['n_estimators'])
-    #     rf_depth = int(best_rf_model['max_depth'])
-    #     # Evaluate the Random Forest Classifier using the best parameters
-    #     roc_auc_rf, f1_score_rf, runtime_rf = model_rf(X, y, rf_estimator, rf_depth, scorer, kf)
-    #     append_metrics('Random Forest Classifier', rf_estimator, roc_auc_rf, f1_score_rf, runtime_rf)
-    #     _logger.info(
-    #         f'Random Forest Classifier Evaluation: ROC AUC SCORE={roc_auc_rf}, F1 SCORE={f1_score_rf}, Runtime={runtime_rf}')
-    # except Exception as e:
-    #     _logger.error(f'Error evaluating Random Forest Classifier model:{e}')
-    #
-    # try:
-    #     # MODEL XGBOOST
-    #     _logger.info('Starting XGBoost Classifier Evaluation')
-    #     # Tune the XGBOOST model to get the best hyperparameters
-    #     xgboost_tuner = XGBoost_tuner(X, y)
-    #     best_xgboost_model = xgboost_tuner.tune_model()
-    #     _logger.info(f'Best XGBoost Model: {best_xgboost_model}')
-    #     xgboost_value = int(best_xgboost_model['n_estimators'])  # Save the value of n_estimators
-    #     xgboost_depth = int(best_xgboost_model['max_depth'])  # Save the value of max_depth
-    #     xgboost_learn_rate = best_xgboost_model['n_estimators']
-    #
-    #     # Evaluate the XGBoost model using the best parameters
-    #     roc_auc_xgboost, f1_score_xgboost, runtime_xgboost = model_xgboost(X, y, xgboost_value, xgboost_depth, xgboost_learn_rate, scorer, kf)
-    #     append_metrics('XGBoost', xgboost_value, roc_auc_xgboost, f1_score_xgboost, runtime_xgboost)
-    #     _logger.info(
-    #         f'XGBoost Evaluation: ROC AUC Score={roc_auc_xgboost}, F1 Score={f1_score_xgboost}, Runtime={runtime_xgboost}')
-    # except Exception as e:
-    #     _logger.error(f'Error evaluating XGBoost Classifier model:{e}')
-    #
-    # try:
-    #     # MODEL SUPPORT VECTOR MACHINE (SVM)
-    #     _logger.info('Starting SVM Classifier Evaluation')
-    #     # Evaluate the SVM model
-    #     roc_auc_svm, f1_score_svm, runtime_svm = model_svm(X_scaled, y, scorer, kf)
-    #     append_metrics('SVM', None, roc_auc_svm, f1_score_svm, runtime_svm)
-    #     _logger.info(f'SVM Evaluation: ROC AUC Score={roc_auc_svm}, F1 Score={f1_score_svm}, Runtime={runtime_svm}')
-    # except Exception as e:
-    #     _logger.error(f'Error evaluating SVM model:{e}')
-    #
-    # try:
-    #     # MODEL NAIVE BAYES (NB)
-    #     _logger.info('Starting Naive Bayes Classifier Evaluation')
-    #     # Evaluate the Naive Bayes model
-    #     roc_auc_nb, f1_score_nb, runtime_nb = model_nb(X, y, scorer, kf)
-    #     append_metrics('Naive Bayes', None, roc_auc_nb, f1_score_nb, runtime_nb)
-    #     _logger.info(
-    #         f'Naive Bayes Evaluation: ROC AUC Score={roc_auc_nb}, F1 Score={f1_score_nb}, Runtime={runtime_nb}')
-    # except Exception as e:
-    #     _logger.error(f'Error evaluating Naive Bayes model:{e}')
-    #
-    # try:
-    #     # MODEL CATBOOST (CB)
-    #     _logger.info('Starting CatBoost Classifier Evaluation')
-    #     # Tune the CatBoost model to get the best hyperparameters
-    #     catboost_tuner = Catboost_tuner(X, y)
-    #     best_catboost = catboost_tuner.tune_model()
-    #     _logger.info(f'Best CatBoost Classifier Model: {catboost_tuner}')
-    #
-    #     cb_iterations = int(best_catboost['iterations'])
-    #     cb_learning_rate = best_catboost['learning_rate']
-    #     cb_depth = int(best_catboost['depth'])
-    #     # Evaluate the CatBoost model
-    #     roc_auc_cb, f1_score_cb, runtime_cb = model_cb(X, y, cb_iterations, cb_learning_rate, cb_depth, scorer, kf)
-    #     append_metrics('CATBoost', cb_iterations, roc_auc_cb, f1_score_cb, runtime_cb)
-    #     _logger.info(
-    #         f'CatBoost Evaluation: ROC AUC Score= {roc_auc_cb}, F1 Score= {f1_score_cb}, Runtime= {runtime_cb}')
-    # except Exception as e:
-    #     _logger.error(f'Error evaluating CatBoost model:{e}')
+    try:
+        # MODEL K-NEAREST NEIGHBORS (KNN)
+        _logger.info('Starting KNN Evaluation')
+        # Tune the KNN model to get the best hyperparameters
+        knn_tuner = KNN_tuner(X_scaled, y)
+        best_knn = knn_tuner.tune_model()
+        _logger.info(f'Best K-Nearest Neighbor Model: {best_knn}')
+        k_value = int(best_knn['n_neighbors'])  # Save the value of k
+        # Evaluate the KNN model using the best parameters
+        roc_auc_knn, f1_score_knn, runtime_knn = model_knn(X_scaled, y, k_value, scorer, kf)
+        append_metrics('KNN', k_value, roc_auc_knn, f1_score_knn, runtime_knn)
+        _logger.info(f'KNN Evaluation: ROC AUC SCORE={roc_auc_knn}, F1 SCORE={f1_score_knn}, Runtime={runtime_knn}')
+    except Exception as e:
+        _logger.error(f'Error evaluating KNN model:{e}')
+
+    try:
+        # MODEL RANDOM FOREST (RF)
+        _logger.info('Starting Random Forest Classifier Evaluation')
+        # Tune the Random Forest model to get the best hyperparameters
+        rf_tuner = RandomForest_tuner(X, y)
+        best_rf_model = rf_tuner.tune_model()
+        _logger.info(f'Best Random Forest Model: {best_rf_model}')
+        rf_estimator = int(best_rf_model['n_estimators'])
+        rf_depth = int(best_rf_model['max_depth'])
+        # Evaluate the Random Forest Classifier using the best parameters
+        roc_auc_rf, f1_score_rf, runtime_rf = model_rf(X, y, rf_estimator, rf_depth, scorer, kf)
+        append_metrics('Random Forest Classifier', rf_estimator, roc_auc_rf, f1_score_rf, runtime_rf)
+        _logger.info(
+            f'Random Forest Classifier Evaluation: ROC AUC SCORE={roc_auc_rf}, F1 SCORE={f1_score_rf}, Runtime={runtime_rf}')
+    except Exception as e:
+        _logger.error(f'Error evaluating Random Forest Classifier model:{e}')
+
+    try:
+        # MODEL XGBOOST
+        _logger.info('Starting XGBoost Classifier Evaluation')
+        # Tune the XGBOOST model to get the best hyperparameters
+        xgboost_tuner = XGBoost_tuner(X, y)
+        best_xgboost_model = xgboost_tuner.tune_model()
+        _logger.info(f'Best XGBoost Model: {best_xgboost_model}')
+        xgboost_value = int(best_xgboost_model['n_estimators'])  # Save the value of n_estimators
+        xgboost_depth = int(best_xgboost_model['max_depth'])  # Save the value of max_depth
+        xgboost_learn_rate = best_xgboost_model['n_estimators']
+
+        # Evaluate the XGBoost model using the best parameters
+        roc_auc_xgboost, f1_score_xgboost, runtime_xgboost = model_xgboost(X, y, xgboost_value, xgboost_depth, xgboost_learn_rate, scorer, kf)
+        append_metrics('XGBoost', xgboost_value, roc_auc_xgboost, f1_score_xgboost, runtime_xgboost)
+        _logger.info(
+            f'XGBoost Evaluation: ROC AUC Score={roc_auc_xgboost}, F1 Score={f1_score_xgboost}, Runtime={runtime_xgboost}')
+    except Exception as e:
+        _logger.error(f'Error evaluating XGBoost Classifier model:{e}')
+
+    try:
+        # MODEL SUPPORT VECTOR MACHINE (SVM)
+        _logger.info('Starting SVM Classifier Evaluation')
+        # Evaluate the SVM model
+        roc_auc_svm, f1_score_svm, runtime_svm = model_svm(X_scaled, y, scorer, kf)
+        append_metrics('SVM', None, roc_auc_svm, f1_score_svm, runtime_svm)
+        _logger.info(f'SVM Evaluation: ROC AUC Score={roc_auc_svm}, F1 Score={f1_score_svm}, Runtime={runtime_svm}')
+    except Exception as e:
+        _logger.error(f'Error evaluating SVM model:{e}')
+
+    try:
+        # MODEL NAIVE BAYES (NB)
+        _logger.info('Starting Naive Bayes Classifier Evaluation')
+        # Evaluate the Naive Bayes model
+        roc_auc_nb, f1_score_nb, runtime_nb = model_nb(X, y, scorer, kf)
+        append_metrics('Naive Bayes', None, roc_auc_nb, f1_score_nb, runtime_nb)
+        _logger.info(
+            f'Naive Bayes Evaluation: ROC AUC Score={roc_auc_nb}, F1 Score={f1_score_nb}, Runtime={runtime_nb}')
+    except Exception as e:
+        _logger.error(f'Error evaluating Naive Bayes model:{e}')
+
+    try:
+        # MODEL CATBOOST (CB)
+        _logger.info('Starting CatBoost Classifier Evaluation')
+        # Tune the CatBoost model to get the best hyperparameters
+        catboost_tuner = Catboost_tuner(X, y)
+        best_catboost = catboost_tuner.tune_model()
+        _logger.info(f'Best CatBoost Classifier Model: {catboost_tuner}')
+
+        cb_iterations = int(best_catboost['iterations'])
+        cb_learning_rate = best_catboost['learning_rate']
+        cb_depth = int(best_catboost['depth'])
+        # Evaluate the CatBoost model
+        roc_auc_cb, f1_score_cb, runtime_cb = model_cb(X, y, cb_iterations, cb_learning_rate, cb_depth, scorer, kf)
+        append_metrics('CATBoost', cb_iterations, roc_auc_cb, f1_score_cb, runtime_cb)
+        _logger.info(
+            f'CatBoost Evaluation: ROC AUC Score= {roc_auc_cb}, F1 Score= {f1_score_cb}, Runtime= {runtime_cb}')
+    except Exception as e:
+        _logger.error(f'Error evaluating CatBoost model:{e}')
 
     '''
     ================================
