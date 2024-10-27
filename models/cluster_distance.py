@@ -12,7 +12,7 @@ from utils.eda import load_data, datasets, dataset1_preprocessing, dataset2_prep
 
 clusters = {
     'dataset1': {
-        'DBSCAN': {'eps': 0.45673548737193675, 'min_samples': 10},
+        'DBSCAN': {'eps': 0.45673548737193675, 'min_samples': 11},
     },
     'dataset2': {
         'DBSCAN': {'eps': 0.70215, 'min_samples': 31},
