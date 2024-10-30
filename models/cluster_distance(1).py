@@ -22,7 +22,7 @@ clusters = {
 }
 # Configuration
 dataset_name = 'dataset2'  # Specify dataset
-chunk_size = 250000  # Number of rows to process in each batch
+chunk_size = 100000  # Number of rows to process in each batch
 file_path = datasets[dataset_name]
 
 # DBSCAN parameters for the dataset
@@ -31,7 +31,6 @@ min_samples = clusters[dataset_name]['DBSCAN']['min_samples']
 
 # Results storage
 all_results = []
-
 
 def process_chunk(df, dataset_name):
     # Preprocessing and feature selection
@@ -86,7 +85,6 @@ def process_chunk(df, dataset_name):
                 'Average Distance to Centroid': avg_dist
             })
     return results
-
 
 # Process data in chunks and accumulate results
 for chunk in pd.read_csv(file_path, chunksize=chunk_size):

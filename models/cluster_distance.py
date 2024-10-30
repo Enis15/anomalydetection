@@ -5,7 +5,6 @@ import pandas as pd
 from sklearn.cluster import DBSCAN
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 
 from utils.eda import load_data, datasets, dataset1_preprocessing, dataset2_preprocessing, dataset3_preprocessing, \
     dataset4_preprocessing
@@ -48,16 +47,12 @@ def X_y(df, dataset_name):
 if __name__ == '__main__':
 
     # Load the dataset
-    dataset_name = 'dataset2'  # Change for the desired dataset
+    dataset_name = 'dataset4'  # Change for the desired dataset
     file_path = datasets[dataset_name]
     df = load_data(file_path)
-
-    df = dataset2_preprocessing(df, dataset_name)
-
-    data_sampled, _ = train_test_split(df, test_size=0.8, stratify=df['isFraud'], random_state=42)
-
+    #data_sampled, _ = train_test_split(df, test_size=0.8, stratify=df['isFraud'], random_state=42)
     # Determining the X and y values
-    X, y = X_y(data_sampled, dataset_name)
+    X, y = X_y(df, dataset_name)
 
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)  # Standardize the data
@@ -72,7 +67,7 @@ if __name__ == '__main__':
 
     # Add cluster labels to the dataset for reference
     #df['cluster'] = labels
-    data_sampled['cluster'] = labels
+    df['cluster'] = labels
     # Calculate cluster centroids
     labels_unique = set(labels) # Get only one cluster label without duplicates
     centroids = {}

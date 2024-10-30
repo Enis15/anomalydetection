@@ -165,7 +165,6 @@ def dataset4_preprocessing(df, dataset_name):
     if dataset_name == 'dataset4':
         # Dropping irrelevant columns for the anomaly detection
         df = df.drop(['timestamp', 'sending_address', 'receiving_address'], axis=1)
-
         pd.set_option('future.no_silent_downcasting', True)  # Ensure downcasting behavior is consistent with future versions of pandas
         df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
         df['anomaly'] = df['anomaly'].astype(int)
