@@ -52,7 +52,9 @@ a dedicated name for each dataset.
 4. Run `supervised_learning.py` and/or `unsupervised_learning.py` for defining the models
 5. Perform anomaly detection on dataset 1 with `ds1_creditcard.py` (Choose the script based on the dataset you want the results for)
 6. Check `ROC_AUC_vs_Runtime(DS1).png` for the visual representation of the findings
+
 (Optional)
+
 7. Run `cluster_distance.py` to calculate the distance of anomaly points from cluster centroids
 
 ## Scripts Overview
