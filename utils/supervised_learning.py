@@ -10,14 +10,6 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from xgboost import XGBClassifier
 
-# Determine the metrics for performance evaluation
-scorer = {
-    'roc_auc': make_scorer(roc_auc_score, average='weighted'),
-    'f1_score': make_scorer(f1_score, average='weighted')
-}
-
-# Determine the folds for the cross validation
-kf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 '''
 =======================================================

@@ -43,7 +43,7 @@ y = df['is_fraud'].values
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X) # Standardize the data
 
-# Setting the fold splits for unsupervised learning models
+# Setting the fold splits for supervised learning models
 scorer = {
     'f1_score': make_scorer(f1_score, average='weighted'),
     'roc_auc': make_scorer(roc_auc_score, average='weighted') } # Metrics for cross validation performance

@@ -1,7 +1,5 @@
 import pandas as pd
 
-
-
 filepath = {
     'dataset1': '../results/nearest_dist/dataset1_cluster.csv',
     'dataset2': '../results/nearest_dist/dataset2_cluster.csv',
