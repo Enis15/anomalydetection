@@ -40,7 +40,7 @@ Example:
 Each scripts performs anomaly detection on one of the datasets.
 3. Check the Results: Then the performance results, both graphically and as tables, are saved in the results folder with
 a dedicated name for each dataset.
-*(Optional)*
+(Optional)
 4. Run `cluster_distance.py`, if you need to double check the performance of clustering algorithms (DBSCAN)
 
 ### Example Workflow
