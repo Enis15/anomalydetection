@@ -31,8 +31,7 @@ df = pd.read_csv('../data/datasets/Labeled_DS/metaverse_transactions_dataset.csv
 df = df.drop(['timestamp', 'sending_address', 'receiving_address'], axis=1)
 
 # Relabeling column target column 'anomaly', where low risk:0, moderate & high risk =1
-pd.set_option('future.no_silent_downcasting', True) # Ensure downcasting behavior is consistent with future versions of pandas
-df['anomaly'] = df['anomaly'].replace({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
+df['anomaly'] = df['anomaly'].map({'low_risk': 0, 'moderate_risk': 1, 'high_risk': 1})
 df['anomaly'] = df['anomaly'].astype(int)
 
 # Encoding categorical features with numerical variables
