@@ -1,2 +1,0 @@
-Model,Estimator,ROC_AUC_Score,F1 Score,Runtime
-KNN,4,0.809,0.999,138.133
