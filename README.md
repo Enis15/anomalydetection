@@ -80,8 +80,8 @@ average distance of the cluster points to the centroid.
 The datasets are stores in the `./data/datasets/Labeled_DS/` folder as CSV files.
 - `ds1_creditcard`: Refers to the dataset named `creditcard.csv`
 - `ds2_fraud`: Refers to the dataset named `Fraud.csv`
-- `ds3_finpays`: Refers to the dataset named `finpays.csv`
-- `ds4_metaverse`: Refers tot he dataset named `metaverse_transactions_dataset.csv`
+- `ds3_finpays`: Refers to the dataset named `finpays.csv` (renamed from bs140513_032310.csv)
+- `ds4_metaverse`: Refers to the dataset named `metaverse_transactions_dataset.csv`
 
 ### Results
 The performance results are stores in the `results/` folder with a separate directory for the results of each task.
