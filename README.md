@@ -22,6 +22,10 @@ The project depends on the following libraries, as listed in the `requirements.t
 - `scipy == 1.12.0`
 - `hyperopt == 0.2.7`
 - `seaborn == 0.13.2`
+- `pyod == 1.1.2`
+- `xgboost == 2.0.3`
+- `catboost == 1.2.3`
+- `adjustText == 1.1.1`
 
 ## Usage
 
